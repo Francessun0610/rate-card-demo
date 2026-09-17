@@ -1,0 +1,461 @@
+{
+  "version": "2.1.0",
+  "releaseDate": "2026-05-29",
+  "figmaFile": "CT24nhqKpHR5I72b4pR7yn",
+  "brandHue": "indigo",
+  "infoHue": "blue",
+  "bodyFont": "Open Sans",
+  "displayFont": "MultiplaneTWDC",
+  "stateModel": ["rest", "hover", "active", "disabled", "focus"],
+  "componentCount": 29,
+  "components": [
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "type": "compound",
+      "subComponents": [
+        "accordion-item",
+        "accordion-trigger",
+        "accordion-content"
+      ],
+      "states": ["rest", "hover", "active", "disabled", "focus"],
+      "dimensions": { "open": [false, true] },
+      "surfaceModel": "card-wrapped",
+      "tokens": [
+        "accordion/divider",
+        "accordion/trigger/text/rest",
+        "accordion/trigger/text/hover",
+        "accordion/trigger/text/disabled",
+        "accordion/trigger/icon/rest",
+        "accordion/trigger/icon/hover",
+        "accordion/trigger/icon/disabled",
+        "accordion/trigger/padding/x",
+        "accordion/trigger/padding/y",
+        "accordion/trigger/gap",
+        "accordion/content/padding/x",
+        "accordion/content/padding/top",
+        "accordion/content/padding/bottom",
+        "accordion/content/text"
+      ],
+      "interactions": ["expand", "collapse", "focus", "blur", "keyboard-arrow"],
+      "do": [
+        "Wrap Accordion in Card for surface chrome",
+        "Use foreground-only hover (title + caret shift to indigo)",
+        "Suppress border on last item"
+      ],
+      "dont": [
+        "Add background tint on hover",
+        "Author per-component focus tokens (use the semantic focus-ring family instead)",
+        "Redraw AccordionTrigger as a hand-built frame inside Accordion Item"
+      ]
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "type": "single",
+      "states": ["rest", "hover", "active", "disabled", "focus"],
+      "variants": ["info", "success", "warning", "error"],
+      "tokens": 27,
+      "interactions": ["dismiss", "action-click"],
+      "do": [
+        "Use the dismiss button in neutral color regardless of variant",
+        "Pull surface and text from canonical Alert tokens"
+      ],
+      "dont": [
+        "Tint the close button by status",
+        "Author per-variant message-text tokens (folded into canonicals 2026-04-22)"
+      ]
+    },
+    {
+      "id": "button",
+      "name": "Button",
+      "type": "single",
+      "states": ["rest", "hover", "active", "disabled", "focus"],
+      "variants": ["primary", "secondary", "tertiary", "ghost", "danger"],
+      "sizes": ["sm", "md", "lg"],
+      "interactions": [
+        "click",
+        "focus",
+        "blur",
+        "keyboard-enter",
+        "keyboard-space"
+      ]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "type": "single",
+      "variants": [
+        { "name": "Elevation", "values": ["low", "medium", "high"] }
+      ],
+      "role": "surface-chrome wrapper",
+      "tokens": [
+        "card/background",
+        "card/border",
+        "card/radius",
+        "card/elevation/*"
+      ],
+      "do": [
+        "Wrap Accordion in Card to supply surface chrome",
+        "Use Elevation variant to choose shadow depth"
+      ]
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "type": "single",
+      "states": ["rest", "hover", "active", "disabled", "focus"],
+      "checkedStates": ["unchecked", "checked", "indeterminate"],
+      "interactions": ["check", "uncheck", "focus", "keyboard-space"]
+    },
+    {
+      "id": "date-cell",
+      "name": "Date Cell",
+      "type": "atom",
+      "states": [
+        "rest",
+        "hover",
+        "selected",
+        "today",
+        "in-range",
+        "range-start",
+        "range-end",
+        "disabled"
+      ],
+      "tokens": [
+        "date-cell/size/*",
+        "date-cell/color/*",
+        "date-cell/size/range-radius"
+      ],
+      "rangeBehavior": "continuous bar (in-range cells form solid indigo bar, not chips)"
+    },
+    {
+      "id": "date-picker",
+      "name": "Date Picker",
+      "type": "composite",
+      "consumes": ["popover", "date-cell", "field"],
+      "states": ["rest", "hover", "filled", "disabled", "active"],
+      "tokens": ["date-picker/*"],
+      "calendarIcon": "Phosphor CalendarDots Size=16"
+    },
+    {
+      "id": "date-range-picker",
+      "name": "Date Range Picker",
+      "type": "composite",
+      "consumes": ["popover", "date-cell", "field"],
+      "states": ["rest", "hover", "filled", "disabled", "active"],
+      "structure": "two side-by-side inputs (Start, End) + single calendar with range viz on Active"
+    },
+    {
+      "id": "date-time-picker",
+      "name": "Date Time Picker",
+      "type": "composite",
+      "consumes": ["popover", "date-cell", "field"],
+      "states": ["rest", "hover", "filled", "disabled", "active"],
+      "structure": "Date column + Time column (12-hour HH:MM AM placeholder)",
+      "icons": ["Phosphor CalendarDots Size=16", "Phosphor Clock Size=16"]
+    },
+    {
+      "id": "dropdown",
+      "name": "Dropdown",
+      "type": "compound",
+      "subComponents": ["dropdown-menu"],
+      "states": ["rest", "hover", "active", "disabled", "focus", "open"],
+      "menuPattern": "inline FRAME (not Popover INSTANCE_SWAP)",
+      "tokens": [
+        "dropdown/*",
+        "dropdown/menu/surface",
+        "dropdown/menu/border",
+        "dropdown/size/dropdown-menu/radius"
+      ],
+      "note": "Dropdown.Menu is its own React component per Andrew, separate from Popover."
+    },
+    {
+      "id": "field",
+      "name": "Field",
+      "type": "compound",
+      "subComponents": ["field-label", "field-description", "field-validation"],
+      "role": "Rule 7.1 host for all form controls' label/description/validation",
+      "tokens": ["field/*"],
+      "note": "Token-only consolidation. Form controls hand-build their label/description text nodes today; structural composition pending."
+    },
+    {
+      "id": "file-upload",
+      "name": "File Upload",
+      "type": "composite",
+      "consumes": ["field", "button", "toast"],
+      "states": [
+        "rest",
+        "hover",
+        "active",
+        "disabled",
+        "focus",
+        "drag-over",
+        "uploading",
+        "success",
+        "error"
+      ],
+      "features": ["drag-drop", "multi-file", "validation-states"]
+    },
+    {
+      "id": "modal",
+      "name": "Modal",
+      "type": "single",
+      "states": ["rest", "open"],
+      "sizes": ["sm", "md", "lg"],
+      "tokens": 18,
+      "interactions": [
+        "dismiss",
+        "confirm",
+        "cancel",
+        "escape",
+        "backdrop-click"
+      ],
+      "do": ["Use neutral close button"],
+      "dont": ["Tint close button by content type"]
+    },
+    {
+      "id": "multi-select",
+      "name": "Multi-Select",
+      "type": "composite",
+      "consumes": ["popover", "field"],
+      "states": ["rest", "hover", "active", "disabled", "focus", "open"],
+      "stateCoverageGap": "fill missing variants against Radix naming"
+    },
+    {
+      "id": "navigation",
+      "name": "Navigation / NavItem",
+      "type": "compound",
+      "subComponents": ["nav-item"],
+      "states": ["rest", "hover", "active", "disabled", "focus", "selected"],
+      "stateCoverageGap": "fill state-coverage gaps"
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "type": "compound",
+      "subComponents": ["pagination-item"],
+      "states": ["rest", "hover", "active", "disabled", "focus"],
+      "variants": ["digit", "nav-prev", "nav-next", "ellipsis"],
+      "tokens": ["pagination/size/item/*"],
+      "interactions": ["click", "keyboard-arrow", "keyboard-enter"],
+      "note": "Digit variants HUG + minWidth 36 for page 100+ breathing room"
+    },
+    {
+      "id": "popover",
+      "name": "Popover",
+      "type": "compound",
+      "subComponents": ["popover-body (per consumer, INSTANCE_SWAP)"],
+      "tokens": 4,
+      "consumers": [
+        "date-picker",
+        "date-range-picker",
+        "date-time-picker",
+        "select",
+        "multi-select",
+        "time-picker",
+        "tooltip-arrow-popover",
+        "popover-info"
+      ],
+      "do": [
+        "Body FILLs horizontally inside Popover so consumer width propagates",
+        "Use _ prefix on body sub-components to hide from assets panel"
+      ],
+      "dont": [
+        "Use for Tooltip (different chrome, different geometry)",
+        "Use for Dropdown.Menu (separate React component)"
+      ]
+    },
+    {
+      "id": "progress-bar",
+      "name": "Progress Bar",
+      "type": "single",
+      "variants": ["determinate", "indeterminate"]
+    },
+    {
+      "id": "radio-button",
+      "name": "Radio Button",
+      "type": "single",
+      "states": ["rest", "hover", "active", "disabled", "focus"],
+      "stateCoverageGap": "audit missing variants against Radix naming"
+    },
+    {
+      "id": "search",
+      "name": "Search",
+      "type": "single",
+      "states": ["rest", "hover", "filled", "disabled", "focus"],
+      "tokens": ["search/*"],
+      "do": ["Rest aliases to surface/default (white)"],
+      "dont": ["Use gray rest (Edson's implementation needs update)"]
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "type": "compound",
+      "subComponents": ["select-option"],
+      "consumes": ["popover", "field"],
+      "states": [
+        "rest",
+        "hover",
+        "active",
+        "disabled",
+        "focus",
+        "open",
+        "filled"
+      ],
+      "tokens": ["select/* (11)", "select-option/* (8)"]
+    },
+    {
+      "id": "sheet",
+      "name": "Sheet",
+      "type": "compound",
+      "subComponents": ["sheet-header", "sheet-footer"],
+      "sizes": ["sm", "md", "lg"],
+      "side": ["left", "right", "bottom"],
+      "tokens": ["sheet/*", "sheet/size/min-height"],
+      "do": [
+        "Embed real Sheet Header + Sheet Footer instances",
+        "Bottom sheet body FILL means height is uncapped"
+      ],
+      "dont": ["Redraw header/footer as hand-built frames"]
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "type": "single",
+      "sizing": "FILL / FILL",
+      "tokens": ["skeleton/background", "skeleton/radius"],
+      "compositionExamples": ["card", "avatar+text", "table-row"],
+      "principle": "one primitive for everything (Andrew's directive)"
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "type": "compound",
+      "subComponents": ["row-header"],
+      "rowOpacity": "opaque (color/surface/table/rest aliases to surface/default)",
+      "phase2": ["sticky-header", "row-header avatar/thumbnail/chevron"],
+      "do": ["Use opaque row background"],
+      "dont": ["Use transparent rows (breaks sticky header)"]
+    },
+    {
+      "id": "text-box",
+      "name": "Text Box",
+      "type": "single",
+      "states": ["rest", "hover", "filled", "disabled", "focus"]
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "type": "single",
+      "variants": ["info", "success", "warning", "error"],
+      "do": ["Use neutral dismiss button"],
+      "dont": ["Tint dismiss by status"]
+    },
+    {
+      "id": "toggle",
+      "name": "Toggle",
+      "type": "single",
+      "sizes": ["default", "compact"],
+      "states": ["rest", "hover", "active", "disabled", "focus"],
+      "checkedStates": ["off", "on"],
+      "tokens": ["toggle/size/* (width/height/handle)"],
+      "semanticTokens": ["controls/track", "controls/thumb"]
+    },
+    {
+      "id": "toggle-group",
+      "name": "Toggle Group",
+      "type": "compound",
+      "subComponents": ["toggle-group-item"],
+      "sizes": ["sm", "md", "lg"],
+      "segments": [2, 3, 4, 5],
+      "states": ["rest", "hover", "active", "disabled", "focus", "selected"],
+      "tokens": ["toggle-group/*", "toggle-group/item/state/*"],
+      "naming": "Toggle Group (Radix Primitives), not Segmented Control (Radix Themes)"
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "type": "single",
+      "sizes": ["small", "large"],
+      "arrowSizes": { "icon": "8x4", "definition": "12x6", "data": "16x8" },
+      "tokens": ["tooltip/size/arrow/*", "tooltip/content/padding/*"],
+      "containerOverlap": "1px",
+      "do": ["Keep separate from Popover"],
+      "dont": [
+        "Use 'Tooth' for arrow (renamed 2026-05-11)",
+        "Use Icon/Definition variant names (renamed to Small/Large)"
+      ]
+    },
+    {
+      "id": "topbartab",
+      "name": "TopBarTab",
+      "type": "single",
+      "states": ["rest", "hover", "active", "disabled", "focus", "selected"],
+      "stateCoverageGap": "Focus state pending"
+    }
+  ],
+  "globalRules": {
+    "compoundComponents": "ADS default pattern. Compose real Instances, never redraw children as hand-built frames.",
+    "stateNames": "Radix Primitives: rest/hover/active/disabled/focus. Never pressed/focused/default.",
+    "closeButtons": "Always neutral, never tinted by status.",
+    "focusRing": "One semantic focus pattern; no per-component focus tokens.",
+    "tokensFollowImplementation": "Only author a token when a component reads from it. Delete unused, do not fix.",
+    "parserConventions": {
+      "case": "kebab-case",
+      "spaces": "never",
+      "crossTypeAliases": "never (color → color, spacing → spacing)"
+    }
+  },
+  "deprecated": [
+    {
+      "id": "segmented-control",
+      "replacement": "toggle-group",
+      "as_of": "2026-05-08"
+    },
+    {
+      "id": "tooltip-tooth",
+      "replacement": "tooltip-arrow",
+      "as_of": "2026-05-11"
+    },
+    {
+      "id": "tooltip-icon-variant",
+      "replacement": "tooltip-small",
+      "as_of": "2026-05-11"
+    },
+    {
+      "id": "tooltip-definition-variant",
+      "replacement": "tooltip-large",
+      "as_of": "2026-05-11"
+    },
+    {
+      "id": "color-steel",
+      "replacement": "color-blue (for info) or removed",
+      "as_of": "2026-05-08"
+    },
+    { "id": "color-teal", "replacement": "removed", "as_of": "2026-05-08" },
+    { "id": "color-mint", "replacement": "removed", "as_of": "2026-05-08" },
+    {
+      "id": "color-old-pink",
+      "replacement": "color-pink (new ramp)",
+      "as_of": "2026-05-08"
+    },
+    {
+      "id": "color-violet",
+      "replacement": "color-indigo (brand)",
+      "as_of": "2026-05-08"
+    },
+    {
+      "id": "color-neutral",
+      "replacement": "color-gray",
+      "as_of": "2026-05-08"
+    },
+    {
+      "id": "warning-yellow",
+      "replacement": "warning-orange",
+      "as_of": "2026-05-08"
+    },
+    { "id": "info-steel", "replacement": "info-blue", "as_of": "2026-05-08" },
+    { "id": "whitespace-*", "replacement": "spacing/*", "as_of": "2026-04-22" }
+  ]
+}

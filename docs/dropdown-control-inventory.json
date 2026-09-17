@@ -1,0 +1,258 @@
+{
+  "source": "ADS Dropdown Figma node 36:56 and ads-components.json v2.1",
+  "reviewedRoutes": [
+    "Rate Card list, versions 1.0, 1.1, 1.2, and 2.0",
+    "Create and Edit Rate Card, versions 1.0, 1.1, 1.2, and 2.0",
+    "Quick Edit sheet",
+    "Filter panel",
+    "Profile, version, and theme menus",
+    "Download and upload simulation",
+    "Rate Card Layer Explainer",
+    "Atlas presentation"
+  ],
+  "controls": [
+    {
+      "pageRoute": "All routes",
+      "field": "Profile menu",
+      "currentImplementation": "Semantic action menu",
+      "expectedAdsVariant": "ADS Dropdown.Menu",
+      "issue": "Missing menu ownership and complete arrow-key behavior",
+      "correction": "Added aria-controls, named menus, arrow navigation, submenu navigation, and Escape focus return",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "All routes",
+      "field": "Version",
+      "currentImplementation": "menuitemradio submenu",
+      "expectedAdsVariant": "ADS Dropdown.Menu radio items",
+      "issue": "Keyboard submenu entry and return were incomplete",
+      "correction": "Preserved radio semantics and added Right, Left, Home, End, Up, and Down behavior",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "All routes",
+      "field": "Theme",
+      "currentImplementation": "menuitemradio submenu",
+      "expectedAdsVariant": "ADS Dropdown.Menu radio items",
+      "issue": "Keyboard submenu entry and return were incomplete",
+      "correction": "Preserved radio semantics and added complete menu keyboard behavior",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "Rate Card list",
+      "field": "Status filter",
+      "currentImplementation": "Project ADS dropdown wrapper",
+      "expectedAdsVariant": "ADS Dropdown Default, single-select",
+      "issue": "Missing combobox role, aria-controls, exact caret, open border, and overlay positioning",
+      "correction": "Migrated to shared Default wrapper and exact ADS caret",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "Rate Card list",
+      "field": "Marketplace filter",
+      "currentImplementation": "Project ADS dropdown wrapper",
+      "expectedAdsVariant": "ADS Dropdown Default, single-select",
+      "issue": "Missing combobox role, aria-controls, exact caret, open border, and overlay positioning",
+      "correction": "Migrated to shared Default wrapper and exact ADS caret",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "Rate Card list",
+      "field": "Deal season filter",
+      "currentImplementation": "Project ADS dropdown wrapper",
+      "expectedAdsVariant": "ADS Dropdown Default, single-select",
+      "issue": "Missing combobox role, aria-controls, exact caret, open border, and overlay positioning",
+      "correction": "Migrated to shared Default wrapper and exact ADS caret",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "Rate Card list",
+      "field": "Rows per page",
+      "currentImplementation": "Legacy wrapper with hidden native synchronization",
+      "expectedAdsVariant": "ADS Dropdown Small, single-select",
+      "issue": "EDL visual treatment and incomplete combobox ownership",
+      "correction": "Applied ADS Small compatibility chrome and complete combobox ownership while preserving pagination events",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "Rate Card list",
+      "field": "Go to page",
+      "currentImplementation": "Legacy wrapper with hidden native synchronization",
+      "expectedAdsVariant": "ADS Dropdown Small, single-select",
+      "issue": "EDL visual treatment and incomplete combobox ownership",
+      "correction": "Applied ADS Small compatibility chrome and preserved dynamic page options",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "v2 Rate Card workspace",
+      "field": "Line currency filter",
+      "currentImplementation": "Native select enhanced at initialization",
+      "expectedAdsVariant": "ADS Dropdown Small, single-select",
+      "issue": "Browser-native caret and inconsistent state styling",
+      "correction": "Delegated native value and change behavior to the shared ADS wrapper",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "v2 Rate Card workspace",
+      "field": "Premium calculation method filter",
+      "currentImplementation": "Native select enhanced at initialization",
+      "expectedAdsVariant": "ADS Dropdown Small, single-select",
+      "issue": "Browser-native caret and inconsistent state styling",
+      "correction": "Delegated native value and change behavior to the shared ADS wrapper",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "v2 Rate Card Details",
+      "field": "Marketplace",
+      "currentImplementation": "Native select enhanced at initialization",
+      "expectedAdsVariant": "ADS Dropdown Small, required single-select",
+      "issue": "Browser-native control did not match ADS",
+      "correction": "Enhanced with shared ADS trigger, listbox, validation target, and three PRD values",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "v2 Rate Card Details",
+      "field": "Deal Season",
+      "currentImplementation": "Native select enhanced at initialization",
+      "expectedAdsVariant": "ADS Dropdown Small, required single-select",
+      "issue": "Browser-native control did not match ADS",
+      "correction": "Enhanced with shared ADS trigger and listbox while preserving current stored-value adapter",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "v2 LINE Details",
+      "field": "Ad Product",
+      "currentImplementation": "Project ADS dropdown wrapper with scalar hidden value",
+      "expectedAdsVariant": "ADS Dropdown Small, single-select for the current prototype",
+      "issue": "Previously an always-expanded list",
+      "correction": "Retained the corrected closed ADS Dropdown and scalar persistence contract",
+      "status": "Corrected, intentional PRD cardinality exception"
+    },
+    {
+      "pageRoute": "v2 LINE Details",
+      "field": "Base Offering",
+      "currentImplementation": "Native select enhanced at initialization",
+      "expectedAdsVariant": "ADS Dropdown Small, required single-select",
+      "issue": "Browser-native control did not match ADS",
+      "correction": "Delegated to the shared ADS wrapper without changing options or persistence",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "v2 LINE Details",
+      "field": "Rate Type / Cost Method",
+      "currentImplementation": "Native select enhanced at initialization",
+      "expectedAdsVariant": "ADS Dropdown Small, required single-select",
+      "issue": "Browser-native control did not match ADS",
+      "correction": "Delegated to the shared ADS wrapper without changing options or persistence",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "v2 LINE Details",
+      "field": "Currency",
+      "currentImplementation": "Native select enhanced at initialization",
+      "expectedAdsVariant": "ADS Dropdown Small, required single-select",
+      "issue": "Browser-native control did not match ADS",
+      "correction": "Delegated to the shared ADS wrapper and preserved ISO values",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "v2 Premium Adjustments",
+      "field": "Attach to Advertiser",
+      "currentImplementation": "Dynamic native select enhanced at initialization",
+      "expectedAdsVariant": "ADS Dropdown Small, optional single-select",
+      "issue": "Dynamic option rebuild did not have ADS presentation",
+      "correction": "Added shared refresh synchronization after advertiser options change",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "v2 Premium Adjustments",
+      "field": "Calculation Method",
+      "currentImplementation": "Native select enhanced at initialization",
+      "expectedAdsVariant": "ADS Dropdown Small, required single-select",
+      "issue": "Browser-native control did not match ADS",
+      "correction": "Delegated to the shared ADS wrapper and retained the three PRD methods",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "Legacy Create and Edit CARD",
+      "field": "Marketplace and Deal Season",
+      "currentImplementation": "Legacy value host with ADS compatibility rendering",
+      "expectedAdsVariant": "ADS Dropdown Default, single-select",
+      "issue": "EDL typography, menu, caret, and keyboard focus behavior",
+      "correction": "Applied Default ADS chrome, exact caret, combobox ownership, and focused-option navigation",
+      "status": "Corrected, legacy data values preserved by version"
+    },
+    {
+      "pageRoute": "Legacy Create and Edit LINE",
+      "field": "Ad Product, Base Offering, Cost Method, Currency",
+      "currentImplementation": "Legacy value hosts with ADS compatibility rendering",
+      "expectedAdsVariant": "ADS Dropdown Default, single-select",
+      "issue": "EDL typography, menu, caret, and cloned-control wiring",
+      "correction": "Applied ADS rendering and made cloned LINE controls idempotently interactive",
+      "status": "Corrected"
+    },
+    {
+      "pageRoute": "Legacy Create and Edit PREM",
+      "field": "Attach Rows, Premium Category, Calculation Method",
+      "currentImplementation": "Legacy value hosts with ADS compatibility rendering",
+      "expectedAdsVariant": "ADS Dropdown Default for the preserved legacy workflow",
+      "issue": "EDL typography, menu, caret, and cloned-control wiring",
+      "correction": "Applied ADS rendering and made cloned PREM controls idempotently interactive",
+      "status": "Corrected, legacy field semantics preserved"
+    },
+    {
+      "pageRoute": "Legacy LINE and PREM multi-attach",
+      "field": "Search result selection",
+      "currentImplementation": "ADS Search combobox with listbox results",
+      "expectedAdsVariant": "ADS Search, not Dropdown",
+      "issue": "No component mismatch",
+      "correction": "Preserved search semantics, clear behavior, helper text, and result listboxes",
+      "status": "Verified"
+    },
+    {
+      "pageRoute": "Quick Edit",
+      "field": "Record type and advertiser summary",
+      "currentImplementation": "Read-only text in the current prototype",
+      "expectedAdsVariant": "Not a dropdown until the PRD Quick Edit selector flow is implemented",
+      "issue": "The broader PRD selector flow is not implemented in this prototype",
+      "correction": "Did not invent controls or options during a component migration",
+      "status": "Product gap documented"
+    },
+    {
+      "pageRoute": "Download and upload simulation",
+      "field": "File format and Enable",
+      "currentImplementation": "Decorative macOS simulation chrome",
+      "expectedAdsVariant": "Not an ADS control",
+      "issue": "No functional selection behavior",
+      "correction": "Preserved as non-interactive operating-system simulation",
+      "status": "Verified exclusion"
+    },
+    {
+      "pageRoute": "Rate Card Layer Explainer",
+      "field": "Read-only example dropdowns",
+      "currentImplementation": "Decorative disabled examples",
+      "expectedAdsVariant": "Read-only explanatory chrome",
+      "issue": "No user selection behavior",
+      "correction": "Excluded from interactive wiring",
+      "status": "Verified exclusion"
+    },
+    {
+      "pageRoute": "All routes",
+      "field": "Date fields",
+      "currentImplementation": "ADS Date Picker",
+      "expectedAdsVariant": "ADS Date Picker",
+      "issue": "Not dropdowns",
+      "correction": "Preserved Date Picker semantics and behavior",
+      "status": "Verified exclusion"
+    },
+    {
+      "pageRoute": "All forms",
+      "field": "Names, IDs, DCM Rule Order, Base Rate, Value, and unconstrained text",
+      "currentImplementation": "Text or numeric inputs",
+      "expectedAdsVariant": "ADS Input",
+      "issue": "Not defined-choice controls",
+      "correction": "Preserved input semantics",
+      "status": "Verified exclusion"
+    }
+  ]
+}

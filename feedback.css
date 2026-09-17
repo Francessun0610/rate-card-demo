@@ -1,0 +1,830 @@
+/* =====================================================================
+   FEEDBACK  -  capture, annotate, submit to the Rate Card feedback doc
+   ---------------------------------------------------------------------
+   Everything here is prefixed .rcf- and nothing outside that prefix is
+   touched, so the feature can be lifted out in one file pair without
+   unpicking it from the prototype's own styles.
+
+   The palette is borrowed from the Atlas deck rather than re-invented:
+   #020024 navy, #6CB8FF sky, #D6A85F gold, #F5F7FA ink. Those are the
+   literal values the slides already use.
+
+   Two rules govern the layout and both come from the brief. Nothing is
+   ever hidden to make it fit: every region that can overflow scrolls.
+   And no scrollbar is styled away, because a scrollbar the reviewer
+   cannot see is a corner of the screenshot they cannot reach.
+   ===================================================================== */
+
+.rcf-root {
+  --rcf-navy:      #020024;
+  --rcf-panel:     #0E1030;
+  --rcf-panel-2:   #151845;
+  --rcf-line:      rgba(245, 247, 250, 0.14);
+  --rcf-line-soft: rgba(245, 247, 250, 0.08);
+  --rcf-ink:       #F5F7FA;
+  --rcf-muted:     #A9B0C6;
+  --rcf-sky:       #6CB8FF;
+  --rcf-gold:      #D6A85F;
+  --rcf-mark:      #FF4D4D;
+  --rcf-radius:    12px;
+  --rcf-shadow:    0 18px 48px rgba(0, 0, 0, 0.52);
+  --rcf-gap:       12px;
+}
+
+/* ---------------------------------------------------------------- launcher
+   32px is the hard ceiling for the whole visible control, border
+   included, so box-sizing must be border-box and nothing may scale it
+   on hover. The focus ring is drawn with box-shadow rather than
+   outline so it can sit outside the circle without being clipped by
+   any ancestor. */
+.rcf-launch {
+  position: fixed;
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 10040;
+  box-sizing: border-box;
+  width: 32px;
+  height: 32px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(245, 247, 250, 0.28);
+  border-radius: 50%;
+  background: #131636;
+  color: var(--rcf-ink);
+  /* Optical centring: the question mark's ink sits high in its em box,
+   * so the glyph is nudged down by half a pixel rather than relying on
+   * line-height alone. */
+  font: 700 17px/1 "Open Sans", system-ui, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  transition: background 140ms ease, border-color 140ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.rcf-launch > span {
+  display: block;
+  transform: translateY(0.5px);
+  pointer-events: none;
+}
+
+.rcf-launch:hover {
+  background: #1B1F4C;
+  border-color: rgba(108, 184, 255, 0.62);
+}
+
+.rcf-launch:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--rcf-navy), 0 0 0 4px var(--rcf-sky);
+}
+
+.rcf-launch[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rcf-launch { transition: none; }
+}
+
+/* --------------------------------------------------------- corner ambience
+   A faint blue light that breathes behind the widget for about ten
+   seconds every three minutes, then goes dark again. It is a reminder
+   that the feedback tool is there, not a notification: no border, no
+   hard edge, no colour added to the card itself, and nothing to click.
+
+   The interval is the animation. One 180s cycle holds zero opacity for
+   the first 170s and does the whole fade in, breathe, fade out inside
+   the last 10s, which means no timer to run, nothing to restart when
+   the card opens, and no work for the browser while it is dormant. */
+.rcf-glow {
+  position: fixed;
+  right: calc(-40px + env(safe-area-inset-right, 0px));
+  bottom: calc(-40px + env(safe-area-inset-bottom, 0px));
+  z-index: 10039;                /* under the launcher, over the page */
+  width: 380px;
+  height: 320px;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(closest-side at 79% 75%,
+    rgba(108, 184, 255, 0.30) 0%,
+    rgba(108, 184, 255, 0.13) 45%,
+    rgba(108, 184, 255, 0) 100%);
+  filter: blur(26px);
+  animation: rcf-glow-breathe 180s ease-in-out infinite;
+}
+
+@keyframes rcf-glow-breathe {
+  0%, 94.44%  { opacity: 0;    transform: scale(1); }      /* 0s to 170s */
+  95.83%      { opacity: 1;    transform: scale(1.01); }   /* fades in by 172.5s */
+  96.94%      { opacity: 0.72; transform: scale(1.02); }   /* breathes out */
+  98.06%      { opacity: 1;    transform: scale(1.01); }   /* breathes in */
+  100%        { opacity: 0;    transform: scale(1); }      /* dark again by 180s */
+}
+
+/* No ambient motion at all here. A slow glow in the corner is precisely
+   the kind of peripheral movement this setting is asked to remove. */
+@media (prefers-reduced-motion: reduce) {
+  .rcf-glow { animation: none; opacity: 0; }
+}
+
+/* ------------------------------------------------------------- live dock
+   Deliberately not a modal. The reviewer is looking at the real running
+   prototype, so the page stays interactive and focus is not trapped;
+   this is only a small bar parked out of the way. */
+.rcf-dock {
+  position: fixed;
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 10041;
+  box-sizing: border-box;
+  /* 38px wider than it was, which is exactly the width the close button
+   * gave up when it left the second row. The controls keep the rows they
+   * were already on instead of reflowing to pay for the new corner. */
+  max-width: min(558px, calc(100vw - 48px));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  /* The right inset is the corner the close button is pinned into. It is
+   * container padding rather than a margin on whichever control happens
+   * to land last, so no row can ever flow underneath the X, at any
+   * width and at any wrap point. */
+  padding: 8px 48px 8px 10px;
+  border: 1px solid var(--rcf-line);
+  border-radius: var(--rcf-radius);
+  background: rgba(14, 16, 48, 0.96);
+  box-shadow: var(--rcf-shadow);
+  color: var(--rcf-ink);
+  font: 400 13px/1.35 "Open Sans", system-ui, sans-serif;
+}
+
+.rcf-dock[hidden] { display: none; }
+
+.rcf-dock__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border: 1px solid rgba(108, 184, 255, 0.4);
+  border-radius: 999px;
+  color: var(--rcf-sky);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.rcf-dock__tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rcf-sky);
+}
+
+.rcf-dock__hint {
+  color: var(--rcf-muted);
+  font-size: 12px;
+  flex: 1 1 160px;
+  min-width: 0;
+}
+
+/* Belongs to the panel, not to the row it used to sit in, so it is
+   pinned to the container's own padding box: level with the top of the
+   first row of controls, and on the same 10px right edge the rest of
+   the bar is measured from. */
+.rcf-dock__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* ----------------------------------------------------------------- editor
+   The shell is a column: a short head, a body that takes the remaining
+   height, and a foot. Only the body scrolls, and inside it the preview
+   has its own scroller. That is the whole hierarchy, deliberately two
+   levels and no more.
+
+   Height uses dvh so an opening mobile keyboard shrinks the dialog
+   instead of pushing the actions off the bottom of the screen; vh is
+   kept first as the fallback for browsers without dvh. */
+.rcf-editor {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(8px, 2vw, 24px);
+  padding-left: max(clamp(8px, 2vw, 24px), env(safe-area-inset-left, 0px));
+  padding-right: max(clamp(8px, 2vw, 24px), env(safe-area-inset-right, 0px));
+  padding-top: max(clamp(8px, 2vw, 24px), env(safe-area-inset-top, 0px));
+  padding-bottom: max(clamp(8px, 2vw, 24px), env(safe-area-inset-bottom, 0px));
+  background: rgba(2, 0, 36, 0.72);
+  box-sizing: border-box;
+}
+
+.rcf-editor[hidden] { display: none; }
+
+.rcf-dialog {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1180px;
+  /* No px min-width: a 320px phone must never be given a horizontal
+   * scrollbar by the shell itself. */
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  max-height: 100vh;
+  max-height: 100dvh;
+  border: 1px solid var(--rcf-line);
+  border-radius: var(--rcf-radius);
+  background: var(--rcf-navy);
+  box-shadow: var(--rcf-shadow);
+  color: var(--rcf-ink);
+  font: 400 14px/1.5 "Open Sans", system-ui, sans-serif;
+  overflow: hidden;              /* rounds the corners only; every inner
+                                    region that can overflow scrolls */
+}
+
+.rcf-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rcf-line-soft);
+  min-height: 0;
+}
+
+.rcf-head__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rcf-state {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border: 1px solid rgba(108, 184, 255, 0.4);
+  border-radius: 999px;
+  color: var(--rcf-sky);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.rcf-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 340px);
+  gap: 0;
+}
+
+.rcf-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border-right: 1px solid var(--rcf-line-soft);
+}
+
+.rcf-side {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---------------------------------------------------------------- toolbar */
+.rcf-toolbar {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--rcf-line-soft);
+  min-width: 0;
+}
+
+.rcf-toolbar__sep {
+  width: 1px;
+  align-self: stretch;
+  background: var(--rcf-line-soft);
+  margin: 0 2px;
+}
+
+.rcf-toolbar__spacer { flex: 1 1 auto; min-width: 0; }
+
+.rcf-hint {
+  color: var(--rcf-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- preview
+   The one scroll container that matters. It must reach all four corners
+   of an oversized capture, which is what `safe center` is for: it
+   centres a small image but falls back to start-alignment the moment
+   the image is bigger than the box, so the top and left never end up
+   in unreachable negative overflow. */
+.rcf-preview {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  justify-content: safe center;
+  align-items: center;
+  align-items: safe center;
+  padding: 12px;
+  background:
+    repeating-conic-gradient(#0A0C24 0% 25%, #0E1030 0% 50%) 50% / 20px 20px;
+  /* stable, not both-edges. Reserving a gutter on the trailing edge as
+     well inflates the scroll extent by a gutter the browser will not let
+     you scroll into, so the right-hand strip of an oversized screenshot
+     became unreachable. One leading gutter still prevents the layout
+     jumping when the scrollbars appear on switching to 100%. */
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;   /* keeps preview scrolling out of the
+                                     slide deck's navigation */
+}
+
+.rcf-stage {
+  position: relative;
+  flex: none;
+  line-height: 0;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.5);
+}
+
+.rcf-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.rcf-stage svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+/* Pan is the default: dragging inspects. Only the drawing tools take
+ * the gesture away from the browser, and only inside the image. */
+.rcf-stage[data-tool="pan"] svg   { touch-action: auto; cursor: grab; }
+.rcf-stage[data-tool="arrow"] svg { cursor: crosshair; }
+.rcf-stage[data-tool="rect"] svg  { cursor: crosshair; }
+
+.rcf-empty {
+  margin: auto;
+  max-width: 380px;
+  text-align: center;
+  color: var(--rcf-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.rcf-scrollhint {
+  flex: none;
+  padding: 4px 10px 6px;
+  color: var(--rcf-muted);
+  font-size: 11px;
+  border-bottom: 1px solid var(--rcf-line-soft);
+}
+
+.rcf-scrollhint[hidden] { display: none; }
+
+/* ------------------------------------------------------------------ copy */
+.rcf-intro__head {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.rcf-intro__body {
+  margin: 0 0 6px;
+  color: var(--rcf-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* Louder than the body, quieter than the headline. This is the line that
+   has to be believed, not the line that has to be read first. */
+.rcf-intro__emphasis {
+  margin: 0 0 8px;
+  color: var(--rcf-ink);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.rcf-intro__sign {
+  margin: 0;
+  color: var(--rcf-sky);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rcf-intro__reassurance {
+  margin: 6px 0 0;
+  color: var(--rcf-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* One light line rather than a card. It carries the sky accent already
+   used for the sign-in outcome, never a status colour, so it reads as
+   guidance and not as an error. No motion of any kind. */
+.rcf-callout {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  border-left: 2px solid var(--rcf-sky);
+  border-radius: 0 8px 8px 0;
+  background: rgba(108, 184, 255, 0.07);
+  color: var(--rcf-ink);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.rcf-callout__icon {
+  flex: none;
+  color: var(--rcf-sky);
+  font-size: 11px;
+  line-height: 1.9;
+}
+
+.rcf-callout__text { min-width: 0; }
+
+/* Weight plus the accent, but no underline: neither phrase is a link.
+   Both are short enough to hold together at the narrowest panel width,
+   and a name broken across two lines stops reading as a name. */
+.rcf-callout__key {
+  color: var(--rcf-sky);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.rcf-card {
+  border: 1px solid var(--rcf-line-soft);
+  border-radius: 10px;
+  background: var(--rcf-panel);
+  padding: 12px;
+}
+
+.rcf-field__label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rcf-textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 84px;
+  max-height: 40vh;
+  resize: vertical;
+  padding: 8px 10px;
+  border: 1px solid var(--rcf-line);
+  border-radius: 8px;
+  background: #080A22;
+  color: var(--rcf-ink);
+  font: 400 13px/1.5 "Open Sans", system-ui, sans-serif;
+}
+
+.rcf-textarea:focus-visible {
+  outline: 2px solid var(--rcf-sky);
+  outline-offset: 1px;
+}
+
+.rcf-count {
+  display: block;
+  margin-top: 4px;
+  color: var(--rcf-muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rcf-count[data-over="true"] { color: #FF8A8A; }
+
+.rcf-meta {
+  margin: 0;
+  color: var(--rcf-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.rcf-meta strong { color: var(--rcf-ink); font-weight: 600; }
+
+.rcf-note {
+  margin: 0;
+  color: var(--rcf-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* --------------------------------------------------------------- buttons */
+.rcf-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 5px 11px;
+  border: 1px solid var(--rcf-line);
+  border-radius: 8px;
+  background: var(--rcf-panel-2);
+  color: var(--rcf-ink);
+  font: 600 12.5px/1.2 "Open Sans", system-ui, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.rcf-btn:hover:not(:disabled) { border-color: rgba(108, 184, 255, 0.55); }
+
+.rcf-btn:focus-visible {
+  outline: 2px solid var(--rcf-sky);
+  outline-offset: 2px;
+}
+
+.rcf-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.rcf-btn[aria-pressed="true"] {
+  border-color: var(--rcf-sky);
+  background: rgba(108, 184, 255, 0.16);
+  color: #DCEBFF;
+}
+
+.rcf-btn--primary {
+  border-color: rgba(214, 168, 95, 0.75);
+  background: rgba(214, 168, 95, 0.16);
+  color: #F6E3C4;
+}
+
+.rcf-btn--primary:hover:not(:disabled) { border-color: var(--rcf-gold); }
+
+.rcf-btn--quiet { background: transparent; }
+
+.rcf-btn--icon {
+  width: 30px;
+  padding: 0;
+  font-size: 15px;
+}
+
+.rcf-btn--block { width: 100%; }
+
+/* The label cycles through Submit feedback, Preparing, Submitting and
+ * Confirming. A floor on the width means the footer never twitches as it
+ * changes, which is the difference between a status and a distraction. */
+.rcf-btn--submit { min-width: 148px; }
+
+.rcf-btn[aria-busy="true"] { cursor: progress; }
+
+/* ------------------------------------------------------------- result card
+   One card, three outcomes, distinguished by an icon and a border rather
+   than by colour alone so the state survives a monochrome display. */
+.rcf-result {
+  border-color: var(--rcf-line);
+  animation: rcf-result-in 200ms ease-out both;
+}
+
+.rcf-result[hidden] { display: none; }
+
+@keyframes rcf-result-in {
+  from { opacity: 0; transform: scale(0.985); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rcf-result { animation: none; }
+}
+
+.rcf-result__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.rcf-result__icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.rcf-result__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.rcf-result__body {
+  margin: 0;
+  color: var(--rcf-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.rcf-result__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.rcf-result__row > [hidden] { display: none; }
+
+.rcf-result[data-kind="success"] {
+  border-color: rgba(155, 231, 180, 0.5);
+  background: rgba(155, 231, 180, 0.07);
+}
+.rcf-result[data-kind="success"] .rcf-result__icon,
+.rcf-result[data-kind="success"] .rcf-result__title { color: #9BE7B4; }
+
+.rcf-result[data-kind="auth"] {
+  border-color: rgba(108, 184, 255, 0.5);
+  background: rgba(108, 184, 255, 0.07);
+}
+.rcf-result[data-kind="auth"] .rcf-result__icon,
+.rcf-result[data-kind="auth"] .rcf-result__title { color: var(--rcf-sky); }
+
+.rcf-result[data-kind="error"] {
+  border-color: rgba(255, 154, 154, 0.5);
+  background: rgba(255, 154, 154, 0.07);
+}
+.rcf-result[data-kind="error"] .rcf-result__icon,
+.rcf-result[data-kind="error"] .rcf-result__title { color: #FF9A9A; }
+
+/* Cards the result card replaces. Kept as a rule rather than an inline
+ * style so the hiding is visible in the stylesheet. */
+.rcf-card[hidden] { display: none; }
+
+/* ------------------------------------------------------------------ foot */
+.rcf-foot {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--rcf-line-soft);
+  min-width: 0;
+}
+
+.rcf-foot__spacer { flex: 1 1 auto; min-width: 0; }
+
+.rcf-status {
+  flex: 1 1 100%;
+  order: -1;
+  margin: 0;
+  color: var(--rcf-muted);
+  font-size: 12px;
+  min-height: 0;
+}
+
+.rcf-status[data-tone="error"] { color: #FF9A9A; }
+.rcf-status[data-tone="ok"]    { color: #9BE7B4; }
+.rcf-status:empty              { display: none; }
+
+/* ---------------------------------------------------------- narrow screens
+   One column, and the body itself becomes the scroller. The preview
+   keeps a floor of 34dvh so it never collapses to nothing, which is
+   the failure the brief calls out by name. */
+@media (max-width: 899px) {
+  /* Flow, not grid. A constrained grid row sizes itself to the space
+   * available and then the preview's own minimum pushes straight through
+   * the bottom of it, printing the side panel underneath. Letting the
+   * body lay out in normal flow means each block takes the height it
+   * needs and the body is the single thing that scrolls, which is also
+   * the one scroll region the brief asks for on this breakpoint. */
+  .rcf-body {
+    display: block;
+    overflow: auto;
+    scrollbar-gutter: stable;
+  }
+  .rcf-main {
+    display: block;
+    border-right: 0;
+    border-bottom: 1px solid var(--rcf-line-soft);
+  }
+  /* The side panel stops being its own scroller here so there is never a
+   * second vertical scrollbar competing with the body's. */
+  .rcf-side { overflow: visible; }
+  .rcf-preview {
+    min-height: 34vh;
+    min-height: 34dvh;
+    max-height: 60vh;
+    max-height: 60dvh;
+  }
+  .rcf-side { padding: 12px; }
+  .rcf-editor { padding: 0; }
+  .rcf-dialog { border-radius: 0; border: 0; max-width: none; }
+}
+
+/* ----------------------------------------------------------- short screens
+   Trim the chrome rather than the content, and let the side panel do
+   the scrolling. The close button and the primary action stay put. */
+@media (max-height: 620px) {
+  .rcf-head { padding: 6px 10px; }
+  .rcf-toolbar { padding: 5px 8px; }
+  .rcf-foot { padding: 6px 10px; }
+  .rcf-intro__head { font-size: 14px; }
+  .rcf-textarea { min-height: 58px; }
+}
+
+@media (max-width: 899px) and (max-height: 620px) {
+  .rcf-preview {
+    min-height: 30vh;
+    min-height: 30dvh;
+    max-height: 44vh;
+    max-height: 44dvh;
+  }
+}
+
+.rcf-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------ intro card
+   Shown once, when the feature opens, so the reviewer knows who is asking
+   before they start looking. It sits in the same corner as the dock it
+   collapses into, and it is sized to wrap rather than truncate: on a
+   phone the copy is the point, so it is allowed to be tall and scroll. */
+.rcf-intro-card {
+  position: fixed;
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 10042;
+  box-sizing: border-box;
+  width: min(360px, calc(100vw - 48px));
+  max-height: min(70vh, calc(100dvh - 48px));
+  overflow: auto;
+  scrollbar-gutter: stable;
+  padding: 14px;
+  border: 1px solid var(--rcf-line);
+  border-radius: var(--rcf-radius);
+  background: rgba(14, 16, 48, 0.98);
+  box-shadow: var(--rcf-shadow);
+  color: var(--rcf-ink);
+  font: 400 13px/1.5 "Open Sans", system-ui, sans-serif;
+}
+
+.rcf-intro-card[hidden] { display: none; }
+
+.rcf-intro-card__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}

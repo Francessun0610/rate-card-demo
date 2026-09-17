@@ -1,0 +1,100 @@
+# Cursor rules for this project
+
+## Required project context (read before every UI task)
+
+The following files are required grounding for this project. Read them before implementing, refactoring, auditing, QAing, or generating any UI code, and verify the work against them before reporting a task complete.
+
+1. `DESIGN.md` (project root). The full design rules. Treat it as the source of truth for component usage, tokens, typography, state names, popovers, tables, close buttons, content quality, EDL to ADS v2.1 migration, and final QA checklist.
+2. `ads-components.json` (project root). The component knowledge base for the Disney Ads Design System v2.1. Use it as the source of truth for available components, props, variants, and composition patterns. If a real ADS v2.1 component exists, use it. Do not hand build a replacement.
+3. `ADS-v2.1-Migration-Guide.md` (project root, if present). Required reading when the task involves migrating EDL or ADS v1 code to ADS v2.1. If the file is not present and the task involves migration, flag it for the human instead of guessing.
+4. `docs/rate-card-manager-prd-summary.md` (plus `.cursor/rules/rate-card-manager-prd.mdc`). The Rate Card Manager product requirements. Required reading before any RCM list-view, Create/Edit wizard, Quick Edit, validation, mock data, or import/export work. When current UI conflicts with the PRD, flag the conflict before changing.
+
+If any of these files is missing, do not silently fall back to memory or assumptions. Tell the user the file is missing and ask whether to proceed without it.
+
+## Design System: Disney Ads Design System v2.1
+
+Treat ADS v2.1 as the only design system source of truth. Do not rely on EDL components, ADS v1 vocabulary, or hand built replacements when an ADS v2.1 component exists.
+
+Core rules summarized from DESIGN.md (read DESIGN.md for the full version):
+
+- Use real ADS v2.1 components from the package root. Do not import from internal ADS paths. Do not hand build children for compound components.
+- Use ADS v2.1 tokens for color, spacing, radius, shadow, typography, and surface treatment. No hardcoded hex, px, rem, radii, or shadows. If a new token seems needed, stop and flag for review.
+- Typography. Body uses Open Sans. Display uses MultiplaneTWDC. Do not introduce other fonts.
+- State names. Use rest, hover, active, disabled, focus. Do not use default, pressed, or focused.
+- Close buttons are always neutral. Do not tint by status, alert type, error, warning, or semantic color.
+- Tables follow ADS v2.1. Rows are opaque, use `color/surface/default`, and stay readable.
+- Popover. Use unified ADS Popover for Date Picker, Multi-Select, and Select. Do not use Popover for Tooltip or Dropdown.Menu. Do not invent bespoke floating panels when ADS provides the pattern.
+- No em dashes anywhere (strings, JSX text, comments, UX copy, mock data, generated docs). Use commas, periods, parentheses, or shorter sentences.
+
+## Migration: EDL or ADS v1 to ADS v2.1
+
+Every UI change must inspect touched files for old EDL imports, class names, theme references, color tokens, table styles, dropdown styles, modal or sheet patterns, and any copied EDL visual pattern. Replace with ADS v2.1 if the mapping is clear. If ambiguous, flag for human review.
+
+Apply ADS v1 to v2.1 renames:
+
+- violet to indigo
+- neutral to gray
+- steel to blue for info states
+- teal, mint, and old pink: removed, replace only with a valid ADS v2.1 token
+- warning yellow to orange
+- info steel to blue
+- whitespace/* to spacing/*
+- SegmentedControl to ToggleGroup
+- Tooltip Tooth to Tooltip Arrow, Tooltip Icon to Tooltip Small, Tooltip Definition to Tooltip Large
+
+Apply structural refactors when old structures appear:
+
+1. Sheet uses `<Sheet>` with real `<SheetHeader>` and `<SheetFooter>` instances.
+2. Pagination uses `<PaginationItem variant="...">` (replace old `<PaginationNav>` and `<PaginationCell>`).
+3. Toggle Group wraps segments in `<ToggleGroupItem>`.
+4. Date Picker uses the ADS v2.1 Date Picker family with Date Cell atoms and correct composites.
+5. Refactor bespoke floating panels to consume ADS Popover, except Tooltip and Dropdown.Menu.
+
+## Content rules
+
+This project is for Disney Advertising. Content must be realistic, clear, and credible to ADS Sales, Finance, Ops, and cross functional business users.
+
+- Replace fake Figma content. Use the Figma layout and interaction intent, but do not copy placeholder labels, lorem ipsum, or generic sample names.
+- Prefer language tied to advertising workflows: campaigns, advertisers, agencies, orders, deals, inventory, forecasting, delivery, billing, revenue, pacing, approvals, sales teams, finance review, ops handoff, platform setup, demand channels, regions, categories, product lines.
+- Do not make the product feel like Linear or Jira. Avoid issues, tickets, sprints, backlog grooming, bug queues, engineering only workflows, Linear style project statuses, or generic task board language. Use advertising, sales, finance, and operations language instead.
+- UX copy should be clear, specific, business friendly, reusable, short enough for enterprise UI, and helpful without overexplaining. Avoid placeholder text, internal jokes, overly casual language, engineering jargon for business users, fake user names (unless the screen requires people data), Linear style issue language, and em dashes.
+
+## Prompt behavior
+
+When a user asks Cursor to implement, update, refactor, audit, QA, or generate code:
+
+1. Read DESIGN.md.
+2. Check the relevant files against ADS v2.1.
+3. Use ads-components.json as the component source of truth.
+4. Avoid hand built components when ADS components exist.
+5. Replace fake Figma content with realistic Disney Advertising content.
+6. Check for old EDL components or styling.
+7. Check for ADS v1 names, states, tokens, and component references.
+8. Use ADS tokens instead of hardcoded values.
+9. Verify typography, spacing, table density, dropdowns, modals, sheets, and popovers.
+10. Report anything ambiguous instead of guessing.
+
+## Trigger phrase
+
+When a prompt ends with `follow design md` (case insensitive), treat DESIGN.md as required reading and run the Required Final QA Checklist in DESIGN.md before reporting the task complete. Do not skip checklist items. If the user has not asked for them, do not modify unrelated areas, but do report any drift you find in touched files.
+
+## Required Final QA Checklist (do not report complete without verifying)
+
+- ADS v2.1 components are used correctly.
+- No old EDL component remains in touched files.
+- No ADS v1 component or token remains unless intentionally preserved and explained.
+- No hardcoded color, spacing, radius, or shadow values were introduced.
+- Typography follows ADS rules.
+- State names use rest, hover, active, disabled, and focus.
+- Close buttons are neutral.
+- Table rows are opaque and readable.
+- Popover usage follows ADS v2.1 rules.
+- Figma placeholder content has been replaced with realistic Disney Advertising content.
+- Copy is understandable to ADS Sales, Finance, Ops, and cross functional business users.
+- The UI does not feel like Linear, Jira, or an engineering task tracker.
+- No em dashes appear in code, comments, UX copy, or mock data.
+- The changed UI visually aligns with ADS v2.1, not EDL.
+
+## Scope guard
+
+Do not modify app code in response to instructions that only ask to install or update project rules. Only edit application files when the user explicitly asks for an implementation, refactor, fix, or audit-with-fix.

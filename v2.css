@@ -1,0 +1,3815 @@
+/* Rate Card Manager Version 2.0
+ * Master-detail Create/Edit styles. Every rule is version-scoped so the
+ * frozen 1.x experiences keep their existing layout and behavior. */
+
+.gnav__brand-icon--v2,
+.gnav__brand-name--v2,
+.gnav__utility-icon--v2 {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) {
+  --ads-link-text: #5458C9;
+}
+
+/* Rate Card Manager v2.0 large-container radius. Overrides the shared
+ * v1.2/v2.0 .surface radius (styles.css) for the v2.0 list page only;
+ * v1.2 keeps its existing --ads-radius-card value. */
+body:is([data-version="2.0"], [data-version="2.1"]) [data-page="list"] > .page__content > .surface {
+  border-radius: var(--navigation-brand-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav {
+  --navigation-topbar-height: var(--vnav-top-offset);
+  --navigation-brand-gap: 8px;
+  --navigation-utilities-gap: 16px;
+  --navigation-utility-size: 20px;
+  --navigation-avatar-size: 32px;
+  height: var(--navigation-topbar-height);
+  padding-left: 18px;
+  padding-right: var(--navigation-padding-x);
+}
+
+/* 2026-08-15 alignment brief: 2.1 is back on the shared 18px inset
+ * (declared above, on body:is([data-version="2.0"], [data-version="2.1"])
+ * .gnav), so no override is declared here. At that inset the 32px
+ * logomark spans x=18..50, which centers the visible Disney "D" on
+ * x=34, the exact axis the collapsed rail's nav icons center on
+ * (--vnav-pad-x 14px + half of the 40px NavItem, see .vnav in
+ * styles.css). That match, not clearance from the rail edge, is now
+ * the deliberate target: the brand mark and the icon column it sits
+ * above must read as one shared vertical axis.
+ *
+ * A prior brief (2026-08-13) moved 2.1 to
+ * padding-left: calc(var(--vnav-width-collapsed) + var(--navigation-gap))
+ * (76px) so the rail's collapsed-width edge would not fall across the
+ * wordmark. That traded the icon/logo axis match for clearance from an
+ * edge that only exists one row down, on the rail, not in the header
+ * itself, so it is superseded here in favor of the centered axis.
+ * "Ad Console" still sits at its usual --navigation-brand-gap (8px)
+ * to the right of the mark - only the group's shared inline-start
+ * padding moved, so the logo size, the logo-to-text gap, and the
+ * vertical centering are untouched. This match is only guaranteed
+ * against the rail's COLLAPSED icon axis (x=34); the axis shifts to
+ * x=47 while the rail is pinned/expanded (an active-bar spacer that
+ * only exists in that state, see styles.css), which the static
+ * header inset does not chase. */
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__logomark {
+  gap: var(--navigation-brand-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__brand-icon--legacy,
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__brand-name--legacy,
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__utility-icon--legacy {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__brand-icon--v2,
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__brand-name--v2,
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__utility-icon--v2 {
+  display: block;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__brand-icon--v2 {
+  width: 32px;
+  height: 28px;
+  flex-basis: 32px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__brand-name--v2 {
+  font-family: "MultiplaneTWDC Display", "Manrope", "DM Sans", "Open Sans", sans-serif;
+  font-size: var(--font-body-normal-xl-font-size);
+  line-height: var(--font-body-normal-xl-line-height);
+  font-weight: 700;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__right {
+  gap: var(--navigation-utilities-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__action--bell,
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__action--apps {
+  width: var(--navigation-utility-size);
+  height: var(--navigation-utility-size);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__utility-icon--bell {
+  width: 14.9974px;
+  height: 16.2493px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__utility-icon--sparkle {
+  width: 18.1282px;
+  height: 18.1282px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__action--avatar,
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__avatar {
+  width: var(--navigation-avatar-size);
+  height: var(--navigation-avatar-size);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .gnav__avatar {
+  background-color: transparent;
+  background-image:
+    url("./assets/figma-navigation/avatar.png"),
+    url("./assets/maggie.png");
+  background-position: center, center;
+  background-size:
+    var(--navigation-avatar-size) var(--navigation-avatar-size),
+    var(--navigation-avatar-size) var(--navigation-avatar-size);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__detail {
+  top: 64px;
+  max-height: calc(100vh - 88px);
+  max-height: calc(100dvh - 88px);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-page="create"] .create__heading--legacy,
+body:is([data-version="2.0"], [data-version="2.1"]) [data-page="create"] .create__actions > [data-action],
+body:is([data-version="2.0"], [data-version="2.1"]) [data-page="create"] .page__content > .create__card {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-page="create"] [data-v2-heading]:not([hidden]) {
+  display: block;
+  min-width: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-page="create"] .create-md__header-action:not([hidden]) {
+  display: inline-flex;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md:not([hidden]) {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(360px, 2fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1560px;
+  margin-inline: auto;
+  align-items: start;
+}
+
+/* Figma 644:67881 (workspace) and 643:65739 (details panel) are the same
+ * 12px surface with a 1px black/opacity/10 hairline. */
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__detail {
+  min-width: 0;
+  background: var(--ads-surface);
+  border: 1px solid var(--ads-border-recessed);
+  border-radius: var(--ads-radius-md);
+  box-shadow: var(--ads-shadow-card);
+}
+
+/* Opt out of the .surface clip. No child paints a background into the rounded
+ * corners (the toolbar, tabs, and table panel are all transparent and stop
+ * short of the bottom edge), so the corners hold without one, and the table
+ * region clips its own horizontal overflow. Clipping here instead cut off the
+ * pagination dropdowns and let the browser scroll the header out of view when
+ * it tried to reveal them. */
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace {
+  overflow: visible;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__detail {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 104px);
+  max-height: calc(100dvh - 104px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__caption {
+  margin: 0 0 4px;
+  color: var(--ads-text-tertiary);
+  font: 600 12px/18px "Open Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__title {
+  max-width: min(58vw, 760px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tabs {
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  padding: 16px 20px 0;
+  border-bottom: 1px solid var(--ads-border-recessed);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--ads-text-secondary);
+  font: 600 14px/20px "Open Sans", sans-serif;
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab:hover {
+  color: var(--ads-brand);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab:focus-visible,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger:focus-visible,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table button:focus-visible,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table-scroll:focus-visible {
+  outline: 2px solid var(--ads-brand);
+  outline-offset: -2px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab.is-selected {
+  color: var(--ads-brand);
+  border-bottom-color: var(--ads-brand);
+}
+
+/* The label reserves the width of its own selected (600) weight, so the
+ * tab measures the same whether or not it is the active one and the
+ * control never reflows as the user switches. The ghost copy is zero
+ * height, hidden from paint, and hidden from assistive tech. */
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab-label {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab-label::after {
+  height: 0;
+  overflow: hidden;
+  font-weight: 600;
+  visibility: hidden;
+  content: attr(data-label);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab-panel {
+  min-width: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(150px, 220px) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 20px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__search {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__search .ads-search__icon,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__search .ads-search__clear svg {
+  position: static;
+  inset: auto;
+  translate: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  min-height: 420px;
+  padding: 72px 24px;
+  align-content: center;
+  text-align: center;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ads-brand-wash);
+  color: var(--ads-brand);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty h3,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty p {
+  margin: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty h3 {
+  color: var(--ads-text-primary);
+  font: 600 18px/26px "Open Sans", sans-serif;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty p {
+  max-width: 440px;
+  color: var(--ads-text-secondary);
+  font: 400 14px/21px "Open Sans", sans-serif;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table-region {
+  min-width: 0;
+  border-top: 1px solid var(--ads-border-recessed);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table-scroll {
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  color: var(--ads-text-primary);
+  font: 400 13px/20px "Open Sans", sans-serif;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--ads-border-recessed);
+  background: var(--ads-surface);
+  text-align: left;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table tbody tr {
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table tbody tr:hover td {
+  background: var(--ads-surface-hover);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table tbody tr.is-selected td {
+  background: var(--ads-brand-wash);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table tbody tr.is-highlighted td {
+  animation: create-md-row-highlight 1600ms ease-out both;
+}
+
+@keyframes create-md-row-highlight {
+  0%, 35% { background: var(--ads-brand-wash); }
+  100% { background: var(--ads-surface); }
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__row-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__row-action {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ads-brand);
+  font: 600 12px/18px "Open Sans", sans-serif;
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__row-action:hover {
+  background: var(--ads-surface-hover);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion + .create-md__accordion {
+  border-top: 1px solid var(--ads-border-recessed);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 14px 18px;
+  border: 0;
+  background: var(--ads-surface);
+  color: var(--ads-text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger:hover {
+  color: var(--ads-brand-hover);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger svg {
+  flex: 0 0 auto;
+  transition: rotate 120ms ease-out;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion.is-open .create-md__accordion-trigger svg {
+  rotate: 180deg;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-panel {
+  padding: 4px 18px 20px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form {
+  display: grid;
+  gap: 16px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__section-helper {
+  margin: 0 0 var(--ads-label-gap);
+  color: var(--ads-text-secondary);
+  font: 400 var(--ads-label-size)/var(--ads-label-line) "Open Sans", sans-serif;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form .field__input {
+  width: 100%;
+  min-width: 0;
+}
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form .field__input:focus,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form .field__input:focus-visible {
+  border-width: var(--ads-input-border-active);
+  border-color: var(--ads-input-border-active-color);
+  padding: calc(var(--ads-input-pad-y) - 1px) calc(var(--ads-input-pad-x) - 1px);
+  box-shadow: none;
+}
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form .field:focus-within > .field__input {
+  border-width: var(--ads-input-border-active);
+  border-color: var(--ads-input-border-active-color);
+  padding: calc(var(--ads-input-pad-y) - 1px) calc(var(--ads-input-pad-x) - 1px);
+  box-shadow: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form select[multiple] {
+  min-height: 112px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form-actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 4px -18px -20px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--ads-border-recessed);
+  background: var(--ads-surface);
+  z-index: 2;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md .field.is-invalid .field__input {
+  border-color: var(--ads-input-border-error);
+}
+
+/* Toast placement: the stack anchors the toast's TOP edge halfway into
+ * the bottom of the blue global navigation bar (--vnav-top-offset is
+ * the nav height), so the toast reads as originating from the nav
+ * without covering the Ad Studio logo, nav icons, profile control,
+ * page title, primary actions, or form content on the page below.
+ * Right margin stays at 24px per the ADS navigation padding token, and
+ * the stack keeps its `position: fixed` so scrolling never displaces
+ * the toast. Max-height clamps the stack to the viewport so a burst of
+ * concurrent toasts can't run off the bottom edge. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast-stack {
+  top: calc(var(--vnav-top-offset) / 2);
+  right: var(--navigation-padding-x);
+  gap: var(--navigation-padding-x);
+  max-height:
+    calc(
+      100vh - (var(--vnav-top-offset) / 2) -
+      var(--navigation-padding-x)
+    );
+  max-height:
+    calc(
+      100dvh - (var(--vnav-top-offset) / 2) -
+      var(--navigation-padding-x)
+    );
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) {
+  --ads-toast-radius: 6px;
+  /* Lightest effective ADS elevation for a toast that straddles the
+   * dark indigo nav bar AND the white page surface. `--ads-shadow-card`
+   * (elevation/10) is optically lost against the deep nav, so this
+   * uses the ADS-approved fallback drop shadow from the toast brief
+   * (0 2px 8px rgba(0,0,0,.14)) which is still lighter than the
+   * previous elevation/30 pop-over shadow but resolves cleanly on
+   * both backgrounds. */
+  --ads-toast-elevation: 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast {
+  box-sizing: border-box;
+  width: 400px;
+  min-width: 0;
+  max-width: calc(100vw - var(--navigation-padding-x) - var(--navigation-padding-x));
+  padding: 16px;
+  border-left: 5px solid var(--ads-toast-info-accent);
+  border-radius: var(--ads-toast-radius);
+  box-shadow: var(--ads-toast-elevation);
+  opacity: 0;
+  transform: translateX(calc(100% + var(--navigation-padding-x)));
+  animation: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast::before {
+  content: none;
+}
+
+/* Enter: 260ms slide from the right + gentle fade-in using the ADS
+ * standard-decelerate curve (subtle, no overshoot, no scale). The
+ * matching keyframes below start off-screen right and end at the
+ * final rest position. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast.is-visible {
+  animation: ads-toast-enter-right 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Exit reverses the entrance: slides toward the right while fading
+ * out. Kept the same 260ms duration so the motion feels symmetric.
+ * The JS dismiss handler already removes the node on animationend. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast.is-dismissing {
+  animation: ads-toast-exit-right 260ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast__close {
+  color: var(--ads-text-tertiary);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast__close:hover {
+  color: var(--ads-text-primary);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast__close:focus-visible {
+  outline: var(--ads-input-border-active) solid var(--ads-brand);
+  outline-offset: var(--ads-input-border-active);
+}
+
+@keyframes ads-toast-enter-right {
+  from {
+    opacity: 0;
+    transform: translateX(calc(100% + var(--navigation-padding-x)));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ads-toast-exit-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(calc(100% + var(--navigation-padding-x)));
+  }
+}
+
+/* Narrow viewport: shrink the right margin to 16px per the brief so
+ * the toast still gets safe breathing room on both edges without
+ * clipping its message or controls, and let the toast shrink to
+ * accommodate the smaller available width. */
+@media (max-width: 640px) {
+  body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast-stack {
+    right: 16px;
+    max-height:
+      calc(100vh - (var(--vnav-top-offset) / 2) - 16px);
+    max-height:
+      calc(100dvh - (var(--vnav-top-offset) / 2) - 16px);
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast {
+    max-width: calc(100vw - 32px);
+  }
+
+  @keyframes ads-toast-enter-right {
+    from { opacity: 0; transform: translateX(calc(100% + 16px)); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes ads-toast-exit-right {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(calc(100% + 16px)); }
+  }
+}
+
+/* Short viewport safeguard: when the nav bar is too shallow to safely
+ * host a half-overlap (or the browser reports a compressed
+ * --vnav-top-offset), drop the toast just below the nav so the
+ * marker never sits on top of readable nav content. */
+@media (max-height: 480px) {
+  body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast-stack {
+    top: calc(var(--vnav-top-offset) + 12px);
+    max-height:
+      calc(100vh - var(--vnav-top-offset) - 24px);
+    max-height:
+      calc(100dvh - var(--vnav-top-offset) - 24px);
+  }
+}
+
+/* Reduced motion: keep the toast at its final resting position and
+ * skip the slide + fade entirely. The dismiss handler in app.js
+ * removes the node synchronously when this media query matches, so
+ * no animationend event is required. */
+@media (prefers-reduced-motion: reduce) {
+  body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast,
+  body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast.is-visible,
+  body:is([data-version="2.0"], [data-version="2.1"]) .ads-toast.is-dismissing {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* Figma 450:7895 Line Items table and ADS Pagination 35:36. */
+body:is([data-version="2.0"], [data-version="2.1"]) .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace {
+  border: var(--ads-input-border-width) solid var(--ads-border-recessed);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__heading {
+  margin-top: var(--navigation-utilities-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tabs {
+  gap: var(--navigation-brand-gap);
+  padding: var(--navigation-brand-gap) 10px 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab {
+  min-height: 31px;
+  padding: var(--navigation-nav-tabs-gap) var(--vnav-icon-label-gap) 0;
+  font-weight: 400;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab.is-selected {
+  font-weight: 600;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__toolbar {
+  display: flex;
+  gap: var(--navigation-utilities-gap);
+  align-items: center;
+  /* Figma 455:13900 - search sits at the left edge (aligned with the
+   * table), Add Line Item sits at the right edge (aligned with the
+   * table's right edge). justify-content distributes the flexible
+   * space between the two controls; the gap above is the floor so
+   * they never touch at narrow widths. */
+  justify-content: space-between;
+  min-height: var(--vnav-top-offset);
+  /* Add one spacing/sm token to the shared tab-to-toolbar relationship.
+   * Bottom spacing remains unchanged, so the table rhythm is preserved. */
+  padding:
+    calc(
+      var(--navigation-brand-gap)
+      + var(--navigation-brand-gap)
+      + var(--navigation-nav-tabs-gap)
+    )
+    0
+    var(--navigation-utilities-gap);
+}
+
+/* 2.1 groups Add Line Item, Filter and Search into one left cluster
+ * (644:68218). Every other version keeps the two-control split-ends
+ * toolbar, so the group box disappears and its children lay out against
+ * .create-md__toolbar directly. syncToolbarControlOrder() in v2.js keeps
+ * the DOM order matching whichever arrangement is on screen. */
+body:not([data-version="2.1"]) .create-md__toolbar-controls {
+  display: contents;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__toolbar > .btn,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__toolbar-controls > .btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-height: 36px;
+  padding-inline: var(--navigation-utilities-gap);
+  white-space: nowrap;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__toolbar .create-md__search {
+  flex: 0 1 388px;
+  width: min(388px, 100%);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table-region {
+  border-top: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table-scroll {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table td {
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 var(--navigation-brand-gap);
+  border-bottom: var(--ads-input-border-width) solid var(--ads-border-recessed);
+  background: var(--ads-surface);
+}
+
+/* Header row matches the Rate Card List View table header exactly: same
+ * type ramp, line-height, divider color/weight, and vertical rhythm
+ * (ADS "TABLE HEADER" tokens, styles.css ~6163). Horizontal padding stays
+ * on --navigation-brand-gap (8px), matching this table's own body <td>
+ * padding, so the header label and column data share one left edge
+ * instead of adopting the List View's 12px cell gutter. */
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th {
+  height: auto;
+  padding: var(--ads-table-header-padding-y) var(--navigation-brand-gap);
+  border-bottom: var(--ads-input-border-width) solid var(--ads-border-default);
+  color: var(--ads-table-header-text);
+  font-size: var(--ads-table-header-font-size);
+  font-weight: var(--ads-table-header-font-weight);
+  line-height: var(--ads-table-header-line-height);
+}
+
+/* Scoped to the LINE table specifically (not just ".create-md__table",
+ * which the Premiums table below also uses its own override for). The
+ * table's first <th>/<td> is always the checkbox column added for 2.1's
+ * bulk-selection (Figma 644:67875) - present in the DOM for every 2.x
+ * version even where it is hidden (see ".create-md__th-checkbox" below),
+ * and :nth-child() counts DOM position regardless of display:none. So the
+ * real data columns are always the 2nd through 8th child here, in both
+ * 2.0 and 2.1, whether or not the checkbox column is visible. */
+/* Columns 2 and 3 are the advertiser pair. 2.0 shows both, name first.
+ * 2.1 merges them into one "Advertiser ID / Name" cell and drops column 2
+ * with display:none, the same idiom the checkbox column uses below: the
+ * <th>/<td> stay in the DOM so every nth-child width here keeps counting
+ * from the same positions in both versions. */
+/* Column 8 is the Line condition, and only the current experience has it:
+ * 2.0's table predates the column, so it drops it the same way 2.1 drops
+ * the advertiser ID, and keeps its own seven columns untouched. That also
+ * means the two versions no longer agree on any column, so each is
+ * written out in full below rather than sharing a base rule. */
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table col:nth-child(8),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table th:nth-child(8),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table td:nth-child(8) { display: none; }
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table col:nth-child(2),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table th:nth-child(2),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table td:nth-child(2) { width: 22.30303%; }
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table col:nth-child(3),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table th:nth-child(3),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table td:nth-child(3) { width: 17.45455%; }
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table col:nth-child(4),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table th:nth-child(4),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table td:nth-child(4) { width: 16.48485%; }
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table col:nth-child(5),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table th:nth-child(5),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table td:nth-child(5) { width: 13.09091%; }
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table col:nth-child(6),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table th:nth-child(6),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table td:nth-child(6) { width: 9.69697%; }
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table col:nth-child(7),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table th:nth-child(7),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table td:nth-child(7) { width: 9.69697%; }
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table col:nth-child(9),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table th:nth-child(9),
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table td:nth-child(9) { width: 11.27272%; }
+
+/* 2.1's seven visible columns. The merged advertiser cell stays the
+ * widest, then Line condition: it holds the longest and most variable
+ * value on the row, and 22.5% is ~280px at the 1440 reference width, the
+ * top of the 220-280px the column was specced for. It is set at the top
+ * of that range rather than the middle because the vocabulary shares long
+ * prefixes ("Audience: Purchase Intent to ..."), and a narrower column
+ * truncates several neighbouring rows to the same visible text. Cost
+ * method, Base rate, Currency and Updated date give up the room, because
+ * each holds a short, known-length value that was never near its old
+ * width. */
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table col:nth-child(2),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table th:nth-child(2),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table td:nth-child(2) { display: none; }
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table col:nth-child(3),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table th:nth-child(3),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table td:nth-child(3) { width: 24%; }
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table col:nth-child(4),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table th:nth-child(4),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table td:nth-child(4) { width: 12%; }
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table col:nth-child(5),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table th:nth-child(5),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table td:nth-child(5) { width: 11.5%; }
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table col:nth-child(6),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table th:nth-child(6),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table td:nth-child(6) { width: 9.5%; }
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table col:nth-child(7),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table th:nth-child(7),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table td:nth-child(7) { width: 9.5%; }
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table col:nth-child(8),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table th:nth-child(8),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table td:nth-child(8) { width: 21%; }
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table col:nth-child(9),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table th:nth-child(9),
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table td:nth-child(9) { width: 12.5%; }
+
+/* Squeezed: the panel is open and the viewport is not wide enough to
+ * carry all seven columns at a readable width. Updated date is the one
+ * that goes, because it is the only column whose value can be recovered
+ * from the Details panel and the least likely to be scanned while
+ * pricing. Its 10% plus a little from the advertiser and offering
+ * columns keeps Line condition at ~260px, still inside its spec, rather
+ * than letting the longest values on the row be the ones that suffer. */
+@media (max-width: 1599px) {
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table col:nth-child(9),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table th:nth-child(9),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table td:nth-child(9) { display: none; }
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table col:nth-child(3),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table th:nth-child(3),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table td:nth-child(3) { width: 22%; }
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table col:nth-child(4),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table th:nth-child(4),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table td:nth-child(4) { width: 14%; }
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table col:nth-child(5),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table th:nth-child(5),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table td:nth-child(5) { width: 13%; }
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table col:nth-child(7),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table th:nth-child(7),
+  /* 8.5% rather than the 7% the wide layout gives Currency: the column
+     holds a three-letter code, but its own heading is the longest thing
+     in it, and below 60px the header itself would be the cell that
+     truncates. */
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table td:nth-child(7) { width: 10%; }
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table col:nth-child(8),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table th:nth-child(8),
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table td:nth-child(8) { width: 31%; }
+}
+
+@media (max-width: 1199px) {
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table {
+    min-width: 825px;
+  }
+}
+
+/* Premiums table, Figma 697:3617. Like the Line items table above, its
+ * first <th>/<td> is the 2.1 bulk-selection checkbox column, present in the
+ * DOM for every 2.x version and dropped with display:none in 2.0, so the
+ * data columns are always the 2nd through 7th child and these nth-child
+ * widths keep counting from the same positions in both versions.
+ *
+ * Premium keeps the most room (it is the row's identity and the longest
+ * value), Base offering next because it lists up to three offerings, and
+ * Value stays compact at two decimals. Every column fits without
+ * horizontal scrolling at normal desktop widths; scrolling only kicks in
+ * as a last resort. */
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table {
+  min-width: 830px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table col:nth-child(2),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table th:nth-child(2),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table td:nth-child(2) { width: 26%; }
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table col:nth-child(3),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table th:nth-child(3),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table td:nth-child(3) { width: 21%; }
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table col:nth-child(4),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table th:nth-child(4),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table td:nth-child(4) { width: 12%; }
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table col:nth-child(5),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table th:nth-child(5),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table td:nth-child(5) { width: 8%; }
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table col:nth-child(6),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table th:nth-child(6),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table td:nth-child(6) { width: 16%; }
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table col:nth-child(7),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table th:nth-child(7),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table td:nth-child(7) { width: 17%; }
+
+/* 697:3617 has no Advertiser column, so 2.1 drops it and hands its 17%
+ * back to the columns that run long: Premium and Base offering carry the
+ * most text, Calculation method has to clear "Percent Adjustment", and
+ * Value stays narrow because it is always two decimals. Kept in the DOM
+ * and hidden rather than removed, the same idiom the checkbox column
+ * uses, so the positional widths above still count from the same places
+ * and 2.0's six-column table is untouched. */
+body[data-version="2.1"] .create-md__th-premium-advertiser,
+body[data-version="2.1"] .create-md__td-premium-advertiser {
+  display: none;
+}
+
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table col:nth-child(2),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table th:nth-child(2),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table td:nth-child(2) { width: 31%; }
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table col:nth-child(3),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table th:nth-child(3),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table td:nth-child(3) { width: 24%; }
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table col:nth-child(4),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table th:nth-child(4),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table td:nth-child(4) { width: 14%; }
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table col:nth-child(5),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table th:nth-child(5),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table td:nth-child(5) { width: 10%; }
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table col:nth-child(6),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table th:nth-child(6),
+body[data-version="2.1"] [data-v2-table-region="premiums"] .create-md__table td:nth-child(6) { width: 21%; }
+
+@media (max-width: 1199px) {
+  body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table {
+    min-width: 790px;
+  }
+}
+
+/* Opening the Details panel narrows the table region to roughly 810px.
+ * 2.1's six columns clear that comfortably once Advertiser is gone, so
+ * the panel does not push the table into a sideways scroll. */
+body[data-version="2.1"] .create-md.is-panel-open [data-v2-table-region="premiums"] .create-md__table {
+  min-width: 700px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th button {
+  display: inline-flex;
+  gap: var(--ads-table-header-gap);
+  align-items: center;
+  width: 100%;
+  white-space: nowrap;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th button:hover {
+  color: var(--ads-text-primary);
+}
+
+/* One shared SortableHeader icon keeps both direction paths mounted in every
+ * state. Only the active path changes color, preserving geometry and baseline.
+ * Sized and toned to match the Rate Card List headers so every sortable
+ * column reads with the same delicate weight. */
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table .th__sort {
+  width: 12px;
+  height: 12px;
+  flex-basis: 12px;
+  color: #9CA0A8;
+}
+
+/* Figma 697:3635 rests the header row as labels only and reveals the
+ * Arrow-Down&Up glyph on the single header the pointer is over, so the
+ * icon is painted rather than laid out on demand: the 12px box above is
+ * reserved in every state and only its paint toggles, which keeps the
+ * label, the neighboring columns, the table width and the body cells
+ * beneath from moving when it appears. visibility (not display) also drops
+ * the hidden glyph from the accessibility tree, leaving the button's own
+ * aria-label as each column's only sort control. flex-shrink is pinned so
+ * a long label can never eat into that reserved box and clip the icon.
+ * Focus is the keyboard equivalent of hover, so a header holds its icon
+ * for as long as it is hovered or focused, including just after a click,
+ * and drops it once it is neither, even while that column is the active
+ * sort: which column is sorted is carried by aria-sort and by the label's
+ * own weight, so the glyph is only ever an affordance for the header
+ * being touched.
+ *
+ * 2026-08-26: this used to be scoped to the Premiums region while Line
+ * items kept always-visible icons. Line items is the table a seller
+ * lands on, and its default sort put a permanently lit arrow beside
+ * Updated date with five faint grey ones across the rest of the row.
+ * Both tables now rest quiet and answer to the same rule. */
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table .th__sort {
+  flex-shrink: 0;
+  visibility: hidden;
+  opacity: 0;
+  /* Matches the title pencil's reveal, the other hover-revealed control
+     on this page. */
+  transition: opacity 120ms ease-out;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"])
+  .create-md__table th button:hover .th__sort,
+body:is([data-version="2.0"], [data-version="2.1"])
+  .create-md__table th button:focus .th__sort {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table .th__sort {
+    transition: none;
+  }
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th button.th--sort-asc,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th button.th--sort-desc {
+  color: var(--ads-text-primary);
+  font-weight: 600;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"])
+  .create-md__table
+  .th__sort[data-sort-state="ascending"]
+  .th__sort-direction--ascending,
+body:is([data-version="2.0"], [data-version="2.1"])
+  .create-md__table
+  .th__sort[data-sort-state="descending"]
+  .th__sort-direction--descending {
+  color: var(--ads-brand);
+}
+
+/* Advertiser ID, Base rate and Updated date read as figures. On 2.1 the
+ * ID is the second line of the merged advertiser cell rather than its own
+ * column; elsewhere it is column 3. The other two are fixed. */
+body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__advertiser-id,
+body[data-version="2.0"] [data-v2-table-region="lines"] .create-md__table td:nth-child(3),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="lines"] .create-md__table td:nth-child(6),
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="lines"] .create-md__table td:nth-child(8) {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Value is column 5 in the 697:3617 order (checkbox, Premium, Base
+ * offering, Category, Value), and it is the only premium column that
+ * reads as a figure. */
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-table-region="premiums"] .create-md__table td:nth-child(5) {
+  font-variant-numeric: tabular-nums;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table tbody tr.is-selected td {
+  background: var(--ads-brand-wash);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table tbody tr.is-selected:hover td {
+  background: var(--ads-brand-wash);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table tbody tr:hover td {
+  background: var(--ads-surface-hover);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table tbody tr:focus-visible {
+  outline: var(--ads-input-border-active) solid var(--ads-brand);
+  outline-offset: calc(-1 * var(--ads-input-border-active));
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table-footer {
+  display: grid;
+  grid-template-columns: minmax(152px, 1fr) auto minmax(152px, 1fr);
+  min-height: 52px;
+  padding: var(--navigation-brand-gap) 0;
+  color: var(--ads-text-primary);
+}
+
+/* renderPagination() hides the footer whenever the tab's filtered rows fit
+ * on one page. Needed because the grid above (and the two-row variant in
+ * the narrow media query) outrank the browser's own [hidden] rule, which
+ * would otherwise leave a 52px strip of empty footer under the last row. */
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table-footer[hidden] {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-size,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-jump {
+  display: flex;
+  gap: var(--navigation-nav-tabs-gap);
+  align-items: center;
+  font-size: 14px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-jump {
+  justify-self: end;
+}
+
+/* Figma 455:14158 and 455:14160. Both compact selectors share the same
+ * Input geometry (54 by 32, 8px padding, 8px radius, 8px value-to-caret
+ * gap). The base .ads-dd wrapper defaults to width: 100% and its value
+ * span defaults to flex: 1, which stretches these triggers to fill
+ * whatever space is left in the flex row instead of hugging their
+ * content. Both are pinned back to intrinsic sizing here. */
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-size .ads-dd,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-jump .ads-dd {
+  width: auto;
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-size .ads-dd__trigger,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-jump .ads-dd__trigger {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 54px;
+  height: 32px;
+  padding: 8px;
+  border-radius: var(--ads-pagination-item-radius);
+  font-size: 14px;
+  line-height: 21px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-size .ads-dd__value,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-jump .ads-dd__value {
+  flex: 0 1 auto;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ads-pagination-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-item,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-ellipsis {
+  display: inline-grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: var(--ads-pagination-item-size);
+  min-width: var(--ads-pagination-item-size);
+  height: var(--ads-pagination-item-size);
+  padding: var(--ads-pagination-item-padding);
+  border-radius: var(--ads-pagination-item-radius);
+  font: 400 14px/normal "Open Sans", sans-serif;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-item {
+  border: var(--ads-input-border-width) solid var(--ads-border-default);
+  background: var(--ads-surface);
+  color: var(--ads-text-primary);
+}
+
+body.theme-ads:is([data-version="2.0"], [data-version="2.1"])
+  .create-md__pagination
+  .create-md__pagination-item {
+  border-radius: var(--ads-pagination-item-radius);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-item svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-item:hover:not(:disabled) {
+  border-color: var(--ads-border-bold);
+  background: var(--ads-surface-hover);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-item:active:not(:disabled) {
+  border-color: var(--ads-border-bold);
+  background: var(--ads-surface-active);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-item:focus-visible {
+  outline: 2px solid var(--ads-brand);
+  outline-offset: -2px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-item[aria-current="page"] {
+  border-color: var(--ads-border-bold);
+  background: var(--ads-brand);
+  color: var(--ads-text-on-primary);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-item[aria-current="page"]:focus-visible {
+  outline-color: var(--ads-border-bold);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination-item:disabled {
+  border-color: var(--ads-border-subtle);
+  color: var(--ads-text-disabled);
+  opacity: 1;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__status-state {
+  display: grid;
+  flex: 1;
+  min-height: 420px;
+  place-content: center;
+  justify-items: center;
+  gap: var(--navigation-nav-tabs-gap);
+  padding: var(--navigation-padding-x);
+  text-align: center;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__status-state h3,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__status-state p {
+  margin: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__skeleton-row {
+  width: min(760px, 80vw);
+  height: 48px;
+  border-radius: var(--ads-radius-sm);
+  background: var(--ads-skeleton-background, var(--ads-surface-hover));
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__remove-line {
+  margin-right: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table tbody tr.is-highlighted td,
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger svg {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Figma 457:15236, 457:16459, and 457:17125. These local overrides
+ * preserve the shared ADS primitives while matching the master-detail frame. */
+body:is([data-version="2.0"], [data-version="2.1"]) [data-page="create"] > .page__top {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-page="create"] > .page__content {
+  --create-md-page-gutter-start: clamp(
+    12px,
+    calc(2.5vw - 24px),
+    32px
+  );
+  --create-md-page-gutter-end: var(--create-md-page-gutter-start);
+  min-height: calc(100vh - var(--vnav-top-offset));
+  min-height: calc(100dvh - var(--vnav-top-offset));
+  padding:
+    var(--vnav-pad-y)
+    var(--create-md-page-gutter-end)
+    0
+    var(--create-md-page-gutter-start);
+  background: var(--page-canvas-background);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md:not([hidden]) {
+  --create-md-detail-min-width: 380px;
+  --create-md-detail-fluid-width: calc(25vw + 102px);
+  --create-md-detail-max-width: 520px;
+  --create-md-detail-width: clamp(
+    var(--create-md-detail-min-width),
+    var(--create-md-detail-fluid-width),
+    var(--create-md-detail-max-width)
+  );
+  --create-md-panel-gap: clamp(
+    var(--vnav-icon-label-gap),
+    calc(1vw - 2.4px),
+    20px
+  );
+  grid-template-columns: minmax(0, 1fr) var(--create-md-detail-width);
+  gap: var(--create-md-panel-gap);
+  box-sizing: border-box;
+  min-height: 0;
+  min-width: 0;
+  max-width: none;
+  margin-inline: 0;
+  padding-top: 2px;
+  align-items: stretch;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  margin-top: 0;
+  align-self: stretch;
+  box-shadow: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace-header {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px 21px 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace-header-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  gap: var(--vnav-icon-label-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back {
+  position: static;
+  align-self: center;
+  gap: var(--navigation-brand-gap);
+  width: auto;
+  height: var(--font-body-normal-sm-line-height);
+  min-height: var(--font-body-normal-sm-line-height);
+  margin: 0;
+  padding: 0;
+  color: var(--ads-link-text);
+  font-family: "Open Sans", sans-serif;
+  font-size: var(--font-body-normal-sm-font-size);
+  font-weight: 700;
+  line-height: var(--font-body-normal-sm-line-height);
+  font-variation-settings: "wdth" 100;
+  letter-spacing: normal;
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back:link,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back:visited,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back:hover,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back:active,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back:focus-visible {
+  color: var(--ads-link-text);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back:hover,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back:active {
+  text-decoration: underline;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back:focus-visible {
+  outline-color: var(--ads-brand);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back > * {
+  pointer-events: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__back-icon img {
+  display: block;
+  width: 12px;
+  height: 10px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace-actions {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  grid-column: 3;
+  justify-self: end;
+  align-self: center;
+  margin: 0;
+  flex-wrap: nowrap;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace-actions .btn {
+  min-height: 36px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace-actions [data-v2-action="save-draft"] {
+  width: 112px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace-actions [data-v2-action="save-card"] {
+  width: 125px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace-actions .btn--ghost:disabled {
+  color: var(--ads-text-disabled);
+  opacity: 1;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__heading {
+  --create-md-title-layout-height: var(--font-heading-lg-line-height);
+  display: flex;
+  flex-direction: column;
+  gap: var(--navigation-nav-tabs-gap, 4px);
+  width: 100%;
+  min-width: 0;
+  margin-top: 11px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__title {
+  --font-heading-lg-font-size: 24px;
+  --font-heading-lg-line-height: 28px;
+  display: block;
+  width: min(600px, 100%);
+  min-width: 0;
+  min-height: var(--create-md-title-layout-height);
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-gray-800, #161c1e);
+  text-overflow: ellipsis;
+  font-family: var(
+    --font-heading-lg-font-family,
+    "MultiplaneTWDC Display"
+  );
+  font-size: var(--font-heading-lg-font-size, 24px);
+  font-style: normal;
+  font-weight: var(--font-heading-lg-font-weight, 500);
+  line-height: var(--font-heading-lg-line-height, 28px);
+  letter-spacing: var(--font-heading-lg-letter-spacing, 0);
+  white-space: nowrap;
+}
+
+/* The Rate Card Name is wrapped in a button so 2.1 can hang its edit
+ * affordance off it (Figma 644:67882). The wrapper has to be
+ * typographically invisible in every version: the name keeps rendering
+ * exactly as the heading text did, and the pencil only exists where the
+ * control is actually editable. */
+/* The title is a heading, not a control: no link colour, no pointer, no
+   hover or focus affordance. Editing lives in the metadata row.
+
+   The colour is deliberately not set here so the heading's own token
+   still applies. The truncation is, because it used to come from the
+   button wrapper that has been removed. */
+.create-md__title-text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__helper {
+  width: max-content;
+  max-width: 100%;
+  min-height: var(--font-body-normal-lg-line-height);
+  margin: 0;
+  color: var(--ads-text-primary);
+  font: 400 var(--font-body-normal-lg-font-size)/var(--font-body-normal-lg-line-height) "Open Sans", sans-serif;
+  white-space: nowrap;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__caption {
+  margin-bottom: 0;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tabs {
+  gap: var(--navigation-brand-gap);
+  padding: 11px 10px 0;
+  border-bottom: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 31px;
+  padding: var(--navigation-nav-tabs-gap) var(--vnav-icon-label-gap) 0;
+  border-bottom-color: transparent;
+  border-radius: 3px;
+  font-size: var(--font-body-normal-md-font-size);
+  font-weight: 400;
+  line-height: var(--font-body-normal-md-line-height);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab.is-selected::after {
+  position: absolute;
+  right: var(--vnav-icon-label-gap);
+  bottom: -3px;
+  left: var(--vnav-icon-label-gap);
+  height: 3px;
+  background: var(--ads-brand);
+  content: "";
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab.is-selected {
+  border-bottom-color: transparent;
+  font-weight: 600;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab:focus-visible {
+  border-radius: 3px;
+  outline: var(--ads-input-border-active) solid var(--ads-brand);
+  outline-offset: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__tab-panel {
+  --create-md-content-inset-start:
+    calc(var(--navigation-padding-x) - var(--navigation-nav-tabs-gap));
+  --create-md-content-inset-end:
+    calc(var(--create-md-content-inset-start) + var(--ads-input-border-width));
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: calc(
+    100% - var(--create-md-content-inset-start)
+    - var(--create-md-content-inset-end)
+  );
+  min-height: 0;
+  margin-right: auto;
+  margin-left: var(--create-md-content-inset-start);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  gap: var(--navigation-utilities-gap);
+  padding: 0 var(--navigation-padding-x)
+    calc(var(--vnav-width-collapsed) + var(--vnav-top-offset));
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty-icon {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  width: min(325px, 100%);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty > .btn {
+  width: 118px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty h3 {
+  font-size: var(--navigation-utilities-gap);
+  font-weight: 700;
+  line-height: normal;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__empty p {
+  font-size: 14px;
+  line-height: normal;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md[data-workspace-state="initial"] .create-md__toolbar {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__detail {
+  --color-gray-800: #161c1e;
+  --font-body-semibold-xl-font-family: "Open Sans";
+  --font-body-semibold-xl-font-size: 18px;
+  --font-body-semibold-xl-font-weight: 600;
+  --font-body-semibold-xl-line-height: 24px;
+  --font-body-semibold-xl-letter-spacing: 0px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: var(--navigation-brand-gap);
+  position: static;
+  top: auto;
+  min-height: 0;
+  max-height: none;
+  height: auto;
+  margin-top: 0;
+  padding: var(--navigation-utilities-gap);
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background: var(--ads-chip-default-bg);
+  border: 0;
+  border-radius: var(--navigation-brand-gap);
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+  align-self: stretch;
+  justify-self: stretch;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion + .create-md__accordion {
+  flex: 0 0 auto;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--ads-surface);
+  border: 1px solid var(--ads-border-recessed);
+  border-radius: var(--navigation-brand-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion.is-open {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  min-height: 0;
+  border-radius: var(--navigation-brand-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  gap: var(--navigation-brand-gap);
+  min-height: 46px;
+  padding: 11px var(--navigation-padding-x);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-title {
+  color: var(--color-gray-800);
+  font-family: var(--font-body-semibold-xl-font-family);
+  font-size: var(--font-body-semibold-xl-font-size);
+  font-style: normal;
+  font-weight: var(--font-body-semibold-xl-font-weight);
+  line-height: var(--font-body-semibold-xl-line-height);
+  letter-spacing: var(--font-body-semibold-xl-letter-spacing);
+  text-transform: none;
+  white-space: nowrap;
+  word-break: break-word;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion.is-open .create-md__accordion-trigger {
+  min-height: 40px;
+  padding: var(--navigation-utilities-gap) var(--navigation-padding-x) 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-panel {
+  min-height: 0;
+  padding: var(--navigation-utilities-gap) var(--navigation-padding-x);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger svg {
+  color: var(--ads-brand);
+  rotate: -90deg;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger:hover
+  > .create-md__accordion-title,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger:hover svg {
+  color: var(--ads-brand-hover);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger:active
+  > .create-md__accordion-title,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger:active svg {
+  color: var(--ads-brand);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger:disabled
+  > .create-md__accordion-title,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger:disabled svg {
+  color: var(--ads-text-disabled);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion-trigger:disabled {
+  cursor: not-allowed;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__accordion.is-open .create-md__accordion-trigger svg {
+  rotate: 0deg;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__rate-currency {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--navigation-utilities-gap);
+  align-items: start;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__rate-currency .ads-dd__trigger {
+  height: var(--ads-input-height);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="premium"] .ads-datepicker__trigger {
+  height: calc(var(--ads-input-height) + var(--navigation-nav-tabs-gap));
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="premium"] .ads-datepicker__icon {
+  flex-basis: var(--navigation-padding-x);
+  width: var(--navigation-padding-x);
+  height: var(--navigation-padding-x);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="premium"] .create-md__paired-fields .field__label {
+  white-space: nowrap;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__paired-fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--navigation-utilities-gap);
+  align-items: start;
+}
+
+@media (max-width: 1399px) {
+  body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="premium"] .create-md__premium-value-order {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"] [data-v2-card-field="market-season"],
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"] [data-v2-card-field="dates"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--navigation-utilities-gap);
+  align-items: start;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"] [data-v2-card-field="market-season"] > .field,
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"] [data-v2-card-field="dates"] > .field {
+  min-width: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"] .create-md__validation-slot {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  align-items: flex-start;
+  min-height: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"]
+  .create-md__validation-slot:has(.field__error:not([hidden])) {
+  display: flex;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"]
+  [data-v2-card-field="market-season"] > .field,
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"]
+  [data-v2-card-field="dates"] > .field {
+  position: relative;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__datepicker,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__datepicker .ads-datepicker__trigger {
+  width: 100%;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__select {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__select .field__input {
+  width: 100%;
+  padding-right: calc(var(--navigation-padding-x) + var(--navigation-brand-gap));
+  appearance: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__select > svg {
+  position: absolute;
+  top: 50%;
+  right: var(--vnav-icon-label-gap);
+  color: var(--ads-text-tertiary);
+  translate: 0 -50%;
+  pointer-events: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__select:has(.ads-dd) > svg {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form .field__label {
+  margin-bottom: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form .field__label--with-icon {
+  display: inline-flex;
+  gap: var(--navigation-nav-tabs-gap);
+  align-items: center;
+  width: fit-content;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form .field__label-icon {
+  display: inline-flex;
+  flex: 0 0 var(--ads-label-size);
+  width: var(--ads-label-size);
+  height: var(--ads-label-size);
+  align-items: center;
+  justify-content: center;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form .field__label-icon img {
+  display: block;
+  width: 81.25%;
+  height: 81.25%;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown {
+  --ads-dd-menu-gap: var(--ads-dropdown-menu-gap);
+  position: relative;
+  gap: var(--ads-label-gap);
+  min-width: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__label {
+  color: var(--ads-text-primary);
+  font: 400 var(--ads-label-size)/var(--ads-label-line) "Open Sans", sans-serif;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__trigger {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  padding: var(--ads-dropdown-small-pad-y) var(--ads-dropdown-small-pad-x);
+  background: var(--ads-surface);
+  border: var(--ads-input-border-width) solid var(--ads-input-border-rest);
+  border-radius: var(--ads-input-radius);
+  color: var(--ads-text-secondary);
+  font: 400 var(--ads-dropdown-small-font-size)/var(--ads-label-line) "Open Sans", sans-serif;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__trigger:hover {
+  background: var(--ads-surface);
+  border-color: var(--ads-input-border-hover);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__trigger:focus-visible {
+  padding:
+    calc(var(--ads-dropdown-small-pad-y) - var(--ads-input-border-width))
+    calc(var(--ads-dropdown-small-pad-x) - var(--ads-input-border-width));
+  border-width: var(--ads-input-border-active);
+  border-color: var(--ads-input-border-active-color);
+  outline: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__trigger[aria-expanded="true"] {
+  padding:
+    calc(var(--ads-dropdown-small-pad-y) - var(--ads-input-border-width))
+    calc(var(--ads-dropdown-small-pad-x) - var(--ads-input-border-width));
+  border-width: var(--ads-input-border-active);
+  border-color: var(--ads-input-border-rest);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__value--placeholder {
+  color: var(--ads-text-placeholder);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__value--selected,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__caret {
+  color: var(--ads-text-primary);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__caret {
+  display: grid;
+  place-items: center;
+  width: var(--ads-dropdown-small-caret-box);
+  height: var(--ads-dropdown-small-caret-box);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__caret img {
+  display: block;
+  width: var(--ads-dropdown-small-caret-width);
+  height: var(--ads-dropdown-small-caret-height);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__menu {
+  position: absolute;
+  top: var(--ads-dd-menu-top);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding-block: var(--ads-dropdown-menu-gap);
+  overflow-y: auto;
+  background: var(--ads-surface);
+  border: var(--ads-input-border-width) solid var(--ads-border-default);
+  border-radius: var(--ads-radius-sm);
+  box-shadow: var(--ads-shadow-popover);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__option {
+  min-height: var(--ads-option-height);
+  padding: var(--ads-option-pad-y) var(--ads-option-pad-x);
+  color: var(--ads-text-primary);
+  font: 400 var(--ads-dropdown-small-font-size)/var(--ads-label-line) "Open Sans", sans-serif;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__option:hover,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__option.is-selected {
+  background: var(--ads-option-hover-bg);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__option:active,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__option:focus-visible {
+  background: var(--ads-surface-active);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown:has(.ads-dd__trigger:disabled) {
+  opacity: var(--ads-control-disabled-opacity);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__dropdown .ads-dd__trigger:disabled {
+  border-color: var(--ads-input-border-disabled);
+  color: var(--ads-input-text-disabled);
+  cursor: default;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md .field.is-invalid.create-md__dropdown .ads-dd__trigger {
+  border-color: var(--ads-input-border-error);
+}
+
+/* ---- Line conditions chip combobox ---------------------------------
+ * A line item can hold several conditions, so this reads as a text input
+ * with chips rather than a select: the empty state is a field you can
+ * type into, and each chosen condition becomes a removable chip that
+ * wraps onto the next line instead of widening the panel. */
+/* ---- Approved condition picker --------------------------------------
+ * Shared by Line Details and Premium Details. Built on the ADS input
+ * chrome so it reads as one of the panel's fields: same height, border,
+ * radius and focus ring, with chips and a grouped listbox inside it.
+ * The menu is absolutely positioned so opening it cannot move the
+ * fields below or push the sticky footer out of view. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__control {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: var(--ads-input-height, 36px);
+  padding: 0 4px 0 8px;
+  border: var(--ads-input-border-width, 1px) solid var(--ads-input-border-rest, var(--ads-border-default));
+  border-radius: var(--ads-input-radius, var(--ads-radius-sm));
+  background: var(--ads-surface);
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__control:hover {
+  border-color: var(--ads-input-border-hover, var(--ads-border-bold));
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__control:focus-within {
+  border-color: var(--ads-brand);
+  box-shadow: 0 0 0 1px var(--ads-brand);
+}
+
+/* A value that is not in the Business Dictionary is kept, not dropped,
+   so the field is marked and the input carries the words too. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond.is-unrecognized .ads-cond__control {
+  border-color: var(--ads-border-warning, #C77700);
+  background: var(--ads-surface-warning, #FDF0DC);
+}
+
+/* One value, shown as the input's own text. It takes all the width the
+   icons do not need and ellipsizes rather than wrapping, which is what
+   keeps the control one line tall in a narrow grid column. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  padding: 6px 0;
+  background: transparent;
+  color: var(--ads-text-primary);
+  font-family: "Open Sans", "DM Sans", Inter, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__input:focus {
+  cursor: text;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__input::placeholder {
+  color: var(--ads-text-placeholder);
+}
+
+/* Both icons sit outside the text box so the value never runs under
+   them, and both are a fixed width so the text has a stable budget. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__clear,
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ads-radius-xs, 4px);
+  background: transparent;
+  color: var(--ads-text-tertiary);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__clear {
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__clear:hover {
+  background: var(--ads-surface-hover, rgba(0, 0, 0, 0.06));
+  color: var(--ads-text-primary);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__clear:focus-visible {
+  outline: 2px solid var(--ads-brand);
+  outline-offset: 1px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__clear[hidden] {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__menu {
+  /* Fixed, with offsets set from the control's viewport box in
+     placeMenu(). Quick Edit renders this control inside a grid cell
+     that clips its overflow, so an absolutely positioned menu would be
+     cut off at the cell edge. */
+  position: fixed;
+  z-index: 1200;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--ads-border-default);
+  border-radius: var(--ads-radius-sm);
+  background: var(--ads-surface);
+  box-shadow: var(--ads-shadow-popover);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__menu--above {
+  margin-top: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__menu[hidden] {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__list {
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__group {
+  padding: 8px 12px 4px;
+  color: var(--ads-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__option {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__option.is-active,
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__option:hover {
+  background: var(--ads-surface-hover, #F2F4F7);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__check {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 20px;
+  align-items: center;
+  color: var(--ads-brand);
+  visibility: hidden;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__option[aria-selected="true"] .ads-cond__check {
+  visibility: visible;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__option-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__option-name {
+  color: var(--ads-text-primary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__option-desc {
+  color: var(--ads-text-secondary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-cond__empty {
+  padding: 10px 12px;
+  color: var(--ads-text-secondary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+
+/* ---- Searchable dropdown (Line condition) ---------------------------
+ * The ADS Dropdown's own listbox with a filter field pinned to the top
+ * of it. Everything here is the menu's existing geometry: the row uses
+ * the option padding so the field lines up with the values beneath it,
+ * and the input borrows the input tokens the rest of the panel's
+ * controls use. The closed field is untouched, so it still reads as the
+ * same control as every other one in Line Details. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-dd--searchable .ads-dd__search {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: var(--ads-option-pad-y) var(--ads-option-pad-x);
+  background: var(--ads-dropdown-menu-surface);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-dd--searchable .ads-dd__search-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--ads-input-height);
+  padding: 0 var(--ads-option-pad-x);
+  border: var(--ads-input-border-width) solid var(--ads-input-border-rest);
+  border-radius: var(--ads-radius-sm);
+  background: var(--ads-surface);
+  color: var(--ads-text-primary);
+  font: 400 var(--ads-dropdown-default-font-size)
+    /var(--ads-dropdown-default-line-height) "Open Sans", sans-serif;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-dd--searchable .ads-dd__search-input::placeholder {
+  color: var(--ads-text-tertiary);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-dd--searchable .ads-dd__search-input:focus-visible {
+  outline: none;
+  border-color: var(--ads-input-border-active-color);
+  border-width: var(--ads-input-border-active);
+}
+
+/* .ads-dd__option is display:flex, which outranks the hidden attribute's
+   own display:none, so a filtered-out option would stay on screen and
+   only the code would think it was gone. Scoped to the searchable
+   variant because it is the only one that hides options. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-dd--searchable .ads-dd__option[hidden] {
+  display: none;
+}
+
+/* Reads as a message, not as an option: no hover, no pointer, and the
+   tertiary text colour the panel uses for anything unset. */
+body:is([data-version="2.0"], [data-version="2.1"]) .ads-dd--searchable .ads-dd__empty {
+  padding: var(--ads-option-pad-y) var(--ads-option-pad-x);
+  color: var(--ads-text-tertiary);
+  font: 400 var(--ads-dropdown-default-font-size)
+    /var(--ads-dropdown-default-line-height) "Open Sans", sans-serif;
+  cursor: default;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="premium"] .ads-dd__trigger {
+  height: var(--ads-input-height);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-card-field="dates"] .field__label {
+  margin-bottom: var(--navigation-nav-tabs-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"] [data-v2-card-field="dates"] > .field,
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"] [data-v2-card-field="rule-order"] {
+  min-height: 66px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) [data-v2-form="card"] [data-v2-card-field="market-season"] {
+  min-height: 62px;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__form-actions {
+  margin-inline: calc(var(--navigation-padding-x) - var(--navigation-padding-x) - var(--navigation-padding-x));
+  margin-bottom: calc(var(--navigation-brand-gap) - var(--navigation-padding-x));
+  padding-inline: var(--navigation-padding-x);
+}
+
+@media (max-width: 1299px) {
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table-footer {
+    grid-template-areas:
+      "page-size page-jump"
+      "pagination pagination";
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--navigation-brand-gap);
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-size {
+    grid-area: page-size;
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__pagination {
+    grid-area: pagination;
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__page-jump {
+    grid-area: page-jump;
+  }
+}
+
+@media (max-width: 1199px) {
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__helper {
+    width: auto;
+    white-space: normal;
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md:not([hidden]) {
+    grid-template-columns: minmax(0, 1fr) var(--create-md-detail-width);
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__detail {
+    display: flex;
+    max-width: var(--create-md-detail-width);
+  }
+}
+
+@media (max-width: 1023px) {
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md:not([hidden]) {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__detail {
+    width: 100%;
+    max-width: none;
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__workspace-header-row,
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__toolbar,
+  body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table-footer {
+    min-width: 0;
+  }
+}
+
+/* Live explainer hosts the existing editor in a bounded product frame. */
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle__live-slot {
+  height: 100%;
+  overflow: hidden;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle[data-rcle-exploded]
+  .rcle__product-viewport {
+  overflow: auto;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle[data-rcle-exploded]
+  .rcle__live-slot {
+  min-width: 636px;
+  overflow: visible;
+}
+
+/* Slide 1 only. That slide demonstrates the Edit rate card modal, so the
+   second column has nothing to show and was leaving a wide empty white
+   gutter beside the table; collapsing it lets the background page use
+   the whole frame behind the modal.
+
+   Scoped to the slide rather than to "no panel open", because slides 2
+   and 3 annotate the LINE and PREMIUM accordions, which live in this
+   very column: hiding it there measured them at zero width and dropped
+   their callouts entirely. */
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle[data-rcle-slide="1"] .rcle__live-slot > .create-md:not(.is-panel-open) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle[data-rcle-slide="1"] .rcle__live-slot > .create-md:not(.is-panel-open)
+  .create-md__detail {
+  display: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle__live-slot > .create-md:not([hidden]) {
+  --create-md-detail-width: minmax(240px, 2fr);
+  display: grid;
+  grid-template-columns: minmax(400px, 3fr) var(--create-md-detail-width);
+  gap: var(--navigation-utilities-gap);
+  width: 100%;
+  min-width: 656px;
+  height: 100%;
+    min-height: 0;
+  max-width: none;
+  margin: 0;
+  padding: var(--navigation-brand-gap);
+  align-items: stretch;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__workspace,
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__detail {
+  height: 100%;
+  min-height: 0;
+    max-height: none;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__workspace {
+  overflow: hidden;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__detail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+    max-width: none;
+  overflow: hidden;
+}
+
+/* Inside the explainer, force the open accordion to take the remaining
+ * vertical space and let its panel scroll internally so all three
+ * accordion HEADERS (Rate Card details, Line details, Premium
+ * adjustments) stay visible, keeping the numbered callouts anchored to
+ * their real targets even when Line details is expanded. */
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle
+  .create-md__detail
+  .create-md__accordion {
+  flex: 0 0 auto;
+  min-height: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle
+  .create-md__detail
+  .create-md__accordion.is-open {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle
+  .create-md__detail
+  .create-md__accordion.is-open
+  .create-md__accordion-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle
+  .create-md__tab-panel:not([hidden]) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle
+  .create-md__table-region:not([hidden]) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__table-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__empty,
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__status-state {
+  min-height: 0;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__workspace-actions {
+  gap: var(--navigation-brand-gap);
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+  .rcle
+  .create-md__workspace-actions
+  .btn {
+  width: auto;
+  padding-inline: var(--navigation-brand-gap);
+}
+
+@media (max-width: 1100px) {
+  body:is([data-version="2.0"], [data-version="2.1"]).rcle-open
+    .rcle__live-slot
+    > .create-md:not([hidden]) {
+    grid-template-columns: minmax(392px, 3fr) minmax(236px, 2fr);
+    gap: var(--navigation-brand-gap);
+    min-width: 636px;
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__workspace-header {
+    padding-inline: var(--navigation-utilities-gap);
+  }
+
+  body:is([data-version="2.0"], [data-version="2.1"]).rcle-open .rcle .create-md__workspace-actions {
+    gap: var(--navigation-nav-tabs-gap);
+  }
+}
+
+/* =====================================================================
+ * v2.1 Rate Card Details page (Figma 643:64605 / 643:65724 / 644:67875)
+ *
+ * The two-button "Save as Draft" / "Save Rate Card" header pair (v2.0,
+ * untouched above) is replaced on 2.1 by a single "Save Rate Card"
+ * split button whose only dropdown option is "Save as draft" - both
+ * controls perform the identical draft save (see the save-draft/
+ * save-card handler in v2.js). The legacy pair's markup stays in the
+ * DOM (display:contents, so its two buttons keep acting as direct
+ * flex children of .create-md__workspace-actions) purely so v2.0 is
+ * completely unaffected; activate() in v2.js toggles which one is
+ * [hidden] per version. */
+[data-v2-header-actions-legacy] {
+  display: contents;
+}
+
+body[data-version="2.1"] .splitbtn[data-v2-header-splitbtn] {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: var(--ads-radius-sm);
+    overflow: visible;
+}
+
+body[data-version="2.1"] .splitbtn__main {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--ads-radius-sm) 0 0 var(--ads-radius-sm);
+  background: var(--ads-brand);
+  color: #FFFFFF;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+body[data-version="2.1"] .splitbtn__main:hover:not(:disabled) {
+  background: var(--ads-brand-hover);
+}
+
+body[data-version="2.1"] .splitbtn__main:active:not(:disabled) {
+  filter: brightness(0.88);
+}
+
+/* ---- Disabled: the shared ADS disabled-primary treatment -------------
+ * Same treatment as .btn--primary:disabled, which is what the Line
+ * Details "Save changes" button renders: the enabled indigo fill and
+ * white ink stay exactly where they are and the control drops to 40%, so
+ * it composites to the disabled-primary lavender and stays recognisably
+ * the same action. Only opacity changes between states, so no geometry
+ * can shift. Both segments take the identical value, so the pair reads
+ * as one control with no seam where they meet. */
+body[data-version="2.1"] .splitbtn__main:disabled,
+body[data-version="2.1"] .splitbtn__caret:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Figma draws the divider in indigo/50 (644:68226), a light step off the
+ * indigo/300 fill rather than a white veil. */
+body[data-version="2.1"] .splitbtn__divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--ads-brand-wash);
+}
+
+/* The divider dims with the segments so the indigo/50-on-indigo/300
+ * pairing is preserved rather than swapped for a neutral line, keeping
+ * the seam as subtle as the rest of the disabled control. */
+body[data-version="2.1"] .splitbtn__main:disabled + .splitbtn__divider {
+  opacity: 0.4;
+}
+
+body[data-version="2.1"] .splitbtn__caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 36px;
+  border: 0;
+  border-radius: 0 var(--ads-radius-sm) var(--ads-radius-sm) 0;
+  background: var(--ads-brand);
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+body[data-version="2.1"] .splitbtn__caret:hover:not(:disabled) {
+  background: var(--ads-brand-hover);
+}
+
+body[data-version="2.1"] .splitbtn__caret:active:not(:disabled) {
+  filter: brightness(0.88);
+}
+
+body[data-version="2.1"] .splitbtn__caret[aria-expanded="true"]:not(:disabled) {
+  filter: brightness(0.88);
+}
+
+body[data-version="2.1"] .splitbtn__main:focus-visible,
+body[data-version="2.1"] .splitbtn__caret:focus-visible {
+  outline: 2px solid var(--ads-brand);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+body[data-version="2.1"] .splitbtn__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 168px;
+  margin: 0;
+  padding-block: var(--ads-dropdown-menu-gap, 4px);
+  background: var(--ads-dropdown-menu-surface, #FFFFFF);
+  border: var(--ads-input-border-width, 1px) solid var(--ads-dropdown-menu-border, var(--gray-20));
+  border-radius: var(--ads-radius-sm);
+  box-shadow: var(--ads-shadow-popover, 0 4px 12px rgba(15, 18, 20, 0.18));
+  z-index: 60;
+}
+
+body[data-version="2.1"] .splitbtn__item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: var(--ads-option-height, 36px);
+  padding: var(--ads-option-pad-y, 8px) var(--ads-option-pad-x, 12px);
+  border: 0;
+  background: transparent;
+  color: var(--ads-text-primary);
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: left;
+  cursor: pointer;
+}
+
+body[data-version="2.1"] .splitbtn__item:hover,
+body[data-version="2.1"] .splitbtn__item:focus-visible {
+  background: var(--ads-brand-wash);
+  outline: none;
+}
+
+/* Dynamic page header metadata row (Figma 643:64605 chip + text pattern).
+ * Sits between the Rate Card Name and the (now-hidden-once-named)
+ * create helper text. Every piece is individually [hidden] by v2.js
+ * (updateV2Meta) so an unset optional value never leaves a dangling
+ * separator or empty chip on screen. */
+body[data-version="2.1"] .create-md__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 0;
+  min-height: 22px;
+}
+
+body[data-version="2.1"] .rcm-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border: 1px solid var(--ads-border-recessed);
+  border-radius: 999px;
+  background: var(--ads-surface-sunken, var(--gray-5));
+  color: var(--ads-text-secondary);
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+body[data-version="2.1"] .rcm-meta-text {
+  color: var(--ads-text-secondary);
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* =====================================================================
+ * v2.1 Rate Card Details: Line Details slide-over panel shell
+ * (Figma 643:64605 empty / 643:65724 open / 644:67875 selected).
+ *
+ * v2.0 keeps its always-visible two-column grid with a sticky CARD/
+ * LINE/PREM accordion rail (rules above, untouched). v2.1 instead
+ * starts full width with no rail at all, and only reintroduces the
+ * second column - as a "Line Details"/"Premium Details" panel, not an
+ * accordion list - while root.create-md carries .is-panel-open
+ * (toggled by updateV2PanelChrome in v2.js). Every rule below repeats
+ * the body[data-version="2.1"] prefix (same specificity as the
+ * body:is(2.0, 2.1) rules above) and is appended after them, so it
+ * wins by source order without touching a single v2.0 selector. */
+body[data-version="2.1"] .create-md:not([hidden]) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+body[data-version="2.1"] .create-md.is-panel-open:not([hidden]) {
+  grid-template-columns: minmax(0, 1fr) var(--create-md-detail-width);
+  gap: var(--create-md-panel-gap);
+}
+
+body[data-version="2.1"] .create-md__detail {
+    display: none;
+  }
+
+body[data-version="2.1"] .create-md.is-panel-open .create-md__detail {
+  display: flex;
+}
+
+/* CARD's fields live in the read-only header metadata for v2.1 (see
+ * updateV2Meta) - there is no CARD accordion in the panel at all. */
+body[data-version="2.1"] [data-v2-accordion="card"] {
+  display: none;
+}
+
+body[data-version="2.1"] .create-md__panel-header {
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  gap: var(--navigation-brand-gap);
+  padding: var(--navigation-utilities-gap) var(--navigation-padding-x);
+  border-bottom: 1px solid var(--ads-border-recessed);
+}
+
+body[data-version="2.1"] .create-md__panel-title {
+  margin: 0;
+  color: var(--color-gray-800, var(--ads-text-primary));
+  font-family: var(--font-body-semibold-xl-font-family, "Open Sans");
+  font-size: var(--font-body-semibold-xl-font-size, 18px);
+  font-weight: var(--font-body-semibold-xl-font-weight, 600);
+  line-height: var(--font-body-semibold-xl-line-height, 24px);
+}
+
+body[data-version="2.1"] .create-md__panel-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  /* 643:65741 strokes the glyph in #51585B (color/text/tertiary). */
+  color: var(--ads-text-tertiary);
+  cursor: pointer;
+}
+
+body[data-version="2.1"] .create-md__panel-close:hover {
+  background: var(--ads-chip-default-bg);
+  color: var(--ads-text-primary);
+}
+
+body[data-version="2.1"] .create-md__panel-close:focus-visible {
+  outline: 2px solid var(--ads-brand);
+  outline-offset: 2px;
+}
+
+/* Once the shared panel header takes over naming + closing the editor,
+ * each accordion's own trigger row (chevron + "Line details" / "Premium
+ * adjustments" title) is redundant chrome - the accordion's *panel*
+ * (the form) still renders exactly as before, .is-open still drives it. */
+body[data-version="2.1"] [data-v2-accordion="line"] .create-md__accordion-trigger,
+body[data-version="2.1"] [data-v2-accordion="premium"] .create-md__accordion-trigger {
+  display: none;
+}
+
+body[data-version="2.1"] [data-v2-accordion="line"] .create-md__accordion-panel,
+body[data-version="2.1"] [data-v2-accordion="premium"] .create-md__accordion-panel {
+  padding-top: var(--navigation-utilities-gap);
+}
+
+/* Line Details keeps the live editor (commitLineLiveSync in v2.js) but no
+ * longer relies on it as the only way out of the form: the panel carries
+ * the same explicit footer as Premium Details, so both record types read
+ * and behave the same way. */
+
+/* ---- LINE table checkbox column + row state -------------------------- */
+
+/* The checkbox <th>/<td> markup is shared, static HTML (index.html) that
+ * every 2.x version's table renders, but bulk selection (Figma 644:67875)
+ * is 2.1-only. Every other version must drop this column entirely rather
+ * than show an empty cell that still claims a share of table-layout:fixed's
+ * column widths and pushes every real column (and "Updated date" in
+ * particular) out of alignment with its Figma-matched proportions. */
+body:not([data-version="2.1"]) .create-md__th-checkbox,
+body:not([data-version="2.1"]) .create-md__td-checkbox {
+  display: none;
+}
+
+body[data-version="2.1"] .create-md__th-checkbox,
+body[data-version="2.1"] .create-md__td-checkbox {
+  width: 40px;
+  min-width: 40px;
+  padding-left: var(--navigation-padding-x);
+  padding-right: 4px;
+}
+
+/* The selection column is the first <col>, and under the fixed layout the
+   <col> is what the table sizes from, so the two have to agree: 40px where
+   the checkbox shows, removed entirely where it does not. Without this the
+   column would take whatever the percentage columns left over, which is
+   nothing. */
+body[data-version="2.1"] .create-md__table col:first-child {
+  width: 40px;
+}
+
+body:not([data-version="2.1"]) .create-md__table col:first-child {
+  display: none;
+}
+
+/* Figma 697:3617 has no Advertiser column, so 2.1 drops its <col> the same
+   way it drops the header cell. */
+body[data-version="2.1"] [data-v2-table-region="premiums"]
+  .create-md__table col:nth-child(7) {
+  display: none;
+}
+
+body[data-version="2.1"] .create-md__td-checkbox {
+  vertical-align: middle;
+}
+
+/* The real data columns' nth-child(2..8) widths are set once, for both
+ * 2.0 and 2.1, at the shared ".create-md__table th:nth-child(n)" rule
+ * earlier in this file (search "always the checkbox column"). Only the
+ * checkbox column's own fixed width and the narrower min-width (to fit
+ * its extra 40px) are 2.1-specific, since the column is hidden in 2.0. */
+@media (max-width: 1199px) {
+  body[data-version="2.1"] [data-v2-table-region="lines"] .create-md__table {
+    min-width: 865px;
+  }
+}
+
+/* ---- LINE selection action bar (Figma 644:67875) ----------------------
+ * Reuses the exact list-page .rcsel component (createSelectionActionBar/
+ * applySelectionActionBarState in app.js), already styled for
+ * body[data-version="2.1"] above with a sticky, container-query width.
+ * That container query is scoped to the list page's own scrollport
+ * ([data-page="list"] .table-scroll); here the bar instead replaces the
+ * plain toolbar row above a table that does not horizontally scroll, so
+ * it is sized and positioned like a normal block instead. */
+body[data-version="2.1"] .create-md__selection-bar {
+  border-radius: var(--navigation-brand-gap) var(--navigation-brand-gap) 0 0;
+  overflow: hidden;
+}
+
+body[data-version="2.1"] .create-md__selection-bar:empty,
+body[data-version="2.1"] .create-md__selection-bar[hidden] {
+  display: none;
+}
+
+body[data-version="2.1"] .create-md__selection-bar .rcsel {
+    position: static;
+  left: auto;
+  width: 100%;
+  border-radius: inherit;
+}
+
+@media (max-width: 1399px) {
+  body[data-version="2.1"] .create-md.is-panel-open:not([hidden]) {
+    grid-template-columns: minmax(0, 1fr) var(--create-md-detail-width);
+  }
+}
+
+@media (max-width: 1023px) {
+  body[data-version="2.1"] .create-md:not([hidden]),
+  body[data-version="2.1"] .create-md.is-panel-open:not([hidden]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body[data-version="2.1"] .create-md.is-panel-open .create-md__detail {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* =====================================================================
+ * v2.1 Rate Card Details, Figma pass (644:67875 and its child nodes)
+ *
+ * Everything below is measured from the Figma frame: the 1440 page puts
+ * the card at x=80 with a 24px inner gutter, the title at y=130, the
+ * metadata row at y=166, the toolbar at y=211, the table at y=264, and
+ * the Line Details panel at x=964 (460 wide). Each rule notes the node
+ * it comes from. Scoped to 2.1 and appended last so no earlier version
+ * or shared rule is disturbed.
+ * ================================================================== */
+
+/* ---- 1. Title + edit affordance (644:67882) -------------------------- */
+
+/* 644:67875 puts the title 16px under the Back link and the metadata row
+ * 8px under the title. The shared heading block reserves a 38px line box
+ * for a 28px title, which pushed everything below it down. */
+body[data-version="2.1"] .create-md__heading {
+  gap: 0;
+  margin-top: 7px;
+}
+
+body[data-version="2.1"] .create-md__title {
+  min-height: var(--font-heading-lg-line-height, 28px);
+  /* No colour override: the title is a heading, and the indigo here was
+     what made it read as a link. It inherits gray/800 from the base
+     rule, and editing is reached from the explicit link below it. */
+}
+
+/* 2.1 shrinks the control to the text so the pencil can sit immediately
+ * after the name (644:67882). Other versions keep the block box that the
+ * heading used before the wrapper existed, so their title geometry does
+ * not move with the length of the card name. */
+
+/* ---- 2. Header metadata row (644:67884 / 67888 / 67889 / 67890) ------ */
+
+/* Two groups, not four loose items: the chip pair, then the plain-text
+ * pair. Grouping buys the wider column gap that sets the chips off from
+ * Deal Season without touching the spacing between the chips
+ * themselves, and it keeps the chips on one line when the row wraps
+ * (a wrapped text group then starts flush, with no orphan indent).
+ * The outer gap is one brand-gap step wider than the chip gap rather
+ * than a new hardcoded value, so it stays on the token scale. */
+body[data-version="2.1"] .create-md__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--navigation-brand-gap)
+       calc(var(--navigation-utilities-gap) + var(--navigation-brand-gap));
+  margin: var(--navigation-brand-gap) 0 0;
+  min-height: 22px;
+}
+
+body[data-version="2.1"] .rcm-meta-chips {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--navigation-utilities-gap);
+}
+
+/* Beats the display above, which would otherwise outrank the UA
+ * [hidden] rule and leave the group holding a column gap. */
+body[data-version="2.1"] .rcm-meta-chips[hidden] {
+  display: none;
+}
+
+body[data-version="2.1"] .rcm-meta-text {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--navigation-brand-gap);
+  min-width: 0;
+  color: var(--ads-text-primary);
+  font-family: "Open Sans", sans-serif;
+  font-size: var(--font-body-normal-md-font-size, 14px);
+  line-height: var(--font-body-normal-md-line-height, 20px);
+}
+
+body[data-version="2.1"] .rcm-meta-value {
+  overflow: hidden;
+  color: var(--ads-text-primary);
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Separator plus link as one non-breaking group, so a wrap can never
+   put a lone bullet at the start of a line. The gap matches the rest of
+   the metadata row's spacing. */
+body[data-version="2.1"] .rcm-meta-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navigation-brand-gap);
+  white-space: nowrap;
+}
+
+/* A button, because it opens a dialog rather than navigating, styled as
+   the ADS inline action so it reads as the one thing on this row you can
+   act on. */
+body[data-version="2.1"] .rcm-meta-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ads-brand);
+  font-family: "Open Sans", sans-serif;
+  font-size: var(--font-body-normal-md-font-size, 14px);
+  font-weight: 600;
+  line-height: var(--font-body-normal-md-line-height, 20px);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+body[data-version="2.1"] .rcm-meta-link:hover {
+  color: var(--ads-brand-hover);
+  text-decoration: underline;
+}
+
+body[data-version="2.1"] .rcm-meta-link:focus-visible {
+  outline: 2px solid var(--ads-brand);
+  outline-offset: 2px;
+  border-radius: var(--ads-radius-sm);
+}
+
+body[data-version="2.1"] .rcm-meta-separator {
+  color: var(--ads-text-tertiary);
+  font-weight: 400;
+}
+
+/* Status keeps its own semantic chip colors but matches the 22px
+ * small-chip height of 644:67884 so the row sits on one baseline. */
+body[data-version="2.1"] .create-md__meta .rcm-status-chip {
+  height: 22px;
+}
+
+/* Chip / style=emphasis, size=small. */
+body[data-version="2.1"] .rcm-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--navigation-nav-tabs-gap);
+  height: 22px;
+  padding: 2px var(--navigation-nav-tabs-gap);
+  border: var(--ads-input-border-width) solid var(--ads-brand-wash);
+  border-radius: var(--ads-radius-pill);
+  background: var(--ads-brand-wash);
+  color: var(--v21-indigo-700);
+  font-family: "Open Sans", sans-serif;
+  font-size: var(--font-body-normal-sm-font-size, 12px);
+  font-weight: 600;
+  line-height: var(--font-body-normal-sm-line-height, 18px);
+}
+
+/* ---- 3. Save Rate Card split button (644:68222 / 68223 / 68225) ------
+ * Group 175 x 36, main segment 136, 1px divider, 38px caret segment. */
+body[data-version="2.1"] .splitbtn[data-v2-header-splitbtn] {
+  width: 175px;
+}
+
+/* The label starts at the button/size/default/padding-x inset (644:68224
+ * sits at x=12 in the 175px frame), not centred in the main segment. The
+ * caret segment is what balances the row. */
+body[data-version="2.1"] .splitbtn__main {
+  flex: 1 1 auto;
+  justify-content: flex-start;
+  padding: 0 12px;
+  font-weight: 600;
+}
+
+body[data-version="2.1"] .splitbtn__caret {
+  flex: 0 0 38px;
+  width: 38px;
+}
+
+/* ---- 4. One toolbar row (644:68218 / 68219 / 68220 / 68221) ---------- */
+
+body[data-version="2.1"] .create-md__toolbar-row {
+  --create-md-content-inset-start: var(--v21-card-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navigation-utilities-gap);
+  box-sizing: border-box;
+  width: calc(100% - var(--create-md-content-inset-start) * 2);
+  /* The 44px toolbar band (644:68221) clears the metadata row and the
+   * table header by one 16px step each; the shorter 36px controls inside
+   * it are centred on the band rather than pinned to either edge. */
+  margin: var(--navigation-utilities-gap) auto var(--navigation-utilities-gap)
+    var(--create-md-content-inset-start);
+}
+
+body[data-version="2.1"] .create-md__toolbar-row[hidden] {
+  display: none;
+}
+
+body[data-version="2.1"] .create-md__toolbar-slot {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+body[data-version="2.1"] .create-md__toolbar-slot .create-md__toolbar {
+  width: 100%;
+  min-height: 36px;
+  padding: 0;
+}
+
+body[data-version="2.1"] .create-md__toolbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+body[data-version="2.1"] .create-md__toolbar-controls > .btn {
+  flex: 0 0 auto;
+  height: 36px;
+  min-height: 36px;
+  padding-inline: 12px;
+  border-radius: var(--ads-radius-sm);
+  font-size: var(--font-body-normal-md-font-size, 14px);
+  font-weight: 600;
+  line-height: var(--font-body-normal-md-line-height, 20px);
+  white-space: nowrap;
+}
+
+body[data-version="2.1"] .create-md__toolbar-controls .create-md__search {
+  flex: 0 1 320px;
+  width: min(320px, 100%);
+  height: 36px;
+  border-radius: var(--ads-radius-pill);
+}
+
+/* Square icon-only secondary button (644:68219). */
+body[data-version="2.1"] .create-md__filter {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+body[data-version="2.1"] .create-md__filter-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  border-radius: var(--ads-radius-sm);
+}
+
+/* The list's filter button tints its background while filters are
+   applied (.filter-btn.is-active in styles.css). This trigger has always
+   carried the same class from JS but never had the rule, so the only
+   sign of an applied filter was the count badge. It answers to applied
+   filters, not to the drawer being open. */
+body[data-version="2.1"] .create-md__filter-trigger.is-active {
+  background: var(--ads-surface-hover);
+}
+
+body[data-version="2.1"] .create-md__filter-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--ads-radius-pill);
+  background: var(--ads-brand);
+  color: var(--ads-text-on-primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+/* The panel itself is the Rate Card List drawer (.fpanel in styles.css):
+   its width, slide, header, body and footer all come from there, so the
+   only rules left here are the ones that describe this instance.
+
+   What the popover used to need - absolute placement under the trigger,
+   its own 320px box, border, shadow and z-index - is gone with it. */
+
+/* .field is the create panel's own form row; inside the drawer it has to
+   sit like one of the list drawer's fields, which means the same 8px
+   between a label and its control. The label type itself is declared
+   once alongside .ads-dd__label in styles.css. */
+body[data-version="2.1"] .fpanel--lines .fpanel__body .field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* The enhanced <select> menus open inside a drawer that scrolls, so they
+   need the same stacking the list drawer gives its own menus. */
+body[data-version="2.1"] .fpanel--lines .ads-dd__menu {
+  z-index: 50;
+}
+
+
+/* Toggle Group (644:68221): 4px track padding, 36px items, white active
+ * item with the ADS toggle-group elevation. The tab list keeps its tab
+ * semantics; only its presentation changes. */
+body[data-version="2.1"] .create-md__toolbar-row .create-md__tabs {
+  flex: 0 0 auto;
+  gap: 0;
+  padding: var(--navigation-nav-tabs-gap);
+  border-radius: var(--ads-radius-sm);
+  background: var(--ads-surface-hover);
+}
+
+body[data-version="2.1"] .create-md__toolbar-row .create-md__tab {
+  height: 36px;
+  min-height: 36px;
+  padding: var(--navigation-brand-gap) var(--navigation-utilities-gap);
+  border: 0;
+  border-radius: var(--ads-radius-sm);
+  color: var(--ads-text-secondary);
+  font-size: var(--font-body-normal-md-font-size, 14px);
+  font-weight: 400;
+  line-height: var(--font-body-normal-md-line-height, 20px);
+}
+
+body[data-version="2.1"] .create-md__toolbar-row .create-md__tab.is-selected {
+  background: var(--ads-surface);
+  box-shadow: 0 1px 1.5px rgba(15, 18, 20, 0.30);
+  color: var(--ads-text-primary);
+  font-weight: 600;
+}
+
+body[data-version="2.1"] .create-md__toolbar-row .create-md__tab.is-selected::after {
+  display: none;
+}
+
+/* ---- 5. Table (644:67904 header, 644:67914 row, 644:67917 cell) ------ */
+
+/* Figma's rows are exactly 32 (header) and 56 (data) tall with the divider
+ * drawn inside that box. A border-bottom sits outside the cell's content
+ * box, so every row measured one pixel over its Figma height and the error
+ * compounded down the table. Painting the divider as an inset shadow keeps
+ * the same 1px rule on the same edge without adding to the row box. */
+body[data-version="2.1"] .create-md__table th,
+body[data-version="2.1"] .create-md__table td {
+  border-bottom: 0;
+  box-shadow: inset 0 -1px 0 var(--ads-border-recessed);
+}
+
+/* The style guide underlines the header cell with the same 10% rule the
+ * data rows use (104:23620-104:23628 carry a 0 1px 0 rgba(0,0,0,0.1)
+ * drop shadow), not the heavier 20% border, so this cell inherits the
+ * recessed divider from the rule above rather than overriding it. */
+
+body[data-version="2.1"] .create-md__table td {
+  height: 56px;
+  padding: var(--navigation-utilities-gap) var(--navigation-brand-gap);
+  color: var(--v21-gray-800);
+}
+
+/* 644:67904 header row is 32 tall; 644:67914 data rows are 56, with the
+ * 28px checkbox centered in both. */
+body[data-version="2.1"] .create-md__table th {
+  height: 32px;
+  padding: 7px var(--navigation-brand-gap);
+}
+
+body[data-version="2.1"] .create-md__table th.create-md__th-checkbox {
+  padding-block: 2px;
+}
+
+body[data-version="2.1"] .create-md__table td.create-md__td-checkbox {
+  padding-block: 14px;
+}
+
+/* Company name treatment: Open Sans SemiBold 14/20 in indigo/700. */
+body[data-version="2.1"] .create-md__table td.create-md__td-advertiser {
+  color: var(--v21-indigo-700);
+  font-weight: 600;
+}
+
+/* Merged "Advertiser ID / Name" cell, matching the list view's combined
+ * Rate Card ID / Name cell: 14/20 semibold company name over 12/16
+ * regular "ID: ...", 2px apart. The stack is 38px inside the same 56px
+ * row every other cell uses, so the block padding drops from 16 to 9 and
+ * the row height, checkbox centering, and header alignment are untouched.
+ * Each line clips on its own so a long company name never wraps into the
+ * ID line. */
+body[data-version="2.1"] [data-v2-table-region="lines"]
+  .create-md__table td.create-md__td-advertiser {
+  padding-block: 9px;
+}
+
+body[data-version="2.1"] .create-md__advertiser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+
+body[data-version="2.1"] .create-md__advertiser-name,
+body[data-version="2.1"] .create-md__advertiser-id {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Line condition. The label is a block inside the cell so it fills the
+ * column and clips on its own: the row's JS measures this element to
+ * decide whether the value is actually cut off, and a inline span would
+ * only ever report its own text width. */
+body[data-version="2.1"] .create-md__line-condition {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Only a clipped label takes focus (the JS adds tabindex), and when it
+ * does it gets the same ring every other control in this table uses. */
+body[data-version="2.1"] .create-md__line-condition:focus-visible {
+  outline: 2px solid var(--ads-brand);
+  outline-offset: -2px;
+  border-radius: 2px;
+}
+
+/* An unset condition is a legitimately empty field, not a missing one, so
+ * it reads as a quiet placeholder rather than sitting at full text
+ * weight beside real values. */
+body[data-version="2.1"] .create-md__table td.create-md__td-line-condition.is-empty {
+  color: var(--ads-text-tertiary);
+}
+
+body[data-version="2.1"] .create-md__advertiser-name {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--v21-indigo-700);
+}
+
+body[data-version="2.1"] .create-md__advertiser-id {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--ads-text-secondary);
+}
+
+/* The checkbox cell holds one control and no text. Without this, the
+ * cell's inherited text-overflow paints the first dot of an ellipsis
+ * next to every checkbox, because the control is wider than the 40px
+ * content box and the clipped inline box gets an ellipsis marker. */
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th.create-md__th-checkbox,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table td.create-md__td-checkbox {
+  text-overflow: clip;
+}
+
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table th.create-md__th-checkbox > *,
+body:is([data-version="2.0"], [data-version="2.1"]) .create-md__table td.create-md__td-checkbox > * {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+/* Restated after the generic th/td padding above. Figma 644:67904 puts
+ * the 28px checkbox at x=8 inside a 36px column, so both checkboxes share
+ * the same 8px gutter as every other cell's text. */
+body[data-version="2.1"] .create-md__table th.create-md__th-checkbox,
+body[data-version="2.1"] .create-md__table td.create-md__td-checkbox {
+  width: 36px;
+  min-width: 36px;
+  padding-left: var(--navigation-brand-gap);
+  padding-right: 0;
+}
+
+/* Opening the panel narrows the table region to roughly 810px. Merging the
+ * advertiser pair into one column dropped the floor this table needs from
+ * 880 to 800 (36 + 260 + 149 + 100 + 74 + 74 + 107), so the eight columns
+ * now fit the narrowed region outright instead of scrolling it sideways.
+ * Below that the region scrolls rather than squeezing "Updated date" until
+ * its value truncates. */
+body[data-version="2.1"] .create-md.is-panel-open [data-v2-table-region="lines"] .create-md__table {
+  min-width: 800px;
+}
+
+/* Under 1600px the panel-open table drops Updated date (see the column
+ * widths above), so six columns share the region and the floor comes down
+ * with them. 700px is the point where the advertiser column still holds a
+ * real company name over its ID and Line condition still clears 220px;
+ * without lowering it, the region would keep scrolling to satisfy the
+ * 800px above and spend the room the dropped column just released. A
+ * 1280 region is narrower than this floor and still scrolls, which is the
+ * deliberate trade the rule above describes: past a point the table
+ * scrolls rather than squeezing its values into unreadability. */
+@media (max-width: 1599px) {
+  body[data-version="2.1"] .create-md.is-panel-open
+    [data-v2-table-region="lines"] .create-md__table {
+    min-width: 700px;
+  }
+}
+
+/* ---- 6. Row states --------------------------------------------------
+ * default: surface. hover: black/5. checkbox-selected: black/5 plus a
+ * checked box. active (open in the panel): black/10, one step deeper than
+ * hover. keyboard focus keeps the brand outline. No blue row fill and no
+ * left-edge indicator anywhere: state is carried by the fill, the
+ * checkbox, and the focus ring, so nothing reserves width at the row's
+ * leading edge and every row keeps the same cell alignment. */
+/* Cells paint their own surface over the row, so the checked fill has to
+ * be set on the td rather than the tr. */
+body[data-version="2.1"] .create-md__table tbody tr.is-checked td {
+  background: var(--ads-surface-hover);
+}
+
+/* The open row keeps the deeper fill even while it is also checked, so
+ * "open" and "selected" never collapse into one appearance. The checkbox
+ * carries the difference beyond colour. */
+body[data-version="2.1"] .create-md__table tbody tr.is-selected td,
+body[data-version="2.1"] .create-md__table tbody tr.is-selected:hover td,
+body[data-version="2.1"] .create-md__table tbody tr.is-selected.is-checked td,
+body[data-version="2.1"] .create-md__table tbody tr.is-checked:hover td {
+  background: var(--ads-surface-active);
+}
+
+/* ---- 7. Selection action bar as a table row (645:68541) -------------- */
+
+body[data-version="2.1"] .create-md__table tr.create-md__selection-row {
+  cursor: default;
+}
+
+/* The bar is the first row of the head, so the column labels below it
+   keep the divider that separates them from the data. */
+body[data-version="2.1"] .create-md__table thead tr.create-md__selection-row td {
+  border-top: 0;
+}
+
+/* 645:68541 is a 44px full-width table row: the label sits 24px in, the
+ * three 36px buttons end 16px from the right edge. */
+body[data-version="2.1"] .create-md__table td.create-md__selection-cell {
+  height: 44px;
+  padding: 0;
+  border-bottom: 0;
+  box-shadow: none;
+  background: var(--ads-brand);
+    overflow: visible;
+  text-overflow: clip;
+}
+
+body[data-version="2.1"] .create-md__table tr.create-md__selection-row:hover td.create-md__selection-cell {
+  background: var(--ads-brand);
+}
+
+body[data-version="2.1"] .create-md__selection-cell .create-md__selection-bar {
+  border-radius: 0;
+}
+
+body[data-version="2.1"] .create-md__selection-cell .rcsel {
+  min-height: 44px;
+  height: 44px;
+  padding-left: var(--navigation-padding-x);
+  padding-right: var(--navigation-utilities-gap);
+  border-radius: 0;
+}
+
+/* ---- 8. Line Details panel (643:65739 / 65743 / 65740 / 66031) -------
+ * 460 wide, top aligned with the table card, 24/20 inner gutters, 20/28
+ * title, 24px close control, 16px vertical rhythm between fields. */
+body[data-version="2.1"] .create-md.is-panel-open:not([hidden]) {
+  --create-md-detail-width: 460px;
+  --create-md-panel-gap: var(--navigation-utilities-gap);
+}
+
+/* 643:65739 is one plain white 460 x 760 card, not v2.0's gray rail of
+ * stacked accordion cards: the title, the close control and the fields
+ * all sit directly on it at a 24px left / 20px right gutter.
+ *
+ * Figma 104:23556 gives this panel the same flat surface as the workspace
+ * (104:23518): the 1px hairline carries the edge and there is no elevation.
+ * box-shadow must be an explicit none rather than omitted, because the
+ * element also carries .surface, which would otherwise re-apply its card
+ * shadow. */
+body[data-version="2.1"] .create-md__detail {
+  gap: 0;
+  padding: 0;
+  background: var(--ads-surface);
+  border: var(--ads-input-border-width) solid var(--ads-border-recessed);
+  border-radius: var(--ads-radius-md);
+  box-shadow: none;
+}
+
+body[data-version="2.1"] .create-md__detail .create-md__accordion,
+body[data-version="2.1"] .create-md__detail .create-md__accordion + .create-md__accordion {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* Header fixed, form scrolls. Only the accordion panel scrolls, so a
+ * long LINE form never produces a second nested scrollbar. */
+body[data-version="2.1"] .create-md__detail .create-md__accordion.is-open {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+body[data-version="2.1"] .create-md__detail .create-md__accordion.is-open .create-md__accordion-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+body[data-version="2.1"] .create-md__panel-header {
+  padding: 22px 20px 19px var(--navigation-padding-x);
+  border-bottom: 0;
+}
+
+/* 643:65743 is heading/lg (MultiplaneTWDC Display Medium 24/28, letter
+ * spacing 0, color/text/primary), not the body/semibold/xl the shared panel
+ * header starts from. Declared through the same token names and fallbacks
+ * .create-md__title uses, including the local size/line-height pair: :root
+ * carries heading/lg at 28/38, so both headings have to restate the 24/28
+ * step. The 28px line height is unchanged, so the header box keeps its
+ * height and the close control does not move. */
+body[data-version="2.1"] .create-md__panel-title {
+  --font-heading-lg-font-size: 24px;
+  --font-heading-lg-line-height: 28px;
+  color: var(--ads-text-primary);
+  font-family: var(--font-heading-lg-font-family, "MultiplaneTWDC Display");
+  font-size: var(--font-heading-lg-font-size, 24px);
+  font-style: normal;
+  font-weight: var(--font-heading-lg-font-weight, 500);
+  line-height: var(--font-heading-lg-line-height, 28px);
+  letter-spacing: var(--font-heading-lg-letter-spacing, 0);
+}
+
+body[data-version="2.1"] .create-md__panel-close {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+}
+
+body[data-version="2.1"] [data-v2-accordion="line"] .create-md__accordion-panel,
+body[data-version="2.1"] [data-v2-accordion="premium"] .create-md__accordion-panel {
+  /* 20px right inset = 14px beside the fields + the 6px scrollbar gutter
+   * reserved below, so the fields keep one width whether the form scrolls
+   * or not. */
+  --create-md-panel-pad-start: var(--navigation-padding-x);
+  --create-md-panel-pad-end: 14px;
+  /* The side inset moved to the form below. It used to live here, and the
+   * footer reached the panel edges by cancelling it with negative margins
+   * that had to stay in step with the padding of a scroll container two
+   * levels up. Holding both the inset and the footer's bleed on the same
+   * element keeps them in step by construction, and leaves the widest
+   * thing in the panel measured against its own parent.
+   *
+   * No bottom padding either: the sticky footer below is the panel's
+   * bottom edge and brings its own. Leaving any here would cap how far
+   * down the footer can stick and float it above the edge. */
+  padding: 0;
+  /* There is nothing to reach sideways for: the fields are inset from both
+   * edges and the footer stops exactly on them. A scrollbar here would only
+   * ever be a rounded pixel or a scrollbar wider than the 6px reserved
+   * below, so refuse the scroll rather than expose it. `clip` and not
+   * `hidden` because `hidden` would turn this into a scroll container and
+   * take the vertical scrolling with it. */
+  overflow-x: clip;
+}
+
+/* Holds the fields off both panel edges. On the form rather than on each
+ * row so that a row sized `width: 100%` (the Ad Type dropdown) resolves
+ * against the inset width instead of overhanging by the inset. */
+body[data-version="2.1"] [data-v2-accordion="line"] .create-md__form,
+body[data-version="2.1"] [data-v2-accordion="premium"] .create-md__form {
+  padding-inline: var(--create-md-panel-pad-start) var(--create-md-panel-pad-end);
+}
+
+/* The footer is the exception that spans the panel, so its divider and
+ * background reach both edges. It pads itself by the same amounts, which
+ * keeps the buttons on the left and right edges of the fields above. */
+body[data-version="2.1"] [data-v2-accordion="line"] .create-md__form-actions,
+body[data-version="2.1"] [data-v2-accordion="premium"] .create-md__form-actions {
+  margin-inline: calc(-1 * var(--create-md-panel-pad-start))
+                 calc(-1 * var(--create-md-panel-pad-end));
+  padding-inline: var(--create-md-panel-pad-start) var(--create-md-panel-pad-end);
+  /* Takes whatever height the form grew past its fields, which is what
+   * puts the footer on the bottom edge of a form too short to scroll. */
+  margin-top: auto;
+  /* The shared rule lifts the footer to sit inside a bottom padding the
+   * panel no longer has, which would only take it up off the edge. */
+  margin-bottom: 0;
+  /* Remove sits opposite the Cancel / Save pair. Below about 1500px the
+   * three of them are wider than the panel and Remove is pushed off its
+   * left edge, so let the row take a second line instead of losing a
+   * destructive action off screen. */
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
+body[data-version="2.1"] [data-v2-accordion="line"] .create-md__form-actions
+  [data-v2-action^="request-remove"],
+body[data-version="2.1"] [data-v2-accordion="premium"] .create-md__form-actions
+  [data-v2-action^="request-remove"] {
+  margin-inline-end: auto;
+}
+
+/* Two different things have to hold the footer against the bottom of the
+ * panel, because a form that overflows and a form that fits need opposite
+ * treatment. Sticky covers the long form: it holds the footer at the
+ * bottom edge while the fields scroll under it. Sticky does nothing for a
+ * short form, though, since it only ever holds an element back and never
+ * pushes one down, and the footer would sit wherever the last field left
+ * it, halfway up the panel. So the form grows to the full height of the
+ * scroll area and hands the leftover space to the footer's auto top
+ * margin, which lands it on the bottom edge in that case too.
+ *
+ * The growth is flex-grow rather than a percentage height because the
+ * panel is itself flex-sized and a percentage would have nothing definite
+ * to resolve against; flex-shrink stays 0 so a long form still overflows
+ * and scrolls. The form switches from grid to a flex column for the same
+ * reason: auto margins absorb free space in flex, while a grid would only
+ * align the footer inside its own track. Single-column either way, so the
+ * fields lay out identically. */
+body[data-version="2.1"] [data-v2-accordion="line"] .create-md__accordion-panel,
+body[data-version="2.1"] [data-v2-accordion="premium"] .create-md__accordion-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+body[data-version="2.1"] [data-v2-accordion="line"] .create-md__form,
+body[data-version="2.1"] [data-v2-accordion="premium"] .create-md__form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+body[data-version="2.1"] .create-md__detail .create-md__accordion-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+body[data-version="2.1"] .create-md__detail .create-md__accordion-panel::-webkit-scrollbar-thumb {
+  border-radius: var(--ads-radius-pill);
+  background: var(--ads-border-bold);
+}
+
+body[data-version="2.1"] .create-md__detail .create-md__accordion-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Every control in 643:66031 is one 36px text box: 8px/12px padding, 14/20
+ * value text, 6px radius. The shared dropdown defaults to the 32px small
+ * size, which left the selects visibly shorter than the text inputs beside
+ * them and broke the panel's 62px field rhythm. */
+body[data-version="2.1"] .create-md__detail .ads-dd--small .ads-dd__trigger {
+  /* 7px + 20px line + 7px + the 1px border either side = the same 36px
+   * box the text inputs already use. */
+  padding: 7px 12px;
+  font-size: var(--font-body-normal-md-font-size, 14px);
+  line-height: var(--font-body-normal-md-line-height, 20px);
+}
+
+body[data-version="2.1"] .create-md__detail .create-md__field-grid {
+  gap: var(--navigation-utilities-gap);
+}
+
+/* Below the Figma desktop width the 460px panel would starve the table,
+ * so it steps down before the layout stacks at 1024. */
+@media (max-width: 1279px) {
+  body[data-version="2.1"] .create-md.is-panel-open:not([hidden]) {
+    --create-md-detail-width: 400px;
+  }
+}
+
+@media (max-width: 1023px) {
+  body[data-version="2.1"] .create-md__toolbar-row {
+    flex-wrap: wrap;
+  }
+
+  body[data-version="2.1"] .create-md__toolbar-controls {
+    flex-wrap: wrap;
+  }
+}
+
+/* =====================================================================
+ * v2.1 Rate Card Details, composition pass
+ *
+ * 644:67875 hangs every piece of the page off two numbers: the card sits
+ * 16px under the global nav (y=72) and everything inside it starts on a
+ * 24px gutter (x=104). Back link, title, metadata, toolbar, table header,
+ * rows and pagination all shared that one vertical line in Figma but had
+ * drifted to three different insets here (21px header, 20px toolbar and
+ * table, 0px pagination). These rules put them back on one grid rather
+ * than nudging each band separately.
+ * ================================================================== */
+body[data-version="2.1"] {
+  --v21-card-gutter: var(--navigation-padding-x);
+}
+
+/* Only the detail route: the list page's own card offset is already
+ * Figma-matched against its own frame and shares .page__content. */
+body[data-version="2.1"] [data-page="create"] .page__content {
+  padding-top: var(--navigation-utilities-gap);
+  padding-bottom: var(--navigation-padding-x);
+}
+
+body[data-version="2.1"] [data-page="create"] .create-md:not([hidden]) {
+  padding-top: 0;
+}
+
+/* 644:67891 and 644:68222 both start at y=96, i.e. one 24px gutter below
+ * the card's top edge, and the Back link is top aligned with the Save
+ * split button rather than centred against it. */
+body[data-version="2.1"] .create-md__workspace-header {
+  padding: var(--v21-card-gutter) var(--v21-card-gutter) 0;
+}
+
+body[data-version="2.1"] .create-md__back {
+  align-self: start;
+}
+
+/* The 36px split button is 2px taller than the gap Figma leaves between
+ * the Back link and the title (644:67882 starts at y=130, the button ends
+ * at y=132), so the heading starts inside the header row's box. Both sit
+ * in their own column, so nothing can collide. */
+body[data-version="2.1"] .create-md__heading {
+  margin-top: -2px;
+}
+
+body[data-version="2.1"] .create-md__tab-panel {
+  --create-md-content-inset-start: var(--v21-card-gutter);
+  --create-md-content-inset-end: var(--v21-card-gutter);
+}
+
+/* 644:68184 insets the pagination 16px from the table's own edges. */
+body[data-version="2.1"] .create-md__table-footer {
+  padding-inline: var(--navigation-utilities-gap);
+}
+
+/* 644:67891: the 16px arrow and its label sit 4px apart. */
+body[data-version="2.1"] .create-md__back {
+  gap: var(--navigation-nav-tabs-gap);
+}
+
+body[data-version="2.1"] .create-md__back-icon img {
+  width: 14px;
+  height: 12px;
+}
+
+/* 643:65739 is exactly as tall as the table card next to it. Letting the
+ * panel size itself to its form made it overhang the card whenever the
+ * form was the taller of the two; sizing it from the grid row instead
+ * keeps both cards on the same top and bottom edge at any row count, and
+ * the form scrolls inside it. */
+body[data-version="2.1"] .create-md.is-panel-open:not([hidden]) {
+  align-items: stretch;
+}
+
+body[data-version="2.1"] .create-md.is-panel-open .create-md__detail {
+  height: 0;
+  min-height: 100%;
+}
+
+/* The placeholder that stands in for the table while it loads should be
+ * the same shape as the rows it replaces (644:67917 rows are 56px tall
+ * and span the table), so it stacks full-width bands from the top of the
+ * table area rather than centring three narrow pills. */
+body[data-version="2.1"] .create-md__loading {
+    grid-template-columns: minmax(0, 1fr);
+  place-content: start stretch;
+  justify-items: stretch;
+  gap: 0;
+  padding: 0;
+}
+
+/* The no-results and load-error panels sat on the browser's default h3
+ * sizing (1.17em of a 14px parent, so 16.38px). Give them the same
+ * heading and body treatment the empty state already uses so all three
+ * table states read as one family. */
+body[data-version="2.1"] .create-md__status-state h3 {
+  color: var(--ads-text-primary);
+  font-size: var(--navigation-utilities-gap);
+  font-weight: 700;
+  line-height: normal;
+}
+
+body[data-version="2.1"] .create-md__status-state p {
+  max-width: 440px;
+  color: var(--ads-text-secondary);
+  font-size: 14px;
+  line-height: normal;
+}
+
+body[data-version="2.1"] .create-md__loading .create-md__skeleton-row {
+  width: auto;
+  height: 56px;
+  border-radius: 0;
+  box-shadow: inset 0 -1px 0 var(--ads-border-recessed);
+}
+
+/* ---- One content region for every collection state -------------------
+ * A rate card with no rows is the same Rate Card Details page as one with
+ * rows, so it gets the same card: 643:64605 (empty) and 644:67875
+ * (populated) are both a 760px card, and the content frame under the
+ * toolbar (644:67894) is 565px tall in both. Reserving that height here,
+ * rather than letting each state size itself, is what keeps the header,
+ * the toolbar and the card edges still while the table, the empty state,
+ * the loading placeholder and the no-results state swap in and out of the
+ * same box. Adding the first line item or deleting the last one changes
+ * the content, never the page. A full page of rows is taller than the
+ * reserved height and grows the card the way it always has. */
+body[data-version="2.1"] {
+  --v21-content-region-height: 565px;
+}
+
+body[data-version="2.1"] .create-md__tab-panel:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--v21-content-region-height);
+}
+
+body[data-version="2.1"] .create-md__empty,
+body[data-version="2.1"] .create-md__status-state:not(.create-md__loading) {
+  flex: 1;
+  /* Centred in the region it shares with the table. The bottom padding
+   * the 2.0 rule adds would push the group off that centre. */
+  padding-bottom: 0;
+}
+
+body[data-version="2.1"] .create-md__table-region:not([hidden]) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* Rows stay at the top of the region and the pagination stays on the
+ * card's bottom edge (644:68184), so neither moves as the row count
+ * changes. */
+body[data-version="2.1"] .create-md__table-scroll {
+  flex: 1;
+}
+
+body[data-version="2.1"] .create-md__table-footer {
+  margin-top: auto;
+}
+
+/* Once the rows fit on one page the footer is gone, and the reserved height
+ * has nothing left to hold in place: it would only push the card's bottom
+ * edge far below the last row. renderPagination() sets data-v2-rows-fit on
+ * the panel for exactly that case, so the table sizes to its rows. The
+ * empty, loading and no-results states never carry the attribute, so they
+ * keep the 565px box they are centred in and the card stays still while
+ * they swap with a short table.
+ *
+ * Not while the Details panel is open, though. The panel is the other half
+ * of the same grid row, so a table shrunk to two rows would shrink the form
+ * beside it to a couple of fields and hide the rest behind a scrollbar. The
+ * reserved height is what the panel stands in, so it stays for as long as
+ * the panel is up. */
+body[data-version="2.1"] .create-md:not(.is-panel-open)
+  .create-md__tab-panel[data-v2-rows-fit]:not([hidden]) {
+  min-height: 0;
+}
+
+/* Replaces the breathing room the footer's own block padding used to give
+ * the last row, so the table still clears the card's bottom edge. */
+body[data-version="2.1"] [data-v2-rows-fit] .create-md__table-region:not([hidden]) {
+  padding-bottom: var(--navigation-brand-gap);
+}
+
+/* Collapsing the table onto its rows only makes sense alongside the
+ * collapsed panel above: with the Details panel open the reserved height is
+ * back, and the table should fill it rather than leave a gap under itself. */
+body[data-version="2.1"] .create-md:not(.is-panel-open)
+  [data-v2-rows-fit] .create-md__table-region:not([hidden]) {
+  flex: 0 0 auto;
+}

@@ -1,0 +1,1057 @@
+[data-redline-ui][hidden] {
+  display: none !important;
+}
+
+.profile-menu__item-state {
+  display: none;
+  color: var(--ads-brand);
+  font-weight: 600;
+}
+
+.profile-menu__item--redline[aria-checked="true"] {
+  color: var(--ads-brand);
+}
+
+.profile-menu__item--redline[aria-checked="true"] .profile-menu__item-state {
+  display: inline;
+}
+
+/* Redline Mode is developer inspection tooling, not product UI. It uses a
+   dark tool chrome of its own so the inspected application always reads as
+   the subject rather than part of the tool. The accent reuses the ADS brand
+   indigo; the measurement red is the established Redline marking color. */
+.redline {
+  --redline-measurement: #FF3B3B;
+  --redline-clean: var(--redline-measurement);
+  --redline-grid: var(--ads-brand);
+  --redline-type: var(--ads-toast-warning-accent, var(--ads-brand-hover));
+  --redline-label-font-size: 14px;
+  --redline-label-line-height: 20px;
+  --redline-label-pad-y: var(--navigation-nav-tabs-gap, 4px);
+  --redline-label-pad-x: var(--navigation-brand-gap, 8px);
+  --redline-header-height: 44px;
+  --redline-gallery-control-size: 28px;
+  --redline-sidebar-left: 232px;
+  --redline-sidebar-right: 288px;
+  --redline-shell-bg: #141416;
+  --redline-canvas-bg: #DCDCDF;
+  --redline-shell-divider: rgba(255, 255, 255, 0.10);
+  --redline-shell-text: #FFFFFF;
+  --redline-shell-muted: #9A9DA6;
+  --redline-shell-accent: var(--ads-brand);
+  --redline-shell-accent-hover: var(--ads-brand-hover);
+  --redline-shell-hover: rgba(255, 255, 255, 0.06);
+  position: fixed;
+  inset: 0;
+  z-index: 8990;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  font-family: "Open Sans", sans-serif;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------
+   Header
+   ------------------------------------------------------------------ */
+
+.redline__header {
+  display: flex;
+  height: var(--redline-header-height);
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--navigation-utilities-gap, 16px);
+  border-bottom: 1px solid var(--redline-shell-divider);
+  background: var(--redline-shell-bg);
+  box-shadow: var(--ads-shadow-card);
+  color: var(--redline-shell-text);
+  pointer-events: auto;
+}
+
+.redline__header-side {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--navigation-brand-gap, 8px);
+}
+
+.redline__header-side--end {
+  gap: var(--vnav-icon-label-gap, 12px);
+}
+
+/* Matches the gallery toolbar below it, so the two stacked shell bars read
+   at one size. */
+.redline__title {
+  color: var(--redline-shell-text);
+  font-family: "Open Sans", sans-serif;
+  font-size: var(--redline-label-font-size);
+  font-weight: 700;
+  line-height: var(--redline-label-line-height);
+  white-space: nowrap;
+}
+
+.redline__badge {
+  padding: 2px var(--navigation-brand-gap, 8px);
+  border-radius: var(--ads-radius-sm);
+  background: var(--redline-shell-accent);
+  color: var(--ads-text-on-primary);
+  font: 600 11px/16px "Open Sans", sans-serif;
+  white-space: nowrap;
+}
+
+.redline__viewport-info {
+  color: var(--redline-shell-muted);
+  font-family: ui-monospace, "SFMono-Regular", "Roboto Mono", Consolas, monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------
+   Workspace: left controls | preview canvas | right inspector
+   ------------------------------------------------------------------ */
+
+.redline__workspace {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  pointer-events: none;
+}
+
+.redline__sidebar {
+  overflow-y: auto;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  padding: var(--navigation-utilities-gap, 16px) 0;
+  background: var(--redline-shell-bg);
+  color: var(--redline-shell-text);
+  overscroll-behavior: contain;
+  pointer-events: auto;
+}
+
+.redline__sidebar--left {
+  width: var(--redline-sidebar-left);
+  border-right: 1px solid var(--redline-shell-divider);
+}
+
+.redline__sidebar--right {
+  width: var(--redline-sidebar-right);
+  border-left: 1px solid var(--redline-shell-divider);
+}
+
+.redline__section {
+  padding: 0 var(--navigation-utilities-gap, 16px);
+}
+
+.redline__section-label {
+  margin: 0 0 var(--navigation-brand-gap, 8px);
+  color: var(--redline-shell-muted);
+  font: 600 10px/14px "Open Sans", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.redline__divider {
+  height: 1px;
+  margin: var(--navigation-utilities-gap, 16px) 0;
+  background: var(--redline-shell-divider);
+}
+
+/* Breakpoint list ------------------------------------------------- */
+
+.redline__breakpoint-list {
+  display: grid;
+  gap: 2px;
+}
+
+.redline__breakpoint {
+  display: flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navigation-brand-gap, 8px);
+  padding: 0 var(--navigation-brand-gap, 8px);
+  border: 1px solid transparent;
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  color: var(--redline-shell-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.redline__breakpoint:hover {
+  background: var(--redline-shell-hover);
+}
+
+.redline__breakpoint[aria-pressed="true"] {
+  border-color: var(--redline-shell-accent-hover);
+  background: var(--redline-shell-accent);
+}
+
+.redline__breakpoint-name {
+  color: inherit;
+  font: 600 12px/18px "Open Sans", sans-serif;
+}
+
+.redline__breakpoint-size {
+  color: var(--redline-shell-muted);
+  font-family: ui-monospace, "SFMono-Regular", "Roboto Mono", Consolas, monospace;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.redline__breakpoint[aria-pressed="true"] .redline__breakpoint-size {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Measurement mode segmented control ------------------------------ */
+
+.redline__segmented {
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--redline-shell-divider);
+  border-radius: var(--ads-radius-sm);
+}
+
+.redline__segment {
+  min-height: 26px;
+  padding: 0 var(--navigation-nav-tabs-gap, 4px);
+  border: 0;
+  background: transparent;
+  color: var(--redline-shell-text);
+  font: 600 11px/16px "Open Sans", sans-serif;
+  cursor: pointer;
+}
+
+.redline__segment + .redline__segment {
+  border-left: 1px solid var(--redline-shell-divider);
+}
+
+.redline__segment:hover {
+  background: var(--redline-shell-hover);
+}
+
+.redline__segment[aria-pressed="true"] {
+  background: var(--redline-shell-accent);
+  color: var(--ads-text-on-primary);
+}
+
+.redline__hint {
+  margin: var(--navigation-brand-gap, 8px) 0 0;
+  color: var(--redline-shell-muted);
+  font: 400 11px/16px "Open Sans", sans-serif;
+}
+
+/* Inspection modes ------------------------------------------------ */
+
+.redline__stack {
+  display: grid;
+  gap: var(--navigation-nav-tabs-gap, 4px);
+}
+
+.redline__stack-button {
+  min-height: 26px;
+  padding: 0 var(--navigation-brand-gap, 8px);
+  border: 1px solid var(--redline-shell-divider);
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  color: var(--redline-shell-text);
+  font: 600 11px/16px "Open Sans", sans-serif;
+  cursor: pointer;
+  text-align: left;
+}
+
+.redline__stack-button:hover {
+  background: var(--redline-shell-hover);
+}
+
+.redline__stack-button[aria-pressed="true"] {
+  border-color: var(--redline-shell-accent-hover);
+  background: var(--redline-shell-accent);
+  color: var(--ads-text-on-primary);
+}
+
+/* Annotations ----------------------------------------------------- */
+
+.redline__checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--navigation-brand-gap, 8px);
+  padding: 3px 0;
+  cursor: pointer;
+}
+
+.redline__checkbox-input {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  accent-color: var(--redline-shell-accent);
+  cursor: pointer;
+  margin: 0;
+}
+
+.redline__checkbox-label {
+  color: var(--redline-shell-text);
+  font: 400 12px/18px "Open Sans", sans-serif;
+}
+
+/* Selection summary ----------------------------------------------- */
+
+.redline__selection {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--redline-shell-text);
+  font-family: ui-monospace, "SFMono-Regular", "Roboto Mono", Consolas, monospace;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.redline__selection[data-empty="true"] {
+  color: var(--redline-shell-muted);
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* ------------------------------------------------------------------
+   Right inspector
+   ------------------------------------------------------------------ */
+
+.redline__inspector {
+  padding: 0 var(--navigation-utilities-gap, 16px);
+}
+
+.redline__inspect-empty {
+  display: grid;
+  gap: var(--navigation-brand-gap, 8px);
+  color: var(--redline-shell-muted);
+  font: 400 12px/18px "Open Sans", sans-serif;
+}
+
+.redline__inspect-empty p {
+  margin: 0;
+}
+
+.redline__inspect-heading {
+  overflow-wrap: anywhere;
+  margin-bottom: var(--vnav-icon-label-gap, 12px);
+  color: var(--redline-shell-text);
+  font-family: ui-monospace, "SFMono-Regular", "Roboto Mono", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.redline__inspect-group {
+  padding-top: var(--vnav-icon-label-gap, 12px);
+  border-top: 1px solid var(--redline-shell-divider);
+  margin-top: var(--vnav-icon-label-gap, 12px);
+}
+
+.redline__inspect-group:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+  margin-top: 0;
+}
+
+.redline__inspect-title {
+  margin-bottom: var(--navigation-nav-tabs-gap, 4px);
+  color: var(--redline-shell-muted);
+  font: 600 10px/14px "Open Sans", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.redline__inspect-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--navigation-brand-gap, 8px);
+}
+
+.redline__inspect-label {
+  flex: 0 0 auto;
+  color: var(--redline-shell-muted);
+  font: 400 11px/18px "Open Sans", sans-serif;
+}
+
+.redline__inspect-value {
+  overflow-wrap: anywhere;
+  color: var(--redline-shell-text);
+  font-family: ui-monospace, "SFMono-Regular", "Roboto Mono", Consolas, monospace;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------
+   Canvas
+   ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------
+   Overlay gallery entry rows
+
+   Entry points only. The rows share the breakpoint row metrics so the
+   sidebar reads as one list of controls, with a trailing chevron that
+   signals the row navigates away from the current page.
+   ------------------------------------------------------------------ */
+
+.redline__overlay-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navigation-nav-tabs-gap, 4px);
+}
+
+.redline__overlay-entry {
+  display: flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navigation-brand-gap, 8px);
+  padding: 0 var(--navigation-brand-gap, 8px);
+  border: 1px solid transparent;
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  color: var(--redline-shell-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.redline__overlay-entry:hover {
+  background: var(--redline-shell-hover);
+}
+
+.redline__overlay-entry:active {
+  background: var(--redline-shell-accent-hover);
+}
+
+.redline__overlay-entry[aria-pressed="true"] {
+  border-color: var(--redline-shell-accent-hover);
+  background: var(--redline-shell-accent);
+}
+
+.redline__overlay-entry-name {
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.redline__overlay-entry-chevron {
+  color: var(--redline-shell-muted);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.redline__overlay-entry[aria-pressed="true"] .redline__overlay-entry-chevron {
+  color: var(--redline-shell-text);
+}
+
+/* Component states -------------------------------------------------
+   Shown under the entry that opened them, so a selection count can be
+   picked directly rather than stepped through in the toolbar. Same
+   chrome as the inspection buttons above, indented to read as a child
+   of the entry rather than a sibling of it. */
+
+.redline__state-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navigation-nav-tabs-gap, 4px);
+  margin-top: var(--navigation-nav-tabs-gap, 4px);
+  padding-left: var(--navigation-brand-gap, 8px);
+}
+
+.redline__state-list[hidden] {
+  display: none;
+}
+
+.redline__state-button {
+  min-height: 26px;
+  padding: 0 var(--navigation-brand-gap, 8px);
+  border: 1px solid var(--redline-shell-divider);
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  color: var(--redline-shell-text);
+  font: 600 11px/16px "Open Sans", sans-serif;
+  cursor: pointer;
+  text-align: left;
+}
+
+.redline__state-button:hover {
+  background: var(--redline-shell-hover);
+}
+
+.redline__state-button[aria-pressed="true"] {
+  border-color: var(--redline-shell-accent-hover);
+  background: var(--redline-shell-accent);
+  color: var(--ads-text-on-primary);
+}
+
+/* ------------------------------------------------------------------
+   Centre column and gallery toolbar
+
+   The toolbar stacks above the canvas rather than inside it, so gallery
+   chrome is never part of the inspected surface and never overlaps the
+   preview.
+   ------------------------------------------------------------------ */
+
+.redline__center {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.redline__gallery {
+  display: flex;
+  height: 44px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navigation-utilities-gap, 16px);
+  padding: 0 var(--navigation-utilities-gap, 16px);
+  border-bottom: 1px solid var(--redline-shell-divider);
+  background: var(--redline-shell-bg);
+  color: var(--redline-shell-text);
+  pointer-events: auto;
+}
+
+.redline__gallery-nav {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--navigation-brand-gap, 8px);
+}
+
+/* Every label in this toolbar reads at the shell's body/small size (14/20),
+   the same token the measurement labels and sidebar controls use. */
+.redline__gallery-label {
+  overflow: hidden;
+  margin: 0;
+  color: var(--redline-shell-text);
+  font-size: var(--redline-label-font-size);
+  line-height: var(--redline-label-line-height);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.redline__gallery-back,
+.redline__gallery-reset {
+  display: inline-flex;
+  height: var(--redline-gallery-control-size);
+  align-items: center;
+  padding: 0 var(--vnav-icon-label-gap, 12px);
+  border: 1px solid var(--redline-shell-divider);
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  color: var(--redline-shell-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--redline-label-font-size);
+  line-height: var(--redline-label-line-height);
+}
+
+.redline__gallery-step {
+  display: flex;
+  width: var(--redline-gallery-control-size);
+  height: var(--redline-gallery-control-size);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--redline-shell-divider);
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  color: var(--redline-shell-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.redline__gallery-back:hover,
+.redline__gallery-reset:hover,
+.redline__gallery-step:hover:not(:disabled) {
+  background: var(--redline-shell-hover);
+}
+
+.redline__gallery-step:disabled,
+.redline__gallery-reset:disabled {
+  color: var(--redline-shell-muted);
+  cursor: default;
+  opacity: 0.5;
+}
+
+.redline__canvas {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  flex: 1 1 auto;
+  pointer-events: none;
+}
+
+.redline[data-breakpoint-active="true"] .redline__canvas {
+  background: var(--redline-canvas-bg);
+  pointer-events: auto;
+}
+
+/* Every preview mode other than the page itself renders into the isolated
+   preview, so the canvas behaves like a preset breakpoint even while Current
+   is selected. Written against "not the page" rather than a list of modes so
+   a new specimen mode inherits the backdrop instead of letting the real page
+   show through around the frame. */
+.redline[data-preview-mode]:not([data-preview-mode="current-page"]) .redline__canvas {
+  background: var(--redline-canvas-bg);
+  pointer-events: auto;
+}
+
+.redline[data-preview-mode]:not([data-preview-mode="current-page"]) .redline__stage {
+  pointer-events: auto;
+}
+
+html.redline-breakpoint-preview,
+html.redline-breakpoint-preview body {
+  overflow: hidden !important;
+}
+
+/* The stage fills the canvas column, so the available preview area is the
+   space between the sidebars and below the header with no runtime chrome
+   measurement required. */
+.redline__stage {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: transparent;
+  pointer-events: none;
+}
+
+.redline[data-breakpoint-active="true"] .redline__stage {
+  pointer-events: auto;
+}
+
+.redline__preview-shell {
+  position: absolute;
+  box-sizing: border-box;
+  transform-origin: top left;
+  transition: top 300ms ease, left 300ms ease, transform 300ms ease;
+  pointer-events: auto;
+}
+
+/* The preview frame is visually separated from the workspace by the
+   Redline marking color plus elevation. */
+.redline__preview {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--ads-surface);
+  box-shadow:
+    0 0 0 2px var(--redline-measurement),
+    var(--ads-shadow-sheet);
+  pointer-events: auto;
+}
+
+/* Loading and failure states for the preview. Without these the canvas
+   reads as an unexplained empty rectangle whenever the preview is still
+   booting or could not be reached. */
+.redline__preview-status {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: var(--navigation-utilities-gap, 16px);
+  background: var(--redline-canvas-bg);
+  pointer-events: auto;
+}
+
+.redline__preview-status[hidden] {
+  display: none;
+}
+
+.redline__preview-status-card {
+  box-sizing: border-box;
+  max-width: 420px;
+  padding: var(--ads-space-lg, 24px);
+  border: 1px solid var(--ads-border-subtle);
+  border-radius: var(--ads-radius-md);
+  background: var(--ads-surface);
+  box-shadow: var(--ads-shadow-card);
+  text-align: center;
+}
+
+.redline__preview-status-title {
+  margin: 0;
+  color: var(--ads-text-primary);
+  font: 600 14px/20px "Open Sans", sans-serif;
+}
+
+.redline__preview-status-body {
+  margin: var(--navigation-nav-tabs-gap, 4px) 0 0;
+  color: var(--ads-text-secondary);
+  font: 400 12px/18px "Open Sans", sans-serif;
+}
+
+.redline__preview-status-diagnostics {
+  margin: var(--navigation-brand-gap, 8px) 0 0;
+  overflow-wrap: anywhere;
+  color: var(--ads-text-secondary);
+  font-family: ui-monospace, "SFMono-Regular", "Roboto Mono", Consolas, monospace;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: left;
+}
+
+.redline__preview-status-diagnostics[hidden] {
+  display: none;
+}
+
+.redline__preview-status-action {
+  margin-top: var(--vnav-icon-label-gap, 12px);
+  padding: var(--navigation-nav-tabs-gap, 4px) var(--navigation-utilities-gap, 16px);
+  border: 1px solid var(--redline-shell-accent-hover);
+  border-radius: var(--ads-radius-sm);
+  background: var(--redline-shell-accent);
+  color: var(--ads-text-on-primary);
+  font: 600 12px/18px "Open Sans", sans-serif;
+  cursor: pointer;
+}
+
+.redline__preview-status-action[hidden] {
+  display: none;
+}
+
+.redline__preview-status-action:hover {
+  background: var(--redline-shell-accent-hover);
+}
+
+.redline__preview-status-action:focus,
+.redline__preview-status-action:focus-visible {
+  outline: 2px solid var(--redline-shell-accent-hover);
+  outline-offset: 2px;
+}
+
+.redline__dim {
+  position: fixed;
+  background: color-mix(in srgb, var(--ads-text-primary) 18%, transparent);
+  backdrop-filter: saturate(65%) brightness(82%);
+  pointer-events: none;
+}
+
+.redline__grid {
+  position: fixed;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--redline-grid) 18%, transparent) var(--ads-input-border-width), transparent var(--ads-input-border-width)),
+    linear-gradient(to bottom, color-mix(in srgb, var(--redline-grid) 18%, transparent) var(--ads-input-border-width), transparent var(--ads-input-border-width));
+  background-size: 8px 8px;
+  pointer-events: none;
+}
+
+.redline__svg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.redline__boundary,
+.redline__dimension,
+.redline__extension,
+.redline__alignment,
+.redline__leader {
+  vector-effect: non-scaling-stroke;
+  fill: none;
+  stroke: var(--redline-clean);
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
+.redline__boundary {
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--redline-clean) 42%, transparent));
+}
+
+.redline__alignment {
+  stroke-dasharray: 4 4;
+  opacity: 0.72;
+}
+
+.redline__recommendation {
+  stroke: var(--redline-grid);
+  stroke-dasharray: 2 3;
+  filter: none;
+}
+
+.redline__dimension--selected,
+.redline__leader {
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--redline-clean) 48%, transparent));
+}
+
+.redline__labels {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.redline__label {
+  position: fixed;
+  z-index: 2;
+  max-width: 240px;
+  padding: var(--redline-label-pad-y) var(--redline-label-pad-x);
+  border: 1px solid var(--redline-clean);
+  border-radius: var(--ads-radius-sm);
+  background: var(--ads-text-primary);
+  color: var(--ads-text-on-primary);
+  box-shadow: var(--ads-shadow-popover);
+  font-family: ui-monospace, "SFMono-Regular", "Roboto Mono", Consolas, monospace;
+  font-size: var(--redline-label-font-size);
+  font-weight: 600;
+  line-height: var(--redline-label-line-height);
+  white-space: nowrap;
+}
+
+.redline__label--grid {
+  border-color: var(--redline-grid);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--redline-grid) 20%, transparent);
+}
+
+.redline__label--type {
+  max-width: 360px;
+  border-color: var(--redline-type);
+  font-family: "Open Sans", sans-serif;
+  white-space: normal;
+}
+
+/* Every interactive control in the shell shares one focus treatment.
+   Both :focus and :focus-visible are styled, matching the previous Redline
+   controls so pointer-driven focus stays visible in this inspection tool. */
+.redline__breakpoint:focus,
+.redline__breakpoint:focus-visible,
+.redline__segment:focus,
+.redline__segment:focus-visible,
+.redline__stack-button:focus,
+.redline__stack-button:focus-visible,
+.redline__state-button:focus,
+.redline__state-button:focus-visible,
+.redline__close:focus,
+.redline__close:focus-visible,
+.redline__checkbox-input:focus,
+.redline__checkbox-input:focus-visible,
+.redline__color-copy-btn:focus,
+.redline__color-copy-btn:focus-visible,
+.redline__overlay-entry:focus,
+.redline__overlay-entry:focus-visible,
+.redline__gallery-back:focus,
+.redline__gallery-back:focus-visible,
+.redline__gallery-step:focus,
+.redline__gallery-step:focus-visible,
+.redline__gallery-reset:focus,
+.redline__gallery-reset:focus-visible {
+  outline: var(--ads-input-border-active) solid var(--redline-shell-accent-hover);
+  outline-offset: var(--ads-input-border-width);
+}
+
+.redline__close {
+  display: inline-grid;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  color: var(--redline-shell-muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  place-items: center;
+}
+
+.redline__close:hover {
+  background: var(--redline-shell-hover);
+  color: var(--redline-shell-text);
+}
+
+.redline__color-role {
+  padding-top: var(--vnav-icon-label-gap, 12px);
+  border-top: 1px solid var(--redline-shell-divider);
+  margin-top: var(--vnav-icon-label-gap, 12px);
+}
+
+.redline__color-role:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+  margin-top: 0;
+}
+
+.redline__color-role--contrast {
+  border-top-style: dashed;
+}
+
+.redline__color-role-head {
+  display: flex;
+  align-items: center;
+  gap: var(--navigation-nav-tabs-gap, 4px);
+  margin-bottom: var(--navigation-nav-tabs-gap, 4px);
+}
+
+.redline__color-swatch {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  border: 1px solid var(--redline-shell-divider);
+  border-radius: var(--ads-radius-sm);
+  background-clip: padding-box;
+}
+
+.redline__color-role-name {
+  color: var(--redline-shell-text);
+  font: 600 12px/18px "Open Sans", sans-serif;
+}
+
+.redline__color-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--navigation-brand-gap, 8px);
+  color: var(--redline-shell-muted);
+  font: 400 11px/18px "Open Sans", sans-serif;
+}
+
+.redline__color-row code {
+  overflow-wrap: anywhere;
+  max-width: 170px;
+  color: var(--redline-shell-text);
+  font-family: ui-monospace, "SFMono-Regular", "Roboto Mono", Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.redline__color-contrast--pass code {
+  color: var(--ads-toast-success-text, var(--ads-text-primary));
+}
+
+.redline__color-contrast--fail code {
+  color: var(--ads-toast-error-text, var(--ads-text-primary));
+}
+
+.redline__color-copy-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--navigation-nav-tabs-gap, 4px);
+  margin-top: var(--navigation-nav-tabs-gap, 4px);
+}
+
+.redline__color-copy-btn {
+  padding: 2px 6px;
+  border: 1px solid var(--redline-shell-divider);
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  color: var(--redline-shell-muted);
+  font: 600 10px/14px "Open Sans", sans-serif;
+  cursor: pointer;
+}
+
+.redline__color-copy-btn:hover:not(:disabled) {
+  background: var(--redline-shell-hover);
+  color: var(--redline-shell-text);
+}
+
+.redline__color-copy-btn[data-copied="true"] {
+  border-color: var(--redline-shell-accent-hover);
+  color: var(--redline-shell-text);
+}
+
+.redline__color-copy-btn:disabled {
+  color: var(--redline-shell-muted);
+  cursor: not-allowed;
+  opacity: var(--ads-control-disabled-opacity, 0.5);
+}
+
+.redline__status {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------
+   Narrow host windows
+   The product breakpoint and the Redline workspace size are independent,
+   so collapsing a panel never changes the logical preview viewport.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 1180px) {
+  .redline {
+    --redline-sidebar-left: 200px;
+    --redline-sidebar-right: 240px;
+  }
+}
+
+/* Drawer toggles only exist in the collapsed layout below. */
+.redline__panel-toggle {
+  display: none;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  border: 1px solid var(--redline-shell-divider);
+  border-radius: var(--ads-radius-sm);
+  background: transparent;
+  color: var(--redline-shell-muted);
+  font: 600 11px/14px "Open Sans", sans-serif;
+  cursor: pointer;
+  place-items: center;
+}
+
+.redline__panel-toggle:hover,
+.redline__panel-toggle[aria-expanded="true"] {
+  background: var(--redline-shell-hover);
+  color: var(--redline-shell-text);
+}
+
+.redline__panel-toggle:focus,
+.redline__panel-toggle:focus-visible {
+  outline: var(--ads-input-border-active) solid var(--redline-shell-accent-hover);
+  outline-offset: var(--ads-input-border-width);
+}
+
+@media (max-width: 960px) {
+  .redline__sidebar {
+    position: absolute;
+    top: var(--redline-header-height);
+    bottom: 0;
+    z-index: 6;
+    box-shadow: var(--ads-shadow-sheet);
+    transition: transform 200ms ease;
+  }
+
+  .redline__sidebar--left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  .redline__sidebar--right {
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  .redline[data-panel-left="open"] .redline__sidebar--left,
+  .redline[data-panel-right="open"] .redline__sidebar--right {
+    transform: translateX(0);
+  }
+
+  .redline__panel-toggle {
+    display: inline-grid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .redline__preview-shell,
+  .redline__sidebar {
+    transition: none;
+  }
+}

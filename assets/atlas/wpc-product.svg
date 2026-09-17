@@ -1,0 +1,17 @@
+<svg preserveAspectRatio="xMidYMid meet" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 55 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="ShoppingBagOpen" filter="url(#filter0_d_0_17)">
+<path id="Vector" d="M44 8H11C10.2044 8 9.44129 8.31607 8.87868 8.87868C8.31607 9.44129 8 10.2044 8 11V38C8 38.7957 8.31607 39.5587 8.87868 40.1213C9.44129 40.6839 10.2044 41 11 41H44C44.7957 41 45.5587 40.6839 46.1213 40.1213C46.6839 39.5587 47 38.7957 47 38V11C47 10.2044 46.6839 9.44129 46.1213 8.87868C45.5587 8.31607 44.7957 8 44 8ZM44 11V14H11V11H44ZM44 38H11V17H44V38ZM36.5 21.5C36.5 23.8869 35.5518 26.1761 33.864 27.864C32.1761 29.5518 29.887 30.5 27.5 30.5C25.1131 30.5 22.8239 29.5518 21.136 27.864C19.4482 26.1761 18.5 23.8869 18.5 21.5C18.5 21.1022 18.658 20.7206 18.9393 20.4393C19.2206 20.158 19.6022 20 20 20C20.3978 20 20.7794 20.158 21.0607 20.4393C21.342 20.7206 21.5 21.1022 21.5 21.5C21.5 23.0913 22.1321 24.6174 23.2574 25.7426C24.3826 26.8679 25.9087 27.5 27.5 27.5C29.0913 27.5 30.6174 26.8679 31.7426 25.7426C32.8679 24.6174 33.5 23.0913 33.5 21.5C33.5 21.1022 33.658 20.7206 33.9393 20.4393C34.2206 20.158 34.6022 20 35 20C35.3978 20 35.7794 20.158 36.0607 20.4393C36.342 20.7206 36.5 21.1022 36.5 21.5Z" fill="var(--fill-0, #FF7666)"/>
+</g>
+<defs>
+<filter id="filter0_d_0_17" x="-4.5" y="-7.5" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="4"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.462745 0 0 0 0 0.4 0 0 0 0.4 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_17"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_17" result="shape"/>
+</filter>
+</defs>
+</svg>

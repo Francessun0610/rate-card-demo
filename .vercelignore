@@ -1,0 +1,15 @@
+# Local development and QA tooling. None of this is part of the running
+# prototype, so it is not uploaded to the deployment.
+*.py
+__pycache__/
+tools/
+qa.html
+tmp/
+
+# Authoring notes and editor rules.
+.cursor/
+.cursorrules
+DESIGN.md
+
+# Pre-portfolio git history kept locally for reference.
+.git-history-backup/

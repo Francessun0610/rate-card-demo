@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Visual QA — Rate Card</title>
+    <style>
+      :root {
+        --bg: #1a1a1a;
+        --fg: #f0f0f0;
+        --muted: #888;
+        --accent: #3611C8;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      .qa-bar {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        padding: 12px 20px;
+        background: #000;
+        border-bottom: 1px solid #333;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .qa-bar h1 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .qa-bar .tabs {
+        display: flex;
+        gap: 4px;
+        margin-left: 16px;
+      }
+      .qa-bar .tabs button {
+        background: #222;
+        color: #ccc;
+        border: 1px solid #333;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .qa-bar .tabs button.active {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+      .qa-bar .controls {
+        margin-left: auto;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .qa-bar label {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .qa-bar input[type="range"] { width: 100px; }
+
+      .stage {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px;
+      }
+      .section {
+        background: #fff;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .section h2 {
+        margin: 0;
+        padding: 8px 14px;
+        background: #222;
+        color: #ccc;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        border-bottom: 1px solid #333;
+      }
+      .section .panes {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .pane {
+        position: relative;
+      }
+      .pane[data-label]::before {
+        content: attr(data-label);
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        background: rgba(0,0,0,0.75);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 3px 6px;
+        border-radius: 2px;
+        z-index: 10;
+        letter-spacing: 0.5px;
+      }
+      .pane img,
+      .pane iframe {
+        display: block;
+        width: 100%;
+        border: 0;
+      }
+
+      /* Overlay mode: live is rendered absolutely positioned on top of ref */
+      .stage[data-mode="overlay"] .section .panes { position: relative; }
+      .stage[data-mode="overlay"] .pane--live {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        opacity: 0.5;
+        mix-blend-mode: difference;
+      }
+      .stage[data-mode="overlay"] .pane--live::before { content: none; }
+
+      /* Side-by-side mode */
+      .stage[data-mode="side"] .section .panes {
+        grid-template-columns: 1fr 1fr;
+      }
+      .stage[data-mode="side"] .pane { border-right: 1px solid #333; }
+      .stage[data-mode="side"] .pane:last-child { border-right: 0; }
+
+      /* Stacked mode */
+      .stage[data-mode="stack"] .section .panes {
+        grid-template-columns: 1fr;
+      }
+      .stage[data-mode="stack"] .pane { border-bottom: 2px solid #333; }
+      .stage[data-mode="stack"] .pane:last-child { border-bottom: 0; }
+
+      /* Live page iframe wrapper — clip to section height */
+      .pane--live {
+        overflow: hidden;
+      }
+      .pane--live iframe {
+        width: 1440px;        /* Figma frame width */
+        height: 1024px;       /* full page height */
+        border: 0;
+        transform-origin: top left;
+      }
+      /* Per-section iframe positioning so we just see that band */
+      .pane--live[data-y] iframe { margin-top: 0; }
+
+      .hint {
+        padding: 16px 20px;
+        color: var(--muted);
+        font-size: 12px;
+        background: #0f0f0f;
+        border-bottom: 1px solid #333;
+      }
+      kbd {
+        background: #333;
+        color: #eee;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 11px;
+        border: 1px solid #555;
+        font-family: ui-monospace, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="qa-bar">
+      <h1>Rate Card — Visual QA</h1>
+      <div class="tabs">
+        <button data-mode="side" class="active">Side by side</button>
+        <button data-mode="stack">Stack (figma ▸ live)</button>
+        <button data-mode="overlay">Diff overlay</button>
+      </div>
+      <div class="controls">
+        <label>Live opacity <input id="opacity" type="range" min="0" max="100" value="50" /></label>
+        <a href="/" target="_blank" style="color:#8af;">Open live page →</a>
+      </div>
+    </div>
+
+    <div class="hint">
+      <strong>How to read this:</strong> top pane (or left) is the exported Figma frame.
+      Bottom pane (or right) is the live browser render at the same pixel scale.
+      In <strong>Diff overlay</strong> mode, identical pixels read black; bright regions = mismatch.
+      Click tabs to switch. Sections below are each a 1440-wide band cropped to the Figma's
+      vertical position so you can compare each region independently.
+    </div>
+
+    <div class="stage" id="stage" data-mode="side">
+
+      <!-- NAV (y=0..48) -->
+      <section class="section">
+        <h2>1. Global Nav · Figma node 49:531 · 1440 × 48</h2>
+        <div class="panes" style="height:48px;">
+          <div class="pane pane--ref" data-label="FIGMA REF">
+            <img src="/assets/reference-rate-card.png" style="height:48px; object-fit:cover; object-position:top;" />
+          </div>
+          <div class="pane pane--live" data-label="LIVE">
+            <iframe src="/?qa=1#nav" data-clip-y="0" data-clip-h="48"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE HEADER (Figma frame at y=85, h=65) -->
+      <section class="section">
+        <h2>2. Page Header · Figma node 49:5682 · y=85, h=65</h2>
+        <div class="panes" style="height:65px;">
+          <div class="pane pane--ref" data-label="FIGMA REF">
+            <img src="/assets/reference-rate-card.png"
+                 style="height:65px; object-fit:none; object-position: 0 -85px;" />
+          </div>
+          <div class="pane pane--live" data-label="LIVE">
+            <iframe src="/?qa=1#header" data-clip-y="85" data-clip-h="65"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- TABLE TOOLBAR (Figma table starts at y=193, toolbar is first 56px) -->
+      <section class="section">
+        <h2>3. Table Toolbar · Figma node 49:5689 · 1304 × 56</h2>
+        <div class="panes" style="height:56px;">
+          <div class="pane pane--ref" data-label="FIGMA REF">
+            <img src="/assets/ref-toolbar.png" />
+          </div>
+          <div class="pane pane--live" data-label="LIVE">
+            <iframe src="/?qa=1#toolbar" data-clip-y="193" data-clip-h="56" data-clip-x="68" data-clip-w="1304"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- TABLE HEADER ROW (Figma table y=193+56=249, header row h=32 + 3 below) -->
+      <section class="section">
+        <h2>4. Table Header Row · Figma node 49:5705 · 1304 × 35</h2>
+        <div class="panes" style="height:35px;">
+          <div class="pane pane--ref" data-label="FIGMA REF">
+            <img src="/assets/ref-table-headerrow.png" />
+          </div>
+          <div class="pane pane--live" data-label="LIVE">
+            <iframe src="/?qa=1#theader" data-clip-y="249" data-clip-h="35" data-clip-x="68" data-clip-w="1304"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- ONE TABLE ROW (Figma h=53 incl spacing) -->
+      <section class="section">
+        <h2>5. Table Row · Figma node 49:5719 · 1304 × 53</h2>
+        <div class="panes" style="height:53px;">
+          <div class="pane pane--ref" data-label="FIGMA REF">
+            <img src="/assets/ref-table-row.png" />
+          </div>
+          <div class="pane pane--live" data-label="LIVE">
+            <iframe src="/?qa=1#trow" data-clip-y="281" data-clip-h="53" data-clip-x="68" data-clip-w="1304"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGINATION (Figma node h=48, sits at bottom of table at y=193+617=810) -->
+      <section class="section">
+        <h2>6. Pagination · Figma node 49:5940 · 1304 × 48</h2>
+        <div class="panes" style="height:48px;">
+          <div class="pane pane--ref" data-label="FIGMA REF">
+            <img src="/assets/ref-pagination.png" />
+          </div>
+          <div class="pane pane--live" data-label="LIVE">
+            <iframe src="/?qa=1#pager" data-clip-y="810" data-clip-h="48" data-clip-x="68" data-clip-w="1304"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- FULL PAGE -->
+      <section class="section">
+        <h2>7. Full Page · Figma node 49:148 · 1440 × 1024</h2>
+        <div class="panes" style="height:1024px;">
+          <div class="pane pane--ref" data-label="FIGMA REF">
+            <img src="/assets/reference-rate-card.png" />
+          </div>
+          <div class="pane pane--live" data-label="LIVE">
+            <iframe src="/?qa=1" data-clip-y="0" data-clip-h="1024"></iframe>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <script>
+      // Tab switch
+      const stage = document.getElementById('stage');
+      document.querySelectorAll('.qa-bar .tabs button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.qa-bar .tabs button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          stage.dataset.mode = btn.dataset.mode;
+        });
+      });
+      // Opacity slider for overlay
+      const opacity = document.getElementById('opacity');
+      opacity.addEventListener('input', e => {
+        document.documentElement.style.setProperty('--live-opacity', e.target.value / 100);
+        document.querySelectorAll('.pane--live').forEach(p => {
+          if (stage.dataset.mode === 'overlay') p.style.opacity = e.target.value / 100;
+        });
+      });
+
+      // Clip each iframe so only the relevant Figma band shows.
+      // We do this by scrolling the iframe content and sizing the wrapper.
+      document.querySelectorAll('.pane--live iframe').forEach(iframe => {
+        const y = parseInt(iframe.dataset.clipY || '0', 10);
+        const x = parseInt(iframe.dataset.clipX || '0', 10);
+        const w = parseInt(iframe.dataset.clipW || '1440', 10);
+        const h = parseInt(iframe.dataset.clipH || '1024', 10);
+
+        iframe.addEventListener('load', () => {
+          // Pane wrapper width = w / 1440 ratio scaled to container
+          const wrapper = iframe.parentElement;
+          const wrapperW = wrapper.clientWidth;
+          const scale = wrapperW / w;
+          iframe.style.transform = `translate(${-x * scale}px, ${-y * scale}px) scale(${scale})`;
+          iframe.style.width = '1440px';
+          iframe.style.height = '1024px';
+          wrapper.style.height = (h * scale) + 'px';
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+---
+description: Rate Card Manager (RCM) PRD-derived implementation rules. Read before any RCM UI / data / validation work.
+globs:
+  - "app.js"
+  - "index.html"
+  - "styles.css"
+  - "docs/**"
+alwaysApply: true
+---
+
+# Rate Card Manager (RCM) PRD rules
+
+Authoritative source: `docs/rate-card-manager-prd-summary.md` (which summarizes `Rate Card Manager (RCM) - PRD.docx` by Adam Hecht).
+
+When working on the Rate Card Manager — list view, Create/Edit wizard, Quick Edit, import/export, validation, mock data, or any field/enum — read `docs/rate-card-manager-prd-summary.md` first, then follow these rules.
+
+When current UI conflicts with the PRD, **flag the conflict before changing**. Do not silently rewrite product behavior to match the current implementation.
+
+---
+
+## R1. Data model: CARD / LINE / PREM
+
+RCM normalizes every rate card to three row types. The UI must preserve this mental model.
+
+- **CARD** rows carry **Marketplace + Buying Entity** context.
+- **LINE** rows carry **Buying Entity + Inventory + negotiated Base Rate**.
+- **PREM** rows carry **premium adjustments** to base prices.
+- A **Rate Card File** is the unit of import; can contain many CARD, many LINE, zero+ PREM.
+- A **Rate Card** (single CARD row) is the unit of storage; each row in the List view is one CARD line from its parent file.
+- The Create/Edit wizard MUST have three tabs labeled CARD, LINE, PREM that match the CSV row types.
+
+## R2. Marketplace enum (CARD)
+
+Marketplace is an enum with **only three** values. UI labels and internal values:
+
+| UI label | Internal value |
+|---|---|
+| Upfront | `UPFRONT` |
+| Scatter | `SCATTER` |
+| Multi-Year | `MULTI-YEAR` |
+
+Do NOT:
+- Allow free-text marketplace.
+- Add `Addressable`, `Programmatic`, `Sponsorship`, `Sports`, `Streaming`, `Multiplatform`, or any value not in this list.
+- Spell it "marketspace". The correct term is **Marketplace**.
+
+## R3. Status enum (List + storage)
+
+UI status is **only `Draft` or `Published`**. Published may map internally to `ACTIVE`, but the UI must show `Published`.
+
+Do NOT introduce `Active`, `Archived`, `Pending Review`, or any other status as a visible UI status chip. (Archive is an Action that removes the row; it is not a visible status.)
+
+## R4. CARD required fields
+
+CARD step required fields (per PRD section "CARD Row Create and Edit Epics"):
+
+- Rate Card Name (varchar, required)
+- Marketplace (enum, required — only `UPFRONT`/`SCATTER`/`MULTI-YEAR`)
+- Buying Entity Saleshub ID (varchar, required)
+- Buying Entity Display Name (varchar, required)
+- Deal Season (`YYYY-YYYY`, required) — NOT `25-26` or `25–26`
+- Effective Start Date (`YYYY-MM-DD`, required)
+
+Optional CARD fields: DCM Rule Order (int), Effective End Date (`YYYY-MM-DD`), Id (auto-generated).
+
+## R5. LINE required fields + gating
+
+- **Attach to Rate Card** (enum, required) — values are valid CARD rows from the **same rate card file**. **All other LINE fields are disabled until this is chosen.**
+- **Advertiser ID** (required) with a checkbox **"Use Buying Entity ID from CARD"** that, when checked, populates the field from the selected CARD's Buying Entity Saleshub ID. Same checkbox also populates Advertiser Display Name from the CARD's Buying Entity Display Name.
+- **Advertiser Display Name** (required)
+- **Ad Product** (enum, required, **multi-select**) — sourced from ICM Ad Product
+- **Base Offering** (enum, required) — sourced from ICM Base Offering
+- **Rate Type / Cost Method** (enum, required, single-select)
+- **Base Rate** (float, required) — **0 is valid**
+- **Currency** (enum, required) — ISO currency codes
+
+Optional LINE fields: Upfront ID (varchar), **Line Condition 1–4** (enums from BDS, up to **four** condition slots — not three), Effective Start/End dates.
+
+## R6. PREM required fields + gating
+
+- **Attach to Rate Card** (enum, required) — values are valid CARD rows from the same rate card file
+- **Attach to Advertiser** (enum) — appears **only after** a CARD is selected; values come from existing LINE Advertiser Display Names for that CARD
+- **Calculation Method** (enum, required) — only: `Additive CPM`, `Flat Fee`, `Percent Adjustment`
+- **Value** (float, required) — **0 valid, negative valid**
+
+Optional PREM fields: Premium Category (varchar), Premium Display Name (varchar), Stack Order (int), Premium Condition fields (enums from BDS).
+
+## R7. List view requirements
+
+- **Functionality:** Search (case-insensitive), Sort, Filter, Upload completed CSV, Download blank template, Create new rate card.
+- **Columns (in order):** Rate Card Name, Version, Status (Draft/Published), Rate Card ID, **CARD row count**, **Last Modified user + timestamp** (format: `HH:MM, MM-DD-YYYY`), Actions.
+- **Actions per row:** Edit, Quick Edit, Duplicate, Archive, Export. **Draft rows also show a `Continue` action** that navigates to `?section=line` and resumes at the most recent unfinished row.
+- **Action column is never sortable.**
+- Sortable columns per PRD: name, version, uploaded date.
+
+## R8. Row click → Edit Rate Card (slideover intentionally removed)
+
+PRD specifies a Details slideover for row click. **This prototype intentionally simplifies the interaction:**
+
+- Clicking the rate card **Name link** navigates directly to the full Edit Rate Card page (route: `?section=create&mode=edit&cardId={rateCardId}`).
+- The **Action column** owns secondary row actions only (Quick edit, Duplicate, Export, Archive/Delete). The Edit pencil icon was removed because the Name link is now the primary Edit affordance.
+- **No row-level Details slideover exists.** Do not introduce one without a design review. If a future task asks for one, the spec is preserved in `docs/rate-card-manager-prd-summary.md` section 7.
+- The whole row is NOT clickable - no `cursor: pointer` on `.row`, no hover handler that opens anything from a non-link / non-button cell.
+
+If product later wants the slideover, the original spec fields are: Rate Card Name, Version, Status, Marketplace, Deal Season(s), CARD Effective Start + End, Buying Entity, Buying Entity Saleshub ID, Advertiser(s) (unique, comma-separated), Currency (unique, comma-separated), Total Rows, Created By + timestamp, Updated By + timestamp.
+
+## R9. Create / Edit wizard shell
+
+- Three tabs: CARD, LINE, PREM.
+- **LINE and PREM tabs are disabled until at least one CARD row exists** in the rate card file.
+- Tab highlights indicate whether rows exist at each step.
+- URL pattern: `?section=card|line|prem`.
+- Sticky footer: `Save as Draft`, `Save and Publish`, `Cancel`, plus section-specific saves like `Save and Create New CARD/LINE/PREM`.
+- **Fields save on blur. Validation runs on blur.**
+- **`Save and Publish` (a.k.a. `Save Rate Card File and Publish`) is disabled until all required fields across CARD + LINE + PREM are complete.**
+- **`Cancel` warns the user before leaving** if there are unsaved changes.
+
+`Save and Create New CARD` clears the form **but preserves Buying Entity Saleshub ID + Display Name** from the first CARD (carryover).
+
+## R10. Quick Edit
+
+**Quick Edit is for LINE / PREM edits only. It is NOT a full CARD editor.**
+
+Flow: select CARD → select record type (`Line Rows` or `Premium Rows`) → select Advertiser (include `All Advertisers`; do not show duplicate advertiser names).
+
+Editable / read-only field split per PRD:
+
+| Type | Read-only | Editable |
+|---|---|---|
+| LINE | Row number, Ad Product, Base Offering, Advertiser | Base Rate (2dp truncation), all Line Condition fields |
+| PREM | Row number, Ad Format (if present, hide if blank), Base Offering (if present, hide if blank) | Category, Display Name, Value (2dp truncation), Calculation Method, all Premium Condition fields |
+
+Save validates + persists to the Rate Card File.
+
+## R11. Mock data + seed data must obey PRD
+
+Audit all mock data, dropdown options, seed data, localStorage payloads, and form defaults whenever you touch them. Check:
+
+- Marketplace values: only `Upfront`, `Scatter`, `Multi-Year`.
+- Status values (UI): only `Draft`, `Published`.
+- Deal Season: `YYYY-YYYY`.
+- Effective dates: `YYYY-MM-DD`.
+- Currency: ISO codes.
+- Base Rate allows 0.
+- PREM Value allows 0 and negatives.
+- DCM Rule Order, Stack Order are integers.
+
+## R12. Import / Export
+
+- Blank template download: `rate-card-import-template.csv`.
+- CSV upload supports partial ingestion (valid rows ingest, invalid rows surface plain-language errors).
+- Export a full copy of a selected rate card in the RCM template.
+- **If import or export is not fully implemented in the prototype, flag as missing instead of faking behavior** (toasting "Exporting…" without producing a file counts as fake).
+
+## R13. Anti-drift checks before reporting any RCM task complete
+
+Before reporting a Rate Card Manager task complete, verify:
+
+- [ ] Marketplace values still match R2 enum.
+- [ ] Status values still match R3 enum.
+- [ ] CARD / LINE / PREM mental model + tab labels are intact.
+- [ ] Required-field rules for the touched record type match R4 / R5 / R6.
+- [ ] List columns + Actions match R7 (including draft-only `Continue`).
+- [ ] Row click does NOT open a Details slideover (R8 - intentionally removed). Name link opens Edit.
+- [ ] Quick Edit edits LINE/PREM only (R10).
+- [ ] No fake import/export behavior introduced (R12).
+- [ ] No em dashes anywhere (per `.cursorrules`).
+
+When the current UI conflicts with this rule file, **flag the conflict** in your response and ask before changing.

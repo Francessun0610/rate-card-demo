@@ -1,0 +1,23 @@
+node_modules
+dist
+build
+.next
+.env
+.env.local
+.DS_Store
+
+# Local static deploy output (if you copy the site into public/ manually).
+/public/
+
+# Python bytecode from local QA runs (qa_*.py compile targets).
+__pycache__/
+*.pyc
+*.pyo
+
+# Local scratch: reference screenshots, before/after diffs, and other
+# working artifacts kept outside of committed history.
+tmp/
+
+# Pre-portfolio git history, kept locally for reference only. Never part
+# of the public repository.
+.git-history-backup/
