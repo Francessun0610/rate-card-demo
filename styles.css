@@ -1,4 +1,115 @@
 /* ============================================================================
+ * INSPIRE TWDC  —  self-hosted webfont family
+ * ----------------------------------------------------------------------------
+ * Before this block the deck named each face as its own installed family
+ * ("InspireTWDC Heavy", "InspireTWDC Black", ...) and asked for
+ * font-weight: 900. Each OTF registers with nameID 1 = "InspireTWDC <Face>"
+ * and nameID 2 = "Regular", so those families expose exactly one Regular
+ * member. Requesting 900 from them had two effects, both wrong:
+ *
+ *   1. The browser had no 900 face to select, so it SYNTHESIZED bold on top
+ *      of a face that is already heavy. That is why deck subtitles read far
+ *      heavier than the Figma source.
+ *   2. Any face other than Black failed to resolve at all on machines where
+ *      only some OTFs are installed, silently falling through to
+ *      MultiplaneTWDC Display or a generic sans.
+ *
+ * The family is now declared once, self-hosted, with font-weight values
+ * taken from each file's real OS/2 usWeightClass:
+ *
+ *   InspireTWDC Light   usWeightClass 300  ->  300
+ *   InspireTWDC Roman   usWeightClass 400  ->  400   (+ Italic)
+ *   InspireTWDC Medium  usWeightClass 500  ->  500
+ *   InspireTWDC Heavy   usWeightClass 600  ->  600
+ *   InspireTWDC Black   usWeightClass 800  ->  800
+ *
+ * This family has no Bold (700) and no Semibold. Heavy (600) and Black (800)
+ * are the only weights above Medium, so a request for 700 resolves to Black.
+ * font-synthesis: none on the deck keeps the browser from inventing weights.
+ * ========================================================================== */
+@font-face {
+  font-family: "InspireTWDC";
+  src: url("./assets/fonts/InspireTWDC-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "InspireTWDC";
+  src: url("./assets/fonts/InspireTWDC-Roman.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "InspireTWDC";
+  src: url("./assets/fonts/InspireTWDC-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "InspireTWDC";
+  src: url("./assets/fonts/InspireTWDC-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "InspireTWDC";
+  src: url("./assets/fonts/InspireTWDC-Heavy.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "InspireTWDC";
+  src: url("./assets/fonts/InspireTWDC-Black.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Legacy per-face family aliases. Deck rules authored before the family was
+ * self-hosted still name these; each one maps to the single real face at its
+ * true weight so nothing synthesizes and nothing falls back. */
+@font-face {
+  font-family: "InspireTWDC Light";
+  src: url("./assets/fonts/InspireTWDC-Light.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "InspireTWDC Roman";
+  src: url("./assets/fonts/InspireTWDC-Roman.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "InspireTWDC Medium";
+  src: url("./assets/fonts/InspireTWDC-Medium.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "InspireTWDC Heavy";
+  src: url("./assets/fonts/InspireTWDC-Heavy.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "InspireTWDC Black";
+  src: url("./assets/fonts/InspireTWDC-Black.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================================
  * Rate Card Manager — EDL component library (Figma source of truth)
  * All tokens pulled from the EDL Figma variable set:
  *   Indigo/5  = #F3F3FF   Indigo/10 = #E6E6FF
@@ -9260,6 +9371,43 @@ html:has(body[data-route="atlas"]) {
   align-items: stretch;
   z-index: 100;
   isolation: isolate;
+
+  /* ------------------------------------------------------------------ type
+   * Semantic typography roles for the deck, resolved to the real Inspire
+   * TWDC weights declared at the top of this file. Slide rules reference
+   * these instead of choosing a weight each time, so a role can only
+   * change in one place.
+   *
+   * Weights are the faces the family actually ships. There is no Bold and
+   * no Semibold in Inspire TWDC, so "strongest" is Black 800 and the step
+   * below it is Heavy 600.
+   *
+   *   --font-display     96/48/36  Black 800   cover lockup
+   *   --font-heading     56        Heavy 600   slide titles
+   *   --font-subheading  36        Heavy 600   slide subtitles
+   *   --font-label       24-40     Black 800   in-diagram labels, callouts
+   *   --font-body        22-32     Medium 500  supporting copy
+   *   --font-caption     19-24     Roman 400   small print, footnotes
+   *   --font-quiet       32        Light 300   de-emphasised detail
+   */
+  --font-family-inspire: "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  --font-display: 600;   /* cover lockup renders Heavy, not Black */
+  --font-heading: 600;
+  --font-subheading: 600;
+  --font-label: 800;
+  --font-body: 500;
+  --font-caption: 400;
+  --font-quiet: 300;
+}
+
+/* The family ships five discrete weights and no italic outside Roman, so the
+ * browser must never invent one. Without this a rule asking for 700 or 900
+ * gets a synthetic smear of the nearest face, which is the exact defect this
+ * pass removes. */
+.atlas-deck,
+.atlas-deck * {
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ---------- Stage wrap (clipping + centering box for the scaled stage)
@@ -9405,9 +9553,9 @@ html:has(body[data-route="atlas"]) {
   justify-content: center;
   margin: 0;
   color: var(--cov-text);
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--font-display); /* InspireTWDC Heavy 600 */
   line-height: 1.2;
   white-space: nowrap;
 }
@@ -9502,18 +9650,18 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--right-price .rpx__title {
   width: 1727px;
   color: var(--rpx-title);
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 56px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   line-height: 56px;
 }
 
 .atlas-slide--right-price .rpx__subtitle {
   width: 1808px;
   color: var(--rpx-title);
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 36px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   line-height: 56px;
 }
 
@@ -9572,9 +9720,9 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--right-price .rpx__card-label {
   width: 192px;
   color: var(--rpx-card-text);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 28.8px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: normal;
   text-align: center;
   white-space: nowrap;
@@ -9589,9 +9737,9 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--right-price .rpx__question {
   width: 100%;
   color: var(--rpx-title);
-  font-family: "InspireTWDC Medium", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 24px;
-  font-weight: 500;
+  font-weight: var(--font-body); /* InspireTWDC Medium 500 */
   line-height: 24px;
   text-align: center;
 }
@@ -9787,9 +9935,9 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--three-questions .tq__title,
 .atlas-slide--three-questions .tq__subtitle {
   margin: 0;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   white-space: nowrap;
 }
 
@@ -9861,10 +10009,10 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--three-questions .tq__card-label {
   margin: 0;
   color: var(--tq-card-label);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 24px;
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: normal;
   text-align: center;
   white-space: nowrap;
@@ -9891,13 +10039,13 @@ html:has(body[data-route="atlas"]) {
 }
 
 .atlas-slide--three-questions .tq__question {
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
 }
 
 .atlas-slide--three-questions .tq__detail {
-  font-family: "InspireTWDC Light", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
-  font-weight: 300;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-quiet); /* InspireTWDC Light 300 */
 }
 
 /* ---------- Operators ----------------------------------------------------- */
@@ -9972,10 +10120,10 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--three-questions .tq__result-label {
   margin: 0;
   color: var(--tq-result-label);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 28.8px;
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: normal;
   text-align: center;
   white-space: nowrap;
@@ -9988,10 +10136,10 @@ html:has(body[data-route="atlas"]) {
   width: 376px;
   margin: 0;
   color: var(--tq-title);
-  font-family: "InspireTWDC Medium", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 32px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: var(--font-body); /* InspireTWDC Medium 500 */
   line-height: 1.2;
   white-space: nowrap;
 }
@@ -10175,9 +10323,9 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--line-need .wln__title {
   width: 1727px;
   color: var(--wln-title);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 56px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: 56px;
   white-space: nowrap;
 }
@@ -10185,9 +10333,9 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--line-need .wln__subtitle {
   width: 1808px;
   color: var(--wln-title);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 36px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: 56px;
 }
 
@@ -10243,9 +10391,9 @@ html:has(body[data-route="atlas"]) {
 
 .atlas-slide--line-need .wln__card-label {
   color: var(--wln-card-text);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 28px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: normal;
   text-align: center;
   white-space: nowrap;
@@ -10283,9 +10431,9 @@ html:has(body[data-route="atlas"]) {
   transform: translateX(-50%);
   width: 460px;
   color: var(--wln-body);
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 24px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   line-height: 1.2;
   text-align: center;
   white-space: nowrap;
@@ -10301,9 +10449,9 @@ html:has(body[data-route="atlas"]) {
   left: 63px;
   width: 1794px;
   color: var(--wln-takeaway);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 36px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: normal;
   white-space: nowrap;
 }
@@ -10372,9 +10520,9 @@ html:has(body[data-route="atlas"]) {
   color: #FFFFFF;
   /* Figma sets both lines in the Heavy face on this slide, unlike the
    * titles elsewhere in the deck that use Black. */
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   white-space: nowrap;
 }
 
@@ -10449,7 +10597,8 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--supermarket .sup__label-small {
   top: 747px;
   color: var(--ads-text-tertiary, #51585B);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   font-size: 32px;
   line-height: 38.4px;
 }
@@ -10458,7 +10607,8 @@ html:has(body[data-route="atlas"]) {
   top: 798px;
   height: 40px;
   color: #FFFFFF;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   font-size: 40px;
   line-height: 40px;
 }
@@ -10568,9 +10718,9 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--upfront-scatter .usc__subtitle {
   margin: 0;
   color: #FFFFFF;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   white-space: nowrap;
 }
 
@@ -10691,25 +10841,25 @@ html:has(body[data-route="atlas"]) {
 
 .atlas-slide--upfront-scatter .usc__deal {
   color: #FFFFFF;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 40px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: 40px;
 }
 
 .atlas-slide--upfront-scatter .usc__lede {
   color: var(--usc-lede);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 32px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: 38.4px;
 }
 
 .atlas-slide--upfront-scatter .usc__note {
   color: #FFFFFF;
-  font-family: "InspireTWDC Medium", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 32px;
-  font-weight: 500;
+  font-weight: var(--font-body); /* InspireTWDC Medium 500 */
   line-height: 32px;
 }
 
@@ -10819,9 +10969,9 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--same-ad-rate .sar__subtitle {
   margin: 0;
   color: #FFFFFF;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-style: normal;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   white-space: nowrap;
 }
 
@@ -10867,10 +11017,10 @@ html:has(body[data-route="atlas"]) {
   margin: 0;
   transform: translateX(-50%);
   color: #FFFFFF;
-  font-family: "InspireTWDC Medium", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 33.887px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: var(--font-body); /* InspireTWDC Medium 500 */
   line-height: 34px;
   text-align: center;
   white-space: nowrap;
@@ -11011,24 +11161,24 @@ html:has(body[data-route="atlas"]) {
 
 .atlas-slide--same-ad-rate .sar__rate-value {
   color: var(--sar-rate);
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 32px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   line-height: 32px;
 }
 
 .atlas-slide--same-ad-rate .sar__deal {
   color: var(--sar-copy);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 33.887px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: 40.664px;
 }
 
 .atlas-slide--same-ad-rate .sar__placement {
   color: var(--sar-copy);
-  font-family: "InspireTWDC Medium", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
-  font-weight: 500;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-body); /* InspireTWDC Medium 500 */
 }
 
 /* Figma places the two columns' copy at slightly different offsets and
@@ -11380,8 +11530,8 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--media-plan .mpl__title {
   margin: 0;
   width: 1727px;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   font-size: 56px;
   line-height: 1;
   color: var(--mpl-ink);
@@ -11390,8 +11540,8 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--media-plan .mpl__subtitle {
   margin: 8px 0 0;
   width: 1747px;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   font-size: 36px;
   line-height: 56px;
   color: var(--mpl-ink);
@@ -11402,8 +11552,8 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--media-plan .mpl__note {
   position: absolute;
   margin: 0;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: 1;
   white-space: nowrap;
 }
@@ -11508,8 +11658,8 @@ html:has(body[data-route="atlas"]) {
   left: 22px;
   top: 56px;
   margin: 0;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   font-size: 18px;
   line-height: 1;
   color: var(--mpl-rate);
@@ -11545,8 +11695,8 @@ html:has(body[data-route="atlas"]) {
   left: 759px;
   top: 293px;
   margin: 0;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   font-size: 24px;
   line-height: 1;
   color: var(--mpl-link);
@@ -12087,8 +12237,8 @@ html:has(body[data-route="atlas"]) {
    * Matches the pattern used on slides 5 / 6 / 9. */
   margin: 0;
   width: 1727px;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Manrope", "DM Sans", "Open Sans", Inter, sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   font-size: 56px;
   line-height: 1;
   color: #FFFFFF;
@@ -12097,8 +12247,8 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--connected-workflows .cw__subtitle {
   margin: 0;
   width: 1808px;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Manrope", "DM Sans", "Open Sans", Inter, sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   font-size: 36px;
   line-height: 56px;
   color: #FFFFFF;
@@ -12238,7 +12388,7 @@ html:has(body[data-route="atlas"]) {
 }
 .atlas-slide--connected-workflows .cw__step-label {
   margin: 0;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   font-size: 24px;
   line-height: 1;
   color: #595959;
@@ -12342,8 +12492,8 @@ html:has(body[data-route="atlas"]) {
 
 .atlas-slide--connected-workflows .cw__struct-label {
   margin: 0;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   font-size: 24px;
   line-height: normal;
   color: #F5F7FA;
@@ -12477,11 +12627,8 @@ html:has(body[data-route="atlas"]) {
   border-radius: 40px;
   background: var(--rlp-background);
   color: var(--rlp-text);
-  font-family:
-    "InspireTWDC Heavy",
-    "InspireTWDC",
-    "MultiplaneTWDC Display",
-    sans-serif;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
 }
 
 .atlas-slide--line-pricing .rlp__header {
@@ -12499,16 +12646,16 @@ html:has(body[data-route="atlas"]) {
   margin: 0;
 }
 
-/* 2026-08-05: title/subtitle get an explicit "InspireTWDC Black"
- * override (the .rlp parent still cascades "InspireTWDC Heavy" for
- * body content) so this slide's title matches the approved Black
- * face used on slides 5 / 6 / 7 instead of inheriting Heavy. */
+/* Restored to the Heavy face this slide's Figma authoring specifies (the
+ * .rlp parent cascades Heavy for exactly that reason). A 2026-08-05 change
+ * had overridden title and subtitle to Black to give several slides one
+ * shared title treatment; that was a deviation from the source. */
 .atlas-slide--line-pricing .rlp__title {
   width: 1727px;
   color: var(--rlp-text);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Manrope", "DM Sans", "Open Sans", Inter, sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 56px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   line-height: 56px;
   white-space: nowrap;
 }
@@ -12522,9 +12669,9 @@ html:has(body[data-route="atlas"]) {
   width: 1200px;
   margin-top: 8px;
   color: var(--rlp-text-muted);
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Manrope", "DM Sans", "Open Sans", Inter, sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 36px;
-  font-weight: 900;
+  font-weight: var(--font-subheading); /* InspireTWDC Heavy 600 */
   line-height: 56px;
   /* 2026-08-05: nowrap forced this 110-char sentence past the 1808px
    * box (and past the 1920px stage edge) with several fallback
@@ -12598,7 +12745,7 @@ html:has(body[data-route="atlas"]) {
 
 .atlas-slide--line-pricing .rlp__card-title {
   font-size: 36px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600, inherited before */
   line-height: normal;
   text-align: center;
   white-space: nowrap;
@@ -12621,13 +12768,9 @@ html:has(body[data-route="atlas"]) {
   height: 31.9px;
   margin-top: 4.4px;
   color: var(--rlp-text);
-  font-family:
-    "InspireTWDC Medium",
-    "InspireTWDC",
-    "MultiplaneTWDC Display",
-    sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 26.4px;
-  font-weight: 500;
+  font-weight: var(--font-body); /* InspireTWDC Medium 500 */
   line-height: normal;
   text-align: left;
   white-space: nowrap;
@@ -12728,7 +12871,7 @@ html:has(body[data-route="atlas"]) {
   width: 205.4px;
   color: var(--rlp-text);
   font-size: 24px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600, inherited before */
   line-height: 30px;
   text-align: center;
   white-space: nowrap;
@@ -12805,7 +12948,7 @@ html:has(body[data-route="atlas"]) {
   height: 80px;
   color: var(--rlp-text);
   font-size: 24px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600, inherited before */
   line-height: 40px;
   white-space: nowrap;
 }
@@ -12902,15 +13045,17 @@ html:has(body[data-route="atlas"]) {
   flex-direction: column;
   gap: 8px;
 }
-/* 2026-08-05: title/subtitle switched from "InspireTWDC Heavy" to the
- * approved "InspireTWDC Black" face (matches the slide 7 / connected-
- * workflows pattern) so all four Rate Card slides share one Black
- * title treatment instead of mixing Heavy and Black across the deck. */
+/* Restored to the Figma 286:4262 spec recorded above: both header lines are
+ * InspireTWDC Heavy, the title at 56px and the subtitle at 36px. A 2026-08-05
+ * change had overridden both to the Black face to give four slides a single
+ * title treatment; that was a deviation from the source, and combined with
+ * font-weight: 900 against a single-Regular family it also forced synthetic
+ * bold, which is why the subtitle stopped reading as secondary. */
 .atlas-slide--rate-card-data .rcd__title {
   width: 1727px;
   margin: 0;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Manrope", "DM Sans", "Open Sans", Inter, sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading);
   font-size: 56px;
   line-height: 56px;
   letter-spacing: 0;
@@ -12925,8 +13070,8 @@ html:has(body[data-route="atlas"]) {
    * phrases instead of one long line plus a stray word. */
   width: 1300px;
   margin: 0;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Manrope", "DM Sans", "Open Sans", Inter, sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-subheading);
   font-size: 36px;
   line-height: 56px;
   color: #FFFFFF;
@@ -13018,8 +13163,8 @@ html:has(body[data-route="atlas"]) {
   position: absolute;
   top: 824px;
   margin: 0;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-subheading);
   font-size: 36px;
   line-height: 56px;
   color: #FFFFFF;
@@ -13372,7 +13517,7 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--why-pricing .wpc__caption {
   position: absolute;
   margin: 0;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   font-size: 24px;
   line-height: 1.2;
   color: #FFFFFF;
@@ -13431,16 +13576,16 @@ html:has(body[data-route="atlas"]) {
 .atlas-slide--why-pricing .wpc__title {
   width: 1727px;
   /* Approved InspireTWDC Black face, not the default Heavy fallback. */
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   letter-spacing: 0;
   white-space: nowrap;
 }
 
 .atlas-slide--why-pricing .wpc__subtitle {
   width: 1808px;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   line-height: 56px;
   white-space: nowrap;
 }
@@ -13598,9 +13743,9 @@ body:is([data-version="1.2"], [data-version="2.0"], [data-version="2.1"])
   width: 228px;
   height: 24px;
   margin: 0;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 24px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: 24px;
 }
 
@@ -13617,9 +13762,9 @@ body:is([data-version="1.2"], [data-version="2.0"], [data-version="2.1"])
   width: 228px;
   height: 44px;
   margin: 0;
-  font-family: "InspireTWDC Roman", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 19px;
-  font-weight: 400;
+  font-weight: var(--font-caption); /* InspireTWDC Roman 400 */
   line-height: 20px;
   overflow: hidden;
 }
@@ -13773,9 +13918,9 @@ body:is([data-version="1.2"], [data-version="2.0"], [data-version="2.1"])
 .atlas-slide--why-pricing .wpc__window-label {
   width: 160px;
   color: #F1F2F7;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 24px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: normal;
 }
 
@@ -14056,15 +14201,15 @@ body:is([data-version="1.2"], [data-version="2.0"], [data-version="2.1"])
   gap: 8px;
 }
 
-/* 2026-08-05: title/subtitle switched from "InspireTWDC Heavy" to the
- * approved "InspireTWDC Black" face, matching slide 7's pattern so the
- * deck uses one consistent Black title treatment throughout. */
+/* Restored to the "InspireTWDC Heavy" face recorded for this slide. A
+ * 2026-08-05 change had switched title and subtitle to Black to give the
+ * deck one shared title treatment; that was a deviation from the source. */
 .atlas-slide--future-rate-card .frw__title {
   margin: 0;
   width: 1727px;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Manrope", "DM Sans", "Open Sans", Inter, sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 56px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   line-height: 1;
   color: var(--frw-white);
   white-space: nowrap;
@@ -14073,9 +14218,9 @@ body:is([data-version="1.2"], [data-version="2.0"], [data-version="2.1"])
 .atlas-slide--future-rate-card .frw__subtitle {
   margin: 0;
   width: 1808px;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Manrope", "DM Sans", "Open Sans", Inter, sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 36px;
-  font-weight: 900;
+  font-weight: var(--font-subheading); /* InspireTWDC Heavy 600 */
   line-height: 56px;
   color: var(--frw-white);
   /* 2026-08-05: normal (not nowrap) for the same reason as the other
@@ -14162,13 +14307,13 @@ body:is([data-version="1.2"], [data-version="2.0"], [data-version="2.1"])
   margin: 0;
   width: 100%;
   height: 40px;
-  font-family: "InspireTWDC Black", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   /* 2026-08-05: 33.6px -> 32px, a small (~5%) reduction paired with the
    * wider card above so "Use in Pricing Workflows" (the longest of the
    * three titles) fits on one line with margin to spare instead of
    * overflowing the card. Applies uniformly to all three card titles. */
   font-size: 32px;
-  font-weight: 900;
+  font-weight: var(--font-label); /* InspireTWDC Black 800 */
   line-height: 40px;
   color: var(--frw-card-text);
   text-align: center;
@@ -14193,9 +14338,9 @@ body:is([data-version="1.2"], [data-version="2.0"], [data-version="2.1"])
   box-sizing: border-box;
   width: 453px;
   margin: 0;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-family: var(--font-family-inspire);
   font-size: 30.617px;
-  font-weight: 900;
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   line-height: 1.2;
   color: var(--frw-support-text);
   text-align: center;
@@ -18967,9 +19112,8 @@ body[data-specimen="action-bar"] [data-page="list"] [data-rows] .row:nth-child(n
   left: 63px;
   margin: 0;
   width: 1727px;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display",
-    "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   font-size: 56px;
   line-height: 1;
   color: #FFFFFF;
@@ -19010,9 +19154,8 @@ body[data-specimen="action-bar"] [data-page="list"] [data-rows] .row:nth-child(n
 
 .atlas-slide--closing .clo__cta-label {
   width: 370px;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display",
-    "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   font-size: 33.6px;
   line-height: normal;
   color: #F5F7FA;
@@ -19050,18 +19193,16 @@ body[data-specimen="action-bar"] [data-page="list"] [data-rows] .row:nth-child(n
 
 .atlas-slide--closing .clo__num {
   width: 50px;
-  font-family: "InspireTWDC Heavy", "InspireTWDC", "MultiplaneTWDC Display",
-    "Open Sans", sans-serif;
-  font-weight: 900;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
   font-size: 36px;
   line-height: 1;
   color: #4F80E0;
 }
 
 .atlas-slide--closing .clo__row-title {
-  font-family: "InspireTWDC Medium", "InspireTWDC", "MultiplaneTWDC Display",
-    "Open Sans", sans-serif;
-  font-weight: 500;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-body); /* InspireTWDC Medium 500 */
   font-size: 36px;
   line-height: 1;
   color: #FFFFFF;
