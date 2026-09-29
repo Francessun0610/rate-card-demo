@@ -1,0 +1,1068 @@
+/* ============================================================================
+ * PORTFOLIO VARIANT  -  presentation overrides
+ * ----------------------------------------------------------------------------
+ * Loaded only by portfolio.html. Every rule is scoped under
+ * [data-deck-variant="portfolio"] so nothing here can reach index.html, even
+ * though both pages share styles.css.
+ *
+ * Nothing in this file invents a new visual language. Surfaces, gradients,
+ * radii, strokes and shadows are lifted from treatments already in the deck
+ * (the .tq__card recipe in particular) so the portfolio cut reads as the same
+ * designer's work.
+ * ========================================================================== */
+
+/* ---------------------------------------------------------------- logo rule
+ * The cover keeps the Disney lockup, so the case study still opens by saying
+ * this was Disney Advertising work. Every later slide drops the persistent
+ * corner mark: a portfolio case study does not need to re-brand itself on
+ * each page, and the corner is better spent as breathing room.
+ *
+ * Product logos that live inside screenshots are artwork, not shell, and are
+ * untouched by this rule. */
+[data-deck-variant="portfolio"] .atlas-slide .rpx__logo,
+[data-deck-variant="portfolio"] .atlas-slide .sup__logo,
+[data-deck-variant="portfolio"] .atlas-slide .usc__logo,
+[data-deck-variant="portfolio"] .atlas-slide .sar__logo,
+[data-deck-variant="portfolio"] .atlas-slide .mpl__logo,
+[data-deck-variant="portfolio"] .atlas-slide .clo__logo,
+[data-deck-variant="portfolio"] .atlas-slide .tq__logo,
+[data-deck-variant="portfolio"] .atlas-slide .wln__logo,
+[data-deck-variant="portfolio"] .atlas-slide .rcd__brand,
+[data-deck-variant="portfolio"] .atlas-slide .cw__brand,
+[data-deck-variant="portfolio"] .atlas-slide .frw__brand,
+[data-deck-variant="portfolio"] .atlas-slide .wpc__brand,
+[data-deck-variant="portfolio"] .atlas-slide .rlp__brand {
+  display: none;
+}
+
+/* -------------------------------------------------------- shared deck tokens
+ * Named here once so the portfolio slides below cannot drift from the deck.
+ * Values are read off existing slides, not invented:
+ *   surface / border / shadow  -> .tq__card
+ *   header origin 63 / 88      -> .rcd__header, .frw__header
+ *   title 56 / subtitle 36     -> the deck's established hierarchy */
+[data-deck-variant="portfolio"] .pf {
+  --pf-card-surface: linear-gradient(41.24deg, #303946 1%, #202833 12.3%, #27313D 63.2%);
+  --pf-card-border: rgba(75, 90, 107, 0.4);
+  --pf-card-shadow: 0 10px 14px rgba(0, 0, 0, 0.32),
+                    inset 0 1px 12px rgba(255, 255, 255, 0.08);
+  --pf-card-radius: 16px;
+  --pf-eyebrow: rgba(255, 255, 255, 0.56);
+
+  position: absolute;
+  inset: 0;
+  font-family: "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  color: #FFFFFF;
+  text-rendering: geometricPrecision;
+}
+
+/* Header block matches the origin and rhythm the other slides already use. */
+[data-deck-variant="portfolio"] .pf__header {
+  position: absolute;
+  left: 63px;
+  top: 88px;
+  width: 1794px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+[data-deck-variant="portfolio"] .pf__title {
+  margin: 0;
+  font-size: 56px;
+  font-weight: var(--font-heading);
+  line-height: 56px;
+  letter-spacing: 0;
+}
+[data-deck-variant="portfolio"] .pf__subtitle {
+  margin: 0;
+  width: 1300px;
+  font-size: 36px;
+  font-weight: var(--font-subheading);
+  line-height: 56px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* ------------------------------------------------------------- card cluster
+ * One row of equal cards. Four is the widest the row is designed for; the
+ * grid keeps the gutters identical whether the slide uses three or four. */
+[data-deck-variant="portfolio"] .pf__cards {
+  position: absolute;
+  left: 63px;
+  top: 300px;
+  width: 1794px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+[data-deck-variant="portfolio"] .pf__cards--three {
+  grid-template-columns: repeat(3, 1fr);
+}
+[data-deck-variant="portfolio"] .pf__card {
+  box-sizing: border-box;
+  min-height: 520px;
+  padding: 48px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  border: 1px solid var(--pf-card-border);
+  border-radius: var(--pf-card-radius);
+  background: var(--pf-card-surface);
+  box-shadow: var(--pf-card-shadow);
+}
+[data-deck-variant="portfolio"] .pf__eyebrow {
+  margin: 0;
+  font-size: 24px;
+  font-weight: var(--font-body);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pf-eyebrow);
+}
+[data-deck-variant="portfolio"] .pf__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+[data-deck-variant="portfolio"] .pf__list li {
+  font-size: 32px;
+  font-weight: var(--font-label);
+  line-height: 42px;
+}
+/* Secondary line inside a card, for the one case that needs a qualifier. */
+[data-deck-variant="portfolio"] .pf__note {
+  margin: 0;
+  font-size: 26px;
+  font-weight: var(--font-body);
+  line-height: 34px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ------------------------------------------------------------------- cover
+ * One positioning line under the date. The cover lays its elements out with
+ * absolute top values off the same 160px left margin (title 518, presenter
+ * 664, date ending at 798), so this line has to be placed the same way; left
+ * in normal flow it lands at the top of the stage above the title.
+ *
+ * Sized below the presenter name so it reads as a caption, not a third title. */
+[data-deck-variant="portfolio"] .cov__positioning {
+  position: absolute;
+  left: 160px;
+  top: 846px;
+  margin: 0;
+  width: 1180px;
+  font-family: "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-size: 32px;
+  font-weight: var(--font-body);
+  line-height: 44px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* Role metadata, one line, deliberately quiet. Sits below the positioning
+ * statement at Roman 400 / 24px against the cover's muted text colour, so the
+ * reading order stays title, positioning line, then this. Intentionally not a
+ * card: it is project metadata, not a claim. */
+[data-deck-variant="portfolio"] .cov__meta {
+  position: absolute;
+  left: 160px;
+  top: 926px;
+  margin: 0;
+  width: 1180px;
+  font-family: "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-size: 24px;
+  font-weight: var(--font-caption);
+  line-height: 32px;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+/* 2026-09-18: the ecosystem line that sat below the three steps was removed.
+ * It named internal systems, which an external reader cannot decode, and the
+ * three steps already carry the whole point on their own. No replacement copy,
+ * so the space below the cards is simply left open. */
+
+/* The shared rule caps this subtitle at 1300px, which was tuned to the old
+ * 114 character sentence. The context line is shorter but still broke with
+ * "with." orphaned on a second line, so the box is widened to hold it on one
+ * line. Widening the text box rather than reducing the type size, and rather
+ * than rewording the approved copy. */
+[data-deck-variant="portfolio"] .atlas-slide--rate-card-data .rcd__subtitle {
+  width: 1620px;
+}
+
+/* ------------------------------------------------------- title consistency
+ * The original deck sets three titles in the Black face (connected-workflows,
+ * line-need, why-pricing) and the rest in Heavy. The portfolio run keeps only
+ * connected-workflows of those three, which left one 800 headline among eleven
+ * at 600. Normalised to Heavy so the title treatment does not jump mid deck.
+ * The original keeps its mix; this rule cannot reach it. */
+[data-deck-variant="portfolio"] .atlas-slide--connected-workflows .cw__title,
+[data-deck-variant="portfolio"] .atlas-slide--connected-workflows .cw__subtitle {
+  font-weight: var(--font-heading);
+}
+
+/* --------------------------------------- "Previous design" / "Back" controls
+ * .atlas-stage is pointer-events: none for the whole deck, and historically
+ * only [data-atlas-enter] on the closing slide opted back in. These two
+ * controls were added later and never did, so a mouse click on them hit
+ * .atlas-stage-wrap instead of the button and nothing happened. The handler,
+ * the markup and the cloned step-wizard prototype were all fine, which is why
+ * Tab then Enter already worked and the automated check (which calls .click()
+ * in JS) never caught it. Opting the two buttons back in makes the existing
+ * interaction reachable by pointer. Nothing else about it changes.
+ * Scoped to the portfolio deck so index.html is untouched. */
+[data-deck-variant="portfolio"] .atlas-slide--connected-workflows .cw__toggle,
+[data-deck-variant="portfolio"] .atlas-slide--connected-workflows .cw__back {
+  pointer-events: auto;
+}
+
+/* --------------------------------------------------------- product showcase
+ * 2026-09-18: the single slide that carried both captures side by side is now
+ * two slides, one idea each, so each capture is the hero rather than half a
+ * pair. The frame treatment (thin stroke, generous radius, soft drop shadow)
+ * is unchanged and is the same one the deck already uses on the rate-card-data
+ * screenshots, so the captures still read as one family.
+ *
+ * The header block ends near y=208. Starting the hero at 288 and running it
+ * 724px tall leaves a 68px foot, and at the captures' 1.6 ratio that comes out
+ * 1158px wide inside the 1794px content column. Height drives the size and the
+ * width follows, so the aspect ratio is never forced. */
+[data-deck-variant="portfolio"] .pf__hero {
+  position: absolute;
+  left: 63px;
+  top: 288px;
+  width: 1794px;
+  height: 724px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+[data-deck-variant="portfolio"] .pf__hero img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  border: 1px solid var(--pf-card-border);
+  border-radius: var(--pf-card-radius);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42);
+}
+
+/* The two showcase slides run longer titles than the card slides, so the
+ * subtitle gets the header's full measure rather than the 1300px default. */
+[data-deck-variant="portfolio"] .atlas-slide--pf-product .pf__subtitle {
+  width: 1794px;
+}
+
+/* --------------------------------------------- before / after compare pair
+ * Two consecutive slides share this template so OLD MODEL + OLD UI and
+ * NEW MODEL + NEW UI flip without the title, columns, or screenshot frame
+ * jumping. Step cards and connected-section cards share one unit size so
+ * the before/after comparison reads as the same footprint. */
+[data-deck-variant="portfolio"] .atlas-slide--pf-compare {
+  background: #020024;
+}
+
+[data-deck-variant="portfolio"] .pf-compare {
+  --pf-card-surface: linear-gradient(41.24deg, #303946 1%, #202833 12.3%, #27313D 63.2%);
+  --pf-card-border: rgba(75, 90, 107, 0.55);
+  --pf-card-shadow: 0 10px 14px rgba(0, 0, 0, 0.32),
+                    inset 0 1px 12px rgba(255, 255, 255, 0.08);
+  --pf-card-radius: 16px;
+  --pf-compare-gutter: 48px;
+  --pf-compare-model: 760px;
+  --pf-compare-shot: 986px;
+  --pf-compare-content-top: 280px;
+  --pf-compare-content-height: 720px;
+  /* Shared unit size for Step cards AND connected-section cards. */
+  --pf-unit-w: 200px;
+  --pf-unit-h: 180px;
+  --pf-unit-gap: 12px;
+  --pf-arrow-w: 40px;
+  --pf-wizard: #FF7666;
+  --pf-connected: #6CB8FF;
+
+  position: absolute;
+  inset: 0;
+  font-family: "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  color: #FFFFFF;
+  text-rendering: geometricPrecision;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__header {
+  position: absolute;
+  left: 63px;
+  top: 88px;
+  width: 1794px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__title {
+  margin: 0;
+  font-size: 56px;
+  font-weight: var(--font-heading);
+  line-height: 56px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__subtitle {
+  margin: 0;
+  width: 1794px;
+  font-size: 36px;
+  font-weight: var(--font-subheading);
+  line-height: 48px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+[data-deck-variant="portfolio"] .pf-compare__body {
+  position: absolute;
+  left: 63px;
+  top: var(--pf-compare-content-top);
+  width: 1794px;
+  height: var(--pf-compare-content-height);
+  display: grid;
+  grid-template-columns: var(--pf-compare-model) var(--pf-compare-shot);
+  grid-template-rows: minmax(0, 1fr);
+  column-gap: var(--pf-compare-gutter);
+  align-items: stretch;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model {
+  display: flex;
+  flex-direction: column;
+  /* Top-align with the screenshot frame so the before/after flip keeps the
+     model in the same upper-left zone instead of floating in dead space. */
+  justify-content: flex-start;
+  gap: 36px;
+  padding-top: 28px;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 48px;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model-icon {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model-icon--structured {
+  width: 40px;
+  height: 40px;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model-label {
+  margin: 0;
+  font-size: 32px;
+  font-weight: var(--font-heading);
+  line-height: 1;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model--wizard .pf-compare__model-label {
+  color: var(--pf-wizard);
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model--connected .pf-compare__model-label {
+  color: #B7F0C8;
+}
+
+/* Shared row for Step 1-3 and Details / Line Items / Premiums. */
+[data-deck-variant="portfolio"] .pf-compare__units {
+  display: flex;
+  align-items: center;
+  gap: var(--pf-unit-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__unit {
+  box-sizing: border-box;
+  width: var(--pf-unit-w);
+  height: var(--pf-unit-h);
+  padding: 24px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border: 1px solid var(--pf-card-border);
+  border-radius: var(--pf-card-radius);
+  background: var(--pf-card-surface);
+  box-shadow: var(--pf-card-shadow);
+  /* Fully opaque: previous-state styling comes from coral accent / grey
+     numbers, not from washing the card out. */
+  opacity: 1;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model--wizard .pf-compare__unit {
+  border-color: rgba(255, 118, 102, 0.45);
+  /* Slightly lifted surface so Step cards read as intentional previous-state
+     cards, not disabled / faded ones, while staying in the same family. */
+  background: linear-gradient(41.24deg, #3a4554 1%, #2a3340 12.3%, #323c4a 63.2%);
+}
+
+[data-deck-variant="portfolio"] .pf-compare__model--connected .pf-compare__unit {
+  border-color: rgba(124, 126, 255, 0.35);
+}
+
+/* Fixed optical box so AddressBook / ListNumbers / Currency icons share
+ * the same centerline regardless of path bounding boxes. */
+[data-deck-variant="portfolio"] .pf-compare__unit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__unit-icon img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Number circles are authored dark grey; invert to a light coral so they
+ * stay readable on the navy card without looking disabled. */
+[data-deck-variant="portfolio"] .pf-compare__step-num {
+  filter: brightness(0) saturate(100%) invert(62%) sepia(48%) saturate(1800%)
+          hue-rotate(325deg) brightness(105%) contrast(101%);
+}
+
+[data-deck-variant="portfolio"] .pf-compare__unit-label {
+  margin: 0;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 22px;
+  font-weight: var(--font-heading);
+  line-height: 26px;
+  color: #FFFFFF;
+}
+
+/* Shared arrow slot so Step → and Details ↔ land on the same x positions. */
+[data-deck-variant="portfolio"] .pf-compare__arrow {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: var(--pf-arrow-w);
+  height: 14px;
+  flex: 0 0 var(--pf-arrow-w);
+  border: 0;
+  opacity: 1;
+  background: transparent;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__arrow--forward {
+  background: linear-gradient(
+    to right,
+    transparent 0,
+    transparent 4px,
+    #c4c8d4 4px,
+    #c4c8d4 calc(100% - 1px),
+    transparent calc(100% - 1px)
+  );
+  background-size: 100% 2px;
+  background-position: center left;
+  background-repeat: no-repeat;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__arrow--forward::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0;
+  height: 0;
+  transform: translateY(-50%);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 9px solid #c4c8d4;
+}
+
+/* Bidirectional: same 40px slot as forward, blue shaft with heads both ways. */
+[data-deck-variant="portfolio"] .pf-compare__arrow--bidirectional {
+  background: linear-gradient(
+    to right,
+    transparent 0,
+    transparent 4px,
+    #2997FF 4px,
+    #2997FF calc(100% - 4px),
+    transparent calc(100% - 4px)
+  );
+  background-size: 100% 2px;
+  background-position: center left;
+  background-repeat: no-repeat;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__arrow--bidirectional::before,
+[data-deck-variant="portfolio"] .pf-compare__arrow--bidirectional::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translateY(-50%);
+}
+
+[data-deck-variant="portfolio"] .pf-compare__arrow--bidirectional::before {
+  left: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 9px solid #2997FF;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__arrow--bidirectional::after {
+  right: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 9px solid #2997FF;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__shot {
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  position: relative;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__frame {
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--pf-card-border);
+  border-radius: var(--pf-card-radius);
+  background: #FFFFFF;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42);
+}
+
+[data-deck-variant="portfolio"] .pf-compare__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 42% 12%;
+}
+
+/* Live previous-design prototype. Crop the Disney Advertising global nav
+ * so the wizard form (CARD / LINE / PREM stepper + fields) fills the
+ * shared screenshot frame instead of a giant branded header. */
+[data-deck-variant="portfolio"] .pf-compare__prev-mount {
+  --rcle-prev-scale: 0.9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1440px;
+  transform-origin: top left;
+  pointer-events: none;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__prev-mount .prev-nav {
+  display: none !important;
+}
+
+/* With the global nav removed, pull the page surface flush to the top of
+ * the frame and nudge left so the stepper + form fill the crop. */
+[data-deck-variant="portfolio"] .pf-compare__prev-mount .prev-surface {
+  margin-top: 0;
+}
+
+[data-deck-variant="portfolio"] .pf-compare__frame--previous {
+  background: #f7f9fa;
+}
+
+/* --------------------------------------------- Figma 52358:1052 workflow
+ * Portfolio-only rebuild of the future-rate-card slide. Absolute positions
+ * and dimensions are taken from the Figma frame. Shared .frw rules in
+ * styles.css continue to drive index.html and are left alone. */
+[data-deck-variant="portfolio"] .atlas-slide--pf-frw {
+  background: #020024;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--pf-frw .frw,
+[data-deck-variant="portfolio"] .atlas-slide--pf-frw .frw__header,
+[data-deck-variant="portfolio"] .atlas-slide--pf-frw .frw__workflow,
+[data-deck-variant="portfolio"] .atlas-slide--pf-frw .frw__brand {
+  display: none !important;
+}
+
+[data-deck-variant="portfolio"] .pf-frw {
+  position: absolute;
+  inset: 0;
+  font-family: "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  color: #FFFFFF;
+  text-rendering: geometricPrecision;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__header {
+  position: absolute;
+  left: 63px;
+  top: 88px;
+  width: 1828px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__title {
+  margin: 0;
+  width: 1727px;
+  font-size: 56px;
+  font-weight: var(--font-heading);
+  line-height: 1;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__subtitle {
+  margin: 0;
+  width: 1808px;
+  font-size: 36px;
+  font-weight: var(--font-heading);
+  line-height: 56px;
+  letter-spacing: 0;
+  color: #FFFFFF;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__step {
+  position: absolute;
+  top: 388px;
+  display: flex;
+  align-items: center;
+  height: 216px;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__step--1 { left: 223px; }
+[data-deck-variant="portfolio"] .pf-frw__step--2 { left: 795px; }
+[data-deck-variant="portfolio"] .pf-frw__step--3 { left: 1373px; }
+
+[data-deck-variant="portfolio"] .pf-frw__accent {
+  flex: 0 0 auto;
+  width: 4.8px;
+  height: 156px;
+  border-radius: 1px;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__accent--create {
+  background: #8178f2;
+  box-shadow: 0 0 18px rgba(129, 120, 242, 0.55);
+}
+
+[data-deck-variant="portfolio"] .pf-frw__accent--manage {
+  background: #d6a85f;
+  box-shadow: 0 0 18px rgba(214, 168, 95, 0.5);
+}
+
+[data-deck-variant="portfolio"] .pf-frw__accent--apply {
+  background: #21a5f6;
+  box-shadow: 0 0 18px rgba(33, 165, 246, 0.5);
+}
+
+[data-deck-variant="portfolio"] .pf-frw__card {
+  position: relative;
+  box-sizing: border-box;
+  width: 320px;
+  height: 216px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 19.2px 57.6px;
+  border: 1.2px solid #4b5a6b;
+  border-radius: 19.2px;
+  background: linear-gradient(
+    33.651905432085904deg,
+    rgb(48, 57, 70) 0.9976%,
+    rgb(32, 40, 51) 21.967%,
+    rgb(39, 49, 61) 104.5%
+  );
+  box-shadow:
+    0 12px 16.8px rgba(0, 0, 0, 0.32),
+    inset 0 1.2px 14.4px rgba(255, 255, 255, 0.08);
+}
+
+[data-deck-variant="portfolio"] .pf-frw__card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9.6px;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__icon {
+  display: block;
+  width: 86.4px;
+  height: 86.4px;
+  flex: 0 0 auto;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__icon img {
+  display: block;
+  width: 86.4px;
+  height: 86.4px;
+  max-width: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__card-title {
+  margin: 0;
+  width: 192px;
+  font-size: 33.6px;
+  font-weight: var(--font-label);
+  line-height: normal;
+  text-align: center;
+  white-space: nowrap;
+  color: #f5f7fa;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__step--1 .pf-frw__card-title {
+  color: #eceeee;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__support {
+  position: absolute;
+  margin: 0;
+  font-size: 26px;
+  font-weight: var(--font-heading);
+  line-height: 1.2;
+  text-align: center;
+  color: #b8bcc7;
+  transform: translateX(-50%);
+}
+
+[data-deck-variant="portfolio"] .pf-frw__support--1 {
+  left: 382.5px;
+  top: 647px;
+  width: 359px;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__support--2 {
+  left: 960px;
+  top: 647px;
+  width: 368px;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__support--3 {
+  left: 1535.5px;
+  top: 639px;
+  width: 413px;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__arrow {
+  position: absolute;
+  top: 485.03px;
+  width: 181.8px;
+  height: 22.23px;
+  display: block;
+  max-width: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+[data-deck-variant="portfolio"] .pf-frw__arrow--1 { left: 577.92px; }
+[data-deck-variant="portfolio"] .pf-frw__arrow--2 { left: 1152.96px; }
+
+[data-deck-variant="portfolio"] .pf-frw__brand {
+  position: absolute;
+  left: 1826px;
+  top: 997px;
+  width: 36px;
+  height: 41px;
+  display: block;
+  max-width: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Portfolio deck normally hides corner marks; Figma 52358:1052 includes
+ * this brand lockup, so keep it visible on this slide only. */
+[data-deck-variant="portfolio"] .atlas-slide--pf-frw .pf-frw__brand {
+  display: block;
+}
+
+/* ==========================================================================
+ * Portfolio: Why pricing gets complicated (.wpcf)
+ * Self-contained copy so the portfolio cut does not depend on uncommitted
+ * styles.css changes. Selectors gated under [data-deck-variant="portfolio"].
+ * ========================================================================== */
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing:has(.wpcf) {
+  background: #020024;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf {
+  position: absolute;
+  inset: 0;
+  color: #ffffff;
+  font-family: var(--font-family-inspire);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__header {
+  position: absolute;
+  left: 63px;
+  top: 88px;
+  width: 1828px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__title,
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__subtitle {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
+  letter-spacing: 0;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__title {
+  width: 1727px;
+  font-size: 56px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__subtitle {
+  width: 1808px;
+  font-size: 36px;
+  line-height: 56px;
+  white-space: nowrap;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__columns {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__panel {
+  position: absolute;
+  top: 294px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 500px;
+  height: 480px;
+  padding: 48px 16px 4px;
+  border-radius: 18px;
+  background: #202735;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(84, 92, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__panel--negotiation {
+  left: 141px;
+  border: 2px solid #cb6f5f;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__panel--priced {
+  left: 717px;
+  border: 2px solid #7c89ad;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__panel--changes {
+  left: 1293px;
+  border: 2px solid #7a7df9;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 415px;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__panel-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  overflow: visible;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__col-title {
+  margin: 0;
+  font-family: var(--font-family-inspire);
+  font-size: 28px;
+  font-weight: var(--font-heading);
+  line-height: normal;
+  white-space: nowrap;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__panel--negotiation .wpcf__col-title {
+  color: #d18b7f;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__panel--priced .wpcf__col-title {
+  color: #a5b5e1;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__panel--changes .wpcf__col-title {
+  color: #7a7df9;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__col-sub {
+  margin: 0;
+  width: 431px;
+  height: 51px;
+  color: #c8cdd8;
+  font-family: var(--font-family-inspire);
+  font-size: 22px;
+  font-weight: var(--font-heading);
+  line-height: 26px;
+  white-space: nowrap;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__items {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__item {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 32px;
+  width: 415px;
+  padding: 15px 16px;
+  border-radius: 8px;
+  background: #2f3745;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__icon-wrap {
+  display: flex;
+  flex: 0 0 80px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 80px;
+  height: 80px;
+  padding: 16px;
+  border-radius: 48px;
+  background: #24303c;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__icon {
+  position: relative;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  overflow: visible;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__icon img {
+  display: block;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__icon--users img {
+  position: absolute;
+  top: 0;
+  left: -7.58765px;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__item-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8.2px;
+  width: 271px;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__item-title,
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__item-sub {
+  margin: 0;
+  width: 271px;
+  font-size: 24px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__item-title {
+  color: #ffffff;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading);
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__item-sub {
+  color: #c8cdd8;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-caption); /* InspireTWDC Roman 400 */
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__bracket {
+  position: absolute;
+  top: 799px;
+  left: 380px;
+  display: block;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__takeaway {
+  position: absolute;
+  top: 876px;
+  left: calc(50% + 5.5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 862px;
+  margin: 0;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__takeaway-kicker,
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__takeaway-line {
+  display: block;
+  font-family: var(--font-family-inspire);
+  font-size: 28px;
+  font-weight: var(--font-heading);
+  line-height: normal;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__takeaway-kicker {
+  color: #db9d6e;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--why-pricing .wpcf__takeaway-line {
+  color: #c8cdd8;
+}
