@@ -33,7 +33,7 @@
     <!-- Portfolio-only overrides. Loaded last so it wins over styles.css, and
          every rule inside is scoped to [data-deck-variant="portfolio"] so the
          original deck in index.html is unaffected. -->
-    <link rel="stylesheet" href="./portfolio.css?v=20260929-pf-compare-7">
+    <link rel="stylesheet" href="./portfolio.css?v=20260930-pf-beauty-2">
     <script src="./portfolio.js?v=20260929-pf-compare-1" defer></script>
     <script>
       (function loadDevelopmentViewportQa() {
@@ -65,7 +65,7 @@
     <script src="./conditions.js?v=20260828-shared-condition-control-1" defer=""></script>
     <script src="./fixtures/demo-rate-card-catalog.js?v=20260825-sales-data-1" defer=""></script>
     <script src="./fixtures/demo-cross-platform-rate-card.js?v=20260825-sales-data-1" defer=""></script>
-    <script src="./app.js?v=20260917-portfolio-1" defer=""></script>
+    <script src="./app.js?v=20260929-pf-sar-autoplay-1" defer=""></script>
     <script src="./v2.js?v=20260825-sales-data-1" defer=""></script>
     <!-- Feedback submission. Load order matters: config defines the
          destination, transport reads it, and feedback.js (the interface)
@@ -2441,7 +2441,7 @@
             9. How Rate Card Manager fits into the pricing workflow
            10. Same product. Different applicable rate.
            11. Find the Rate Card you need
-           12. Open a Rate Card and manage the pricing
+           12. Manage pricing inside the Rate Card
            13. What the design established
            14. Explore the prototype (data-atlas-closing, always last)
 
@@ -2885,60 +2885,39 @@
                    Card bg: rgba(21, 22, 47, 0.72) over the slide navy
                    Border:  rgba(124, 126, 255, 0.30)  (indigo 30%)
                  =========================================================== -->
-            <!-- Portfolio before/after pair. Shared pf-compare template.
-                 Slide A = previous Step Wizard model + real previous-design
-                 prototype. Slide B = connected sections + current Rate Card
-                 screenshot. Intentionally consecutive after the three-section
-                 product model slide. -->
+            <!-- Portfolio before/after pair. Shared left/right template:
+                 eyebrow + title + subtitle, then product window (left) and
+                 interaction model (right). Same frame so the flip reads as
+                 PREVIOUS DESIGN → CURRENT DESIGN. -->
             <section class="atlas-slide atlas-slide--pf-compare"
                      data-atlas-slide="7"
                      data-atlas-slide-id="connected-workflows"
                      aria-label="Slide 7 of 14: Pricing decisions aren’t linear">
-              <div class="pf-compare">
+              <div class="pf-compare pf-compare--previous">
                 <header class="pf-compare__header">
+                  <p class="pf-compare__eyebrow">PREVIOUS DESIGN</p>
                   <h2 class="pf-compare__title">Pricing decisions aren’t linear</h2>
-                  <p class="pf-compare__subtitle">The original wizard assumed each decision would be made once.</p>
+                  <p class="pf-compare__subtitle">The original wizard treated each pricing decision as a one-time step.</p>
                 </header>
 
-                <div class="pf-compare__body">
-                  <div class="pf-compare__model pf-compare__model--wizard" aria-label="Step Wizard model">
-                    <div class="pf-compare__model-head">
-                      <span class="pf-compare__model-icon" aria-hidden="true">
-                        <img src="./assets/atlas/cw-handpalm.svg?v=20260708-cw-figma-icons" alt="" width="48" height="48" draggable="false" />
-                      </span>
-                      <h3 class="pf-compare__model-label">Step Wizard</h3>
-                    </div>
-                    <div class="pf-compare__units" role="list">
-                      <div class="pf-compare__unit" role="listitem">
-                        <span class="pf-compare__unit-icon" aria-hidden="true">
-                          <img class="pf-compare__step-num" src="./assets/atlas/cw-num-1.svg?v=20260708-cw-figma-icons" alt="" width="48" height="48" draggable="false" />
-                        </span>
-                        <p class="pf-compare__unit-label">Step 1</p>
-                      </div>
-                      <span class="pf-compare__arrow pf-compare__arrow--forward" aria-hidden="true"></span>
-                      <div class="pf-compare__unit" role="listitem">
-                        <span class="pf-compare__unit-icon" aria-hidden="true">
-                          <img class="pf-compare__step-num" src="./assets/atlas/cw-num-2.svg?v=20260708-cw-figma-icons" alt="" width="48" height="48" draggable="false" />
-                        </span>
-                        <p class="pf-compare__unit-label">Step 2</p>
-                      </div>
-                      <span class="pf-compare__arrow pf-compare__arrow--forward" aria-hidden="true"></span>
-                      <div class="pf-compare__unit" role="listitem">
-                        <span class="pf-compare__unit-icon" aria-hidden="true">
-                          <img class="pf-compare__step-num" src="./assets/atlas/cw-num-3.svg?v=20260708-cw-figma-icons" alt="" width="48" height="48" draggable="false" />
-                        </span>
-                        <p class="pf-compare__unit-label">Step 3</p>
-                      </div>
-                    </div>
+                <figure class="pf-compare__shot">
+                  <div class="pf-compare__frame pf-compare__frame--previous" aria-label="Previous Create Rate Card wizard">
+                    <img src="./assets/atlas/portfolio-ui-previous-wizard.png?v=20260929-prev-2x-single"
+                         alt="Previous Create Rate Card wizard with CARD, LINE, and PREM steps"
+                         width="2880"
+                         height="1800"
+                         draggable="false" />
                   </div>
+                </figure>
 
-                  <figure class="pf-compare__shot">
-                    <div class="pf-compare__frame pf-compare__frame--previous" aria-label="Previous Create Rate Card wizard">
-                      <div class="pf-compare__prev-mount rcle__previous-prototype"
-                           data-pf-prev-mount
-                           aria-hidden="true"></div>
-                    </div>
-                  </figure>
+                <div class="pf-compare__model pf-compare__model--wizard" aria-label="Step Wizard model">
+                  <div class="pf-compare__model-head">
+                    <span class="pf-compare__model-icon" aria-hidden="true">
+                      <img src="./assets/atlas/cw-handpalm.svg?v=20260708-cw-figma-icons" alt="" width="48" height="48" draggable="false" />
+                    </span>
+                    <h3 class="pf-compare__model-label">Step Wizard</h3>
+                  </div>
+                  <p class="pf-compare__model-copy">Step 1 → Step 2 → Step 3<br />a straight line with no way back.</p>
                 </div>
               </div>
             </section>
@@ -2947,53 +2926,31 @@
                      data-atlas-slide="8"
                      data-atlas-slide-id="connected-sections-model"
                      aria-label="Slide 8 of 14: I replaced the wizard with connected sections">
-              <div class="pf-compare">
+              <div class="pf-compare pf-compare--current">
                 <header class="pf-compare__header">
+                  <p class="pf-compare__eyebrow">CURRENT DESIGN</p>
                   <h2 class="pf-compare__title">I replaced the wizard with connected sections</h2>
-                  <p class="pf-compare__subtitle">Users can move between Rate Card Details, Line Items, and Premiums as pricing changes.</p>
+                  <p class="pf-compare__subtitle">Users can revisit Rate Card Details, Line Items, and Premiums as pricing changes.</p>
                 </header>
 
-                <div class="pf-compare__body">
-                  <div class="pf-compare__model pf-compare__model--connected" aria-label="Connected sections model">
-                    <div class="pf-compare__model-head">
-                      <span class="pf-compare__model-icon pf-compare__model-icon--structured" aria-hidden="true">
-                        <img src="./assets/atlas/cw-check-circle.svg?v=20260708-cw-figma-icons" alt="" width="36" height="36" draggable="false" />
-                      </span>
-                      <h3 class="pf-compare__model-label">Connected sections</h3>
-                    </div>
-                    <div class="pf-compare__units" role="list">
-                      <div class="pf-compare__unit" role="listitem">
-                        <span class="pf-compare__unit-icon" aria-hidden="true">
-                          <img src="./assets/atlas/cw-icon-rc-details.svg?v=20260804-cw-structured-cards" alt="" width="48" height="48" draggable="false" />
-                        </span>
-                        <p class="pf-compare__unit-label">Rate Card<br />Details</p>
-                      </div>
-                      <span class="pf-compare__arrow pf-compare__arrow--bidirectional" aria-hidden="true"></span>
-                      <div class="pf-compare__unit" role="listitem">
-                        <span class="pf-compare__unit-icon" aria-hidden="true">
-                          <img src="./assets/atlas/cw-icon-line-items.svg?v=20260804-cw-structured-cards" alt="" width="48" height="48" draggable="false" />
-                        </span>
-                        <p class="pf-compare__unit-label">Line Items</p>
-                      </div>
-                      <span class="pf-compare__arrow pf-compare__arrow--bidirectional" aria-hidden="true"></span>
-                      <div class="pf-compare__unit" role="listitem">
-                        <span class="pf-compare__unit-icon" aria-hidden="true">
-                          <img src="./assets/atlas/cw-icon-premiums.svg?v=20260804-cw-structured-cards" alt="" width="48" height="48" draggable="false" />
-                        </span>
-                        <p class="pf-compare__unit-label">Premiums</p>
-                      </div>
-                    </div>
+                <figure class="pf-compare__shot">
+                  <div class="pf-compare__frame" aria-label="Current Rate Card with connected sections">
+                    <img src="./assets/atlas/portfolio-ui-detail-full.png"
+                         alt="Opened Rate Card showing Details, Line items, and Premiums in one connected experience"
+                         width="3200"
+                         height="2000"
+                         draggable="false" />
                   </div>
+                </figure>
 
-                  <figure class="pf-compare__shot">
-                    <div class="pf-compare__frame">
-                      <img src="./assets/atlas/portfolio-ui-detail-full.png"
-                           alt="Opened Rate Card with Line items and Premiums sections connected in one place"
-                           width="3200"
-                           height="2000"
-                           draggable="false" />
-                    </div>
-                  </figure>
+                <div class="pf-compare__model pf-compare__model--connected" aria-label="Connected sections model">
+                  <div class="pf-compare__model-head">
+                    <span class="pf-compare__model-icon pf-compare__model-icon--structured" aria-hidden="true">
+                      <img src="./assets/atlas/cw-check-circle.svg?v=20260708-cw-figma-icons" alt="" width="36" height="36" draggable="false" />
+                    </span>
+                    <h3 class="pf-compare__model-label">Connected sections</h3>
+                  </div>
+                  <p class="pf-compare__model-copy"><span class="pf-compare__model-line">Details <span class="pf-compare__copy-arrow" aria-hidden="true">↔</span> Line Items <span class="pf-compare__copy-arrow" aria-hidden="true">↔</span> Premiums</span><br /><span class="pf-compare__model-line">Move back and forth as pricing changes.</span></p>
                 </div>
               </div>
             </section>
@@ -3001,8 +2958,9 @@
 
 
             <!-- Portfolio: Figma node 52358:1052. Exact frame match
-                 (title/subtitle, 320px cards, accent rails, support copy,
-                 arrow assets). Portfolio-only markup + portfolio.css.
+                 (title/subtitle, equal cards, support copy below,
+                 arrow assets). No colored side rails.
+                 Portfolio-only markup + portfolio.css.
                  Shared .frw styles remain for index.html. -->
             <section class="atlas-slide atlas-slide--future-rate-card atlas-slide--pf-frw"
                      data-atlas-slide="9"
@@ -3015,13 +2973,12 @@
                 </header>
 
                 <div class="pf-frw__step pf-frw__step--1">
-                  <span class="pf-frw__accent pf-frw__accent--create" aria-hidden="true"></span>
                   <div class="pf-frw__card">
                     <div class="pf-frw__card-inner">
                       <span class="pf-frw__icon" aria-hidden="true">
                         <img src="./assets/atlas/pf-frw-file-plus.svg" alt="" width="86.4" height="86.4" draggable="false" />
                       </span>
-                      <h3 class="pf-frw__card-title">Create a Rate Card</h3>
+                      <h3 class="pf-frw__card-title">Create<br />Rate Card</h3>
                     </div>
                   </div>
                 </div>
@@ -3036,13 +2993,12 @@
                      aria-hidden="true" />
 
                 <div class="pf-frw__step pf-frw__step--2">
-                  <span class="pf-frw__accent pf-frw__accent--manage" aria-hidden="true"></span>
                   <div class="pf-frw__card">
                     <div class="pf-frw__card-inner">
                       <span class="pf-frw__icon" aria-hidden="true">
                         <img src="./assets/atlas/pf-frw-tag.svg" alt="" width="86.4" height="86.4" draggable="false" />
                       </span>
-                      <h3 class="pf-frw__card-title">Manage Pricing</h3>
+                      <h3 class="pf-frw__card-title">Manage<br />Pricing</h3>
                     </div>
                   </div>
                 </div>
@@ -3057,13 +3013,12 @@
                      aria-hidden="true" />
 
                 <div class="pf-frw__step pf-frw__step--3">
-                  <span class="pf-frw__accent pf-frw__accent--apply" aria-hidden="true"></span>
                   <div class="pf-frw__card">
                     <div class="pf-frw__card-inner">
                       <span class="pf-frw__icon" aria-hidden="true">
                         <img src="./assets/atlas/pf-frw-seal-check.svg" alt="" width="86.4" height="86.4" draggable="false" />
                       </span>
-                      <h3 class="pf-frw__card-title">Apply Pricing</h3>
+                      <h3 class="pf-frw__card-title">Apply<br />Pricing</h3>
                     </div>
                   </div>
                 </div>
@@ -3121,7 +3076,7 @@
               <div class="sar" data-same-ad-rate="" data-sar-phase="revealing" data-sar-stage="0">
                 <header class="sar__header">
                   <h2 class="sar__title">Same product. Different applicable rate.</h2>
-                  <p class="sar__subtitle">The price depends on the buyer and the deal, not only on the product.</p>
+                  <p class="sar__subtitle">The deal context changes the price, even when the product stays the same.</p>
                 </header>
 
                 <div class="sar__source">
@@ -3450,62 +3405,62 @@
             <section data-atlas-slide="11" class="atlas-slide atlas-slide--pf-product" data-atlas-slide-id="portfolio-product-list" aria-label="Slide 11 of 14: Find the Rate Card you need">
               <div class="pf">
                 <header class="pf__header">
+                  <p class="pf__eyebrow pf__eyebrow--final">FINAL DESIGN</p>
                   <h2 class="pf__title">Find the Rate Card you need</h2>
                   <p class="pf__subtitle">One place to browse, search, and manage Rate Cards.</p>
                 </header>
-                <figure class="pf__hero">
+                <figure class="pf__hero pf__hero--viewport">
                   <img src="./assets/atlas/portfolio-ui-list-full.png" alt="Rate Card Manager list view with search, status, rate card ID and name, marketplace, buying entity, and last updated" width="3200" height="2000" draggable="false">
                 </figure>
               </div>
             </section>
 
-            <section data-atlas-slide="12" class="atlas-slide atlas-slide--pf-product" data-atlas-slide-id="portfolio-product-detail" aria-label="Slide 12 of 14: Open a Rate Card and manage the pricing">
+            <section data-atlas-slide="12" class="atlas-slide atlas-slide--pf-product" data-atlas-slide-id="portfolio-product-detail" aria-label="Slide 12 of 14: Manage pricing inside the Rate Card">
               <div class="pf">
                 <header class="pf__header">
-                  <h2 class="pf__title">Open a Rate Card and manage the pricing</h2>
+                  <p class="pf__eyebrow pf__eyebrow--final">FINAL DESIGN</p>
+                  <h2 class="pf__title">Manage pricing inside the Rate Card</h2>
                   <p class="pf__subtitle">Details, line items, and premiums stay connected in one place.</p>
                 </header>
-                <figure class="pf__hero">
+                <figure class="pf__hero pf__hero--viewport">
                   <img src="./assets/atlas/portfolio-ui-detail-full.png" alt="An opened rate card showing its details, the Line items and Premiums sections, and the line item table" width="3200" height="2000" draggable="false">
                 </figure>
               </div>
             </section>
 
-            <!-- PORTFOLIO SLIDE: what the design established. Deliberately no
-                 business metrics, adoption numbers or research counts, because
-                 none are recorded anywhere in this project. Each card states a
-                 design output that the prototype and PRD summary can back. -->
+            <!-- PORTFOLIO SLIDE: design outcomes only. No launch metrics,
+                 adoption, or research counts. Copy stays external-facing:
+                 no CARD / LINE / PREM / ICM / TOM / Core Planning. -->
             <section class="atlas-slide atlas-slide--pf-outcome" data-atlas-slide="13" data-atlas-slide-id="portfolio-outcome" aria-label="Slide 13 of 14: What the design established">
               <div class="pf">
-                <header class="pf__header">
+                <header class="pf__header pf__header--outcome">
                   <h2 class="pf__title">What the design established</h2>
-                  <p class="pf__subtitle">Design outcomes, not launch metrics.</p>
                 </header>
-                <div class="pf__cards">
-                  <div class="pf__card">
-                    <p class="pf__eyebrow">Structured model</p>
-                    <ul class="pf__list">
-                      <li>One CARD, LINE, PREM structure behind every rate card</li>
-                    </ul>
-                  </div>
-                  <div class="pf__card">
-                    <p class="pf__eyebrow">Flexible editing</p>
-                    <ul class="pf__list">
-                      <li>Connected sections replaced the linear wizard</li>
-                    </ul>
-                  </div>
-                  <div class="pf__card">
-                    <p class="pf__eyebrow">Connected workflow</p>
-                    <ul class="pf__list">
-                      <li>Pricing data shaped to feed Core Planning</li>
-                    </ul>
-                  </div>
-                  <div class="pf__card">
-                    <p class="pf__eyebrow">Shared reference</p>
-                    <ul class="pf__list">
-                      <li>A working prototype that shows the intended behavior</li>
-                    </ul>
-                  </div>
+                <div class="pf__cards pf__cards--three pf__cards--outcome">
+                  <article class="pf__card pf__card--outcome">
+                    <span class="pf__card-icon" aria-hidden="true">
+                      <img src="./assets/atlas/pf-outcome-structure.svg" alt="" width="86" height="86" draggable="false">
+                    </span>
+                    <p class="pf__eyebrow">Pricing model</p>
+                    <h3 class="pf__card-title">Clear pricing model</h3>
+                    <p class="pf__card-copy">Buyer, product, base rate, and adjustments were organized into one connected structure.</p>
+                  </article>
+                  <article class="pf__card pf__card--outcome">
+                    <span class="pf__card-icon" aria-hidden="true">
+                      <img src="./assets/atlas/pf-outcome-workflow.svg" alt="" width="86" height="86" draggable="false">
+                    </span>
+                    <p class="pf__eyebrow">Workflow</p>
+                    <h3 class="pf__card-title">Flexible workflow</h3>
+                    <p class="pf__card-copy">Users can revisit pricing details without restarting a wizard.</p>
+                  </article>
+                  <article class="pf__card pf__card--outcome">
+                    <span class="pf__card-icon" aria-hidden="true">
+                      <img src="./assets/atlas/pf-outcome-prototype.svg" alt="" width="86" height="86" draggable="false">
+                    </span>
+                    <p class="pf__eyebrow">Prototype</p>
+                    <h3 class="pf__card-title">Shared product vision</h3>
+                    <p class="pf__card-copy">A working prototype made the intended experience concrete.</p>
+                  </article>
                 </div>
               </div>
             </section>
@@ -3564,7 +3519,7 @@
 
                 <a class="clo__row clo__row--2" href="?section=atlas&amp;slide=line-item-necessity" data-atlas-appendix-link="line-item-necessity">
                   <span class="clo__num" aria-hidden="true">02</span>
-                  <span class="clo__row-title">Why do line items need to be in the rate card</span>
+                  <span class="clo__row-title">Why do line items need to be in the Rate Card</span>
                   <svg class="clo__arrow clo__arrow--row" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true" focusable="false">
                     <path d="M31.1709 18.796L21.0459 28.921C20.8348 29.1321 20.5485 29.2507 20.25 29.2507C19.9515 29.2507 19.6652 29.1321 19.4541 28.921C19.243 28.7099 19.1244 28.4236 19.1244 28.1251C19.1244 27.8265 19.243 27.5402 19.4541 27.3291L27.6595 19.1251H5.625C5.32663 19.1251 5.04048 19.0066 4.82951 18.7956C4.61853 18.5846 4.5 18.2984 4.5 18.0001C4.5 17.7017 4.61853 17.4156 4.82951 17.2046C5.04048 16.9936 5.32663 16.8751 5.625 16.8751H27.6595L19.4541 8.67101C19.243 8.45992 19.1244 8.17361 19.1244 7.87508C19.1244 7.57654 19.243 7.29023 19.4541 7.07914C19.6652 6.86804 19.9515 6.74945 20.25 6.74945C20.5485 6.74945 20.8348 6.86804 21.0459 7.07914L31.1709 17.2041C31.2755 17.3086 31.3585 17.4327 31.4151 17.5693C31.4717 17.7058 31.5009 17.8522 31.5009 18.0001C31.5009 18.1479 31.4717 18.2943 31.4151 18.4309C31.3585 18.5675 31.2755 18.6915 31.1709 18.796Z" fill="currentColor"></path>
                   </svg>

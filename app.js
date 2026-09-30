@@ -13429,6 +13429,12 @@
    * skip the Scatter shelf filling or land two stages on one click. Only
    * once the third has finished does the deck take the next gesture back.
    *
+   * Portfolio deck exception: the same three-stage order autoplays once
+   * on slide entry (500ms settle, then ~700ms between steps). Forward
+   * gestures never consume navigation, so ArrowRight / click can leave
+   * immediately. prefers-reduced-motion jumps straight to the completed
+   * state. Leaving cancels timers; returning replays once from the start.
+   *
    * Nothing here listens for animationend: the stages are CSS timelines
    * and the guard is a clock, so a finished stage can never start the next
    * one. Backward navigation belongs to the deck, and leaving the slide is
@@ -13458,8 +13464,22 @@
      * the order the shelf fills in are the argument, not decoration. */
     var RUNTIME_REDUCED = { branch: 200, upfront: 200, scatter: 1370 };
 
+    /* Portfolio autoplay: settle, then fire the existing stages in order. */
+    var AUTOPLAY_START_MS = 500;
+    var AUTOPLAY_STEP_MS = 700;
+
     var stageIndex = 0;
     var guardUntil = 0;
+    var autoplayTimers = [];
+
+    function isPortfolio() {
+      return document.body.getAttribute('data-deck-variant') === 'portfolio';
+    }
+
+    function prefersReducedMotion() {
+      return typeof window.matchMedia === 'function'
+        && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
 
     function isLive() {
       return slide.classList.contains('is-active')
@@ -13467,9 +13487,7 @@
     }
 
     function runtime(name) {
-      var reduced = typeof window.matchMedia === 'function'
-        && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      return (reduced ? RUNTIME_REDUCED : RUNTIME)[name];
+      return (prefersReducedMotion() ? RUNTIME_REDUCED : RUNTIME)[name];
     }
 
     /* A stage can own several elements: the branch is two half-uprights,
@@ -13494,13 +13512,37 @@
         stageIndex >= STAGES.length ? 'complete' : 'revealing');
     }
 
+    function clearAutoplay() {
+      autoplayTimers.forEach(function (id) { window.clearTimeout(id); });
+      autoplayTimers = [];
+    }
+
     function reset() {
+      clearAutoplay();
       setStage(0);
       guardUntil = 0;
     }
 
+    function startPortfolioAutoplay() {
+      clearAutoplay();
+      if (prefersReducedMotion()) {
+        setStage(STAGES.length);
+        return;
+      }
+      setStage(0);
+      STAGES.forEach(function (_name, index) {
+        var delay = AUTOPLAY_START_MS + (index * AUTOPLAY_STEP_MS);
+        autoplayTimers.push(window.setTimeout(function () {
+          if (!isLive() || !isPortfolio()) return;
+          setStage(index + 1);
+        }, delay));
+      });
+    }
+
     function handle(gesture) {
       if (!isLive()) return false;
+      /* Portfolio autoplays the sequence; never trap deck navigation. */
+      if (isPortfolio()) return false;
       /* A gesture arriving mid-stage is dropped, not banked: the presenter
        * asked for the next beat while this one was still speaking. */
       if (Date.now() < guardUntil) return true;
@@ -13516,6 +13558,11 @@
     atlasSlideGestures.push({ slide: slide, handle: handle });
 
     function sync() {
+      clearAutoplay();
+      if (isLive() && isPortfolio()) {
+        startPortfolioAutoplay();
+        return;
+      }
       reset();
     }
 
