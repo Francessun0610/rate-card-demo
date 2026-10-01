@@ -140,23 +140,29 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
-/* ------------------------------------------- outcome conclusion (3 cards)
- * Wider, slightly shorter cards. Icon-led. External-facing copy only.
- * Shared geometry so the three outcomes read as one component.
- * Cards sit higher with a calmer foot so the slide does not feel unfinished. */
+/* ------------------------------------------- outcome conclusion (4 cards)
+ * Icon-led. External-facing copy only. Same card surface, type, and padding
+ * as the prior treatment; four equal columns use the shared pf__cards grid. */
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__header--outcome {
   top: 88px;
-  gap: 0;
+  gap: 12px;
+}
+
+[data-deck-variant="portfolio"]
+  .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
+  .pf__subtitle--outcome {
+  width: 1794px;
+  max-width: 1794px;
 }
 
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__cards--outcome {
-  top: 310px;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 36px;
+  top: 280px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
   align-items: stretch;
 }
 
@@ -1038,10 +1044,15 @@
 [data-deck-variant="portfolio"] .pf-frw__support {
   position: absolute;
   margin: 0;
-  width: 340px;
+  box-sizing: border-box;
+  /* Shared box under every card. Wide enough for each sentence on one
+   * line at 26/34 so the three blocks share one calm baseline. */
+  width: 510px;
+  max-width: 510px;
+  min-height: 34px;
   font-size: 26px;
   font-weight: var(--font-heading);
-  line-height: 1.25;
+  line-height: 34px;
   text-align: center;
   color: #b8bcc7;
   transform: translateX(-50%);
@@ -1415,31 +1426,104 @@
   font-weight: 400;
 }
 
-/* ------------------------------------------- closing CTA / appendix polish
- * Portfolio CTA copy is longer than the original "Explore the prototype"
- * Figma pill. Widen the button and let the label size to content so the
- * arrow is never clipped. Align title/CTA to the 63px content column. */
-[data-deck-variant="portfolio"] .atlas-slide--closing .clo__title {
+/* ------------------------------------------- closing: clean portfolio ending
+ * Appendix links and divider are removed from the portfolio closing slide.
+ * Title, subtitle, and CTA sit as one left-aligned editorial group, vertically
+ * composed so the slide does not feel stuck at the top. CTA is true inline-flex
+ * (label + arrow) so the arrow can never overlap the text. */
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo--portfolio-end {
+  pointer-events: none;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo__content {
+  position: absolute;
   left: 63px;
+  top: 50%;
+  transform: translateY(-52%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+  width: auto;
+  max-width: 1400px;
+  pointer-events: none;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo__title {
+  position: static;
+  left: auto;
+  top: auto;
+  width: auto;
+  margin: 0;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo__subtitle {
+  position: static;
+  margin: 0;
+  width: auto;
+  max-width: 980px;
+  font-family: "InspireTWDC", "MultiplaneTWDC Display", "Open Sans", sans-serif;
+  font-size: 36px;
+  font-weight: var(--font-subheading);
+  line-height: 48px;
+  color: rgba(255, 255, 255, 0.86);
 }
 
 [data-deck-variant="portfolio"] .atlas-slide--closing .clo__cta {
-  left: 63px;
+  position: static;
+  left: auto;
+  top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
   width: auto;
-  min-width: 460px;
-  padding: 0 28px;
-  justify-content: flex-start;
-  gap: 14px;
+  min-width: 0;
+  height: auto;
+  min-height: 93px;
+  margin-top: 12px;
+  padding: 24px 40px;
+  box-sizing: border-box;
+  pointer-events: auto;
 }
 
 [data-deck-variant="portfolio"] .atlas-slide--closing .clo__cta-label {
+  display: block;
   width: auto;
+  max-width: none;
   flex: 0 0 auto;
   white-space: nowrap;
+  font-size: 33.6px;
+  line-height: 1.2;
 }
 
 [data-deck-variant="portfolio"] .atlas-slide--closing .clo__arrow--cta {
   flex: 0 0 36px;
   width: 36px;
   height: 36px;
+  display: block;
+  transition: transform 160ms ease;
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo__cta:hover .clo__arrow--cta {
+  transform: translateX(4px);
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo__cta:hover {
+  filter: brightness(1.12);
+}
+
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo__cta:focus-visible {
+  outline: 2px solid #4F80E0;
+  outline-offset: 6px;
+  border-radius: 12px;
+}
+
+/* Appendix UI is not part of the portfolio ending. Keep shared appendix
+ * slide markup in the DOM for deep links, but hide any leftover closing
+ * affordances if markup drifts. */
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo__rule,
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo__appendix,
+[data-deck-variant="portfolio"] .atlas-slide--closing .clo__row {
+  display: none !important;
 }
