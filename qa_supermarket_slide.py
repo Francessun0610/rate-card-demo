@@ -152,8 +152,8 @@ SLIDE_INDEX = 3
 SLIDE_ID = "advertising-supermarket"
 PREV_ID = "rate-card-right-price"
 NEXT_ID = "upfront-scatter"
-TOTAL_SLIDES = 12
-SLIDE_QS = f"&slide={SLIDE_INDEX}"
+TOTAL_SLIDES = 11
+SLIDE_QS = f"&slide={SLIDE_ID}"   # appendix: addressed by stable id
 
 # Reveal contract, mirroring the constants in initAtlasSupermarket (app.js).
 # The heading runs itself (title at 120ms, subtitle at 300ms); the three
@@ -489,36 +489,31 @@ def main():
         # ---- Deck placement ------------------------------------------------
         print("\n[placement]")
         go(c, url + SLIDE_QS)
-        check(f"?slide={SLIDE_INDEX} opens the supermarket slide",
+        check("?slide=advertising-supermarket opens the supermarket slide",
               slide_id(c) == SLIDE_ID, f"id={slide_id(c)}")
 
+        # 2026-09-22: this section moved to the appendix. It is no longer part
+        # of the numbered main run, so placement is now asserted as "off the
+        # run but still reachable by its stable id" rather than "third slide".
         order = c.eval(
             "[...document.querySelectorAll('.atlas-slide')].filter(s => !s.hasAttribute('data-atlas-appendix'))"
             ".map(s => s.dataset.atlasSlideId)"
         )
-        i = order.index(SLIDE_ID)
-        check("it is the third slide in the deck",
-              i == SLIDE_INDEX - 1, f"index={i + 1}")
-        check("it follows the Right Price explainer",
-              order[i - 1] == PREV_ID, f"before={order[i - 1]}")
-        check("the deal types slide follows it",
-              order[i + 1] == NEXT_ID, f"after={order[i + 1]}")
-        check("the slide exists exactly once in the main run",
-              order.count(SLIDE_ID) == 1 and len(order) == TOTAL_SLIDES
-              and len(set(order)) == TOTAL_SLIDES,
-              f"{order.count(SLIDE_ID)} copies of {len(order)} slides")
-        check("the opening narrative runs in the briefed order",
-              order[:8] == [
-                  "cover", "rate-card-right-price", SLIDE_ID, NEXT_ID,
-                  "same-ad-different-rate", "core-planning-media-plan",
-                  "rate-card-three-questions", "structured-pricing-data",
-              ], json.dumps(order[:8]))
-        check("the numbering on the section matches its place in the deck",
+        check("it is held out of the main run",
+              SLIDE_ID not in order, json.dumps(order))
+        check("the main run is the expected eleven slides",
+              len(order) == TOTAL_SLIDES and len(set(order)) == TOTAL_SLIDES,
+              f"{len(order)} slides")
+        check("it is marked as an appendix section",
               c.eval(f"""(() => {{
                 const s = document.querySelector('[data-atlas-slide-id="{SLIDE_ID}"]');
-                return s.dataset.atlasSlide === '{SLIDE_INDEX}'
-                  && s.getAttribute('aria-label')
-                       .startsWith('Slide {SLIDE_INDEX} of {TOTAL_SLIDES}:');
+                return s.hasAttribute('data-atlas-appendix')
+                  && !s.hasAttribute('data-atlas-slide');
+              }})()"""))
+        check("it carries an appendix label rather than a slide number",
+              c.eval(f"""(() => {{
+                const s = document.querySelector('[data-atlas-slide-id="{SLIDE_ID}"]');
+                return (s.getAttribute('aria-label') || '').startsWith('Appendix');
               }})()"""))
 
         # Reachable with the deck's own controls, not just a deep link. The

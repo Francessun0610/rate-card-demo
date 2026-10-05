@@ -44,19 +44,18 @@ import urllib.request
 ROOT  = "/Users/frances.sun/My Drive/Cursor and Code/Rate Card"
 URL   = "http://127.0.0.1:8001/?section=atlas"
 OUT   = "/tmp/qa_no_nav"
-TOTAL_SLIDES = 12
+TOTAL_SLIDES = 11
 FINAL_INDEX = TOTAL_SLIDES - 1
 EXPECTED_ORDER = [
     "cover",
-    "rate-card-right-price",
-    "advertising-supermarket",
-    "upfront-scatter",
-    "same-ad-different-rate",
-    "core-planning-media-plan",
-    "rate-card-three-questions",
+    "pricing-complexity",
     "structured-pricing-data",
-    "future-rate-card-workflow",
+    "rate-card-right-price",
+    "same-ad-different-rate",
+    "rate-card-three-questions",
     "connected-workflows",
+    "future-rate-card-workflow",
+    "core-planning-media-plan",
     "rate-card-line-pricing",
     "closing-thank-you",
 ]
@@ -146,13 +145,12 @@ SLIDE_COPY = {
     },
     "pricing-complexity": {
         "title": (
-            ".wpc__title",
-            "Why Pricing Gets Complicated Before Planning",
+            ".wpcf__title",
+            "Why pricing gets complicated before planning",
         ),
         "subtitle": (
-            ".wpc__subtitle",
-            "An applicable rate depends on connected negotiation context,"
-            " base-rate data, and recognized pricing conditions.",
+            ".wpcf__subtitle",
+            "Price changes with the buyer, deal, product, and adjustments.",
         ),
     },
     "rate-card-three-questions": {

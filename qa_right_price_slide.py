@@ -39,9 +39,9 @@ import urllib.request
 
 ROOT = "/Users/frances.sun/My Drive/Cursor and Code/Rate Card"
 OUT = "/tmp/qa_right_price_slide"
-SLIDE_INDEX = 2
+SLIDE_INDEX = 4
 SLIDE_ID = "rate-card-right-price"
-TOTAL_SLIDES = 12
+TOTAL_SLIDES = 11
 
 # The whole automatic run, in ms, from entry to `waiting-for-result`:
 # LEAD_IN 260 + 3 * (TERM_TO_OP 180 + OP_TO_TERM 200) + TERM_TO_OP 180.

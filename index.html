@@ -152,7 +152,7 @@
                  src="./assets/figma-navigation/disney-mark.svg"
                  width="32" height="28" alt="" aria-hidden="true">
             <span class="gnav__brand-name gnav__brand-name--legacy">Disney Advertising</span>
-            <span class="gnav__brand-name gnav__brand-name--v2">Ad Console</span>
+            <span class="gnav__brand-name gnav__brand-name--v2">Ad Tool</span>
             <!-- Legacy Disney+Ad-Platforms wordmark kept hidden in DOM
                  only as a sentinel for any QA scripts that still query
                  .gnav__wordmark-svg by selector. Visually collapsed. -->
@@ -2787,22 +2787,24 @@
 
           Main run:
             1. Rate Card Manager (cover)
-            2. A Rate Card tells us the right price for each deal
-            3. Think of Disney Advertising as a supermarket
-            4. Buyers can purchase through different deal types
+            2. Why pricing gets complicated before planning
+               (data-atlas-slide-id="pricing-complexity")
+            3. Turning Rate Cards into Structured Pricing Data
+            4. A Rate Card tells us the right price for each deal
             5. Same product. Different applicable rate.
-            6. Each line item is priced as the media plan is built.
-            7. RCM organizes pricing into three connected sections
-            8. Turning Rate Cards into Structured Pricing Data
-            9. Future Rate Card Workflow
-           10. Pricing decisions change as the deal changes
-           11. How Rate Cards Will Support Core Planning
-           12. Thank you (data-atlas-closing, always last)
+            6. RCM organizes pricing into three connected sections
+            7. Pricing decisions change as the deal changes
+            8. Future Rate Card Workflow
+            9. Each line item is priced as the media plan is built
+           10. How Rate Cards Will Support Core Planning
+           11. Thank you (data-atlas-closing, always last)
 
           Appendix, off the run, reached only from the closing card:
-            01. Why Pricing Gets Complicated Before Planning
-                (data-atlas-slide-id="pricing-complexity")
-            02. Why Do Line Items Need to Be in the Rate Card?
+            01. Think of Disney Advertising as a supermarket
+                (data-atlas-slide-id="advertising-supermarket")
+            02. Buyers can purchase through different deal types
+                (data-atlas-slide-id="upfront-scatter")
+            03. Why Do Line Items Need to Be in the Rate Card?
                 (data-atlas-slide-id="line-item-necessity")
 
           ?slide=N is 1-based into the main run; ?slide=<slide-id> reaches
@@ -2826,7 +2828,7 @@
                      class="atlas-slide atlas-slide--cover"
                      data-atlas-slide="1"
                      data-atlas-slide-id="cover"
-                     aria-label="Slide 1 of 12: Rate Card Manager">
+                     aria-label="Slide 1 of 11: Rate Card Manager">
               <div class="cov">
                 <img class="cov__lockup"
                      src="./assets/atlas/cover-brand-lockup.png"
@@ -2840,16 +2842,186 @@
               </div>
             </section>
 
-            <!-- Right Price explainer. Figma node 736:248. The formula
-                 reveals itself one term at a time (see initAtlasRightPrice
-                 in app.js); the gold Right Price card is held back until
-                 the presenter asks for it. Every position below is the
-                 Figma frame's own pixel value. -->
+            <!-- Problem framing. Figma node 492:28715. Three connected
+                 pricing-decision groups on a dark navy stage. This is
+                 the approved replacement for the older interactive
+                 2x3 + RCM + Core Planning layout. No hover modals.
+                 Stable id: pricing-complexity (Slide 2). -->
+            <section id="atlas-slide-pricing-complexity"
+                     class="atlas-slide atlas-slide--why-pricing"
+                     data-atlas-slide="2"
+                     data-atlas-slide-id="pricing-complexity"
+                     aria-label="Slide 2 of 11: Why pricing gets complicated before planning">
+              <div class="wpcf">
+                <header class="wpcf__header">
+                  <h2 class="wpcf__title">Why pricing gets complicated before planning</h2>
+                  <p class="wpcf__subtitle">Price changes with the buyer, deal, product, and adjustments.</p>
+                </header>
+
+                <div class="wpcf__columns" role="list">
+                  <section class="wpcf__panel wpcf__panel--negotiation" role="listitem" aria-labelledby="wpcf-col-1">
+                    <div class="wpcf__panel-inner">
+                      <div class="wpcf__panel-copy">
+                        <h3 id="wpcf-col-1" class="wpcf__col-title">NEGOTIATION CONTEXT</h3>
+                        <p class="wpcf__col-sub">Who is buying and what deal they made</p>
+                      </div>
+                      <div class="wpcf__items">
+                        <div class="wpcf__item">
+                          <span class="wpcf__icon-wrap" aria-hidden="true">
+                            <span class="wpcf__icon wpcf__icon--users">
+                              <img src="./assets/atlas/wpcf-users.svg" alt="" width="63.1753" height="48" draggable="false" />
+                            </span>
+                          </span>
+                          <div class="wpcf__item-copy">
+                            <p class="wpcf__item-title">Buyer Scope</p>
+                            <p class="wpcf__item-sub">Who the buyer is</p>
+                          </div>
+                        </div>
+                        <div class="wpcf__item">
+                          <span class="wpcf__icon-wrap" aria-hidden="true">
+                            <span class="wpcf__icon">
+                              <img src="./assets/atlas/wpcf-file.svg" alt="" width="48" height="48" draggable="false" />
+                            </span>
+                          </span>
+                          <div class="wpcf__item-copy">
+                            <p class="wpcf__item-title">Deal Context</p>
+                            <p class="wpcf__item-sub">What kind of deal it is</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="wpcf__panel wpcf__panel--priced" role="listitem" aria-labelledby="wpcf-col-2">
+                    <div class="wpcf__panel-inner">
+                      <div class="wpcf__panel-copy">
+                        <h3 id="wpcf-col-2" class="wpcf__col-title">WHAT IS BEING PRICED</h3>
+                        <p class="wpcf__col-sub">What they are buying and its starting price</p>
+                      </div>
+                      <div class="wpcf__items">
+                        <div class="wpcf__item">
+                          <span class="wpcf__icon-wrap" aria-hidden="true">
+                            <span class="wpcf__icon">
+                              <img src="./assets/atlas/wpcf-bag.svg" alt="" width="48" height="48" draggable="false" />
+                            </span>
+                          </span>
+                          <div class="wpcf__item-copy">
+                            <p class="wpcf__item-title">Product</p>
+                            <p class="wpcf__item-sub">What ad they are buying</p>
+                          </div>
+                        </div>
+                        <div class="wpcf__item">
+                          <span class="wpcf__icon-wrap" aria-hidden="true">
+                            <span class="wpcf__icon">
+                              <img src="./assets/atlas/wpcf-currency.svg" alt="" width="48" height="48" draggable="false" />
+                            </span>
+                          </span>
+                          <div class="wpcf__item-copy">
+                            <p class="wpcf__item-title">Base Rate</p>
+                            <p class="wpcf__item-sub">The starting price</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="wpcf__panel wpcf__panel--changes" role="listitem" aria-labelledby="wpcf-col-3">
+                    <div class="wpcf__panel-inner">
+                      <div class="wpcf__panel-copy">
+                        <h3 id="wpcf-col-3" class="wpcf__col-title">WHAT CHANGES THE PRICE</h3>
+                        <p class="wpcf__col-sub">What can raise or lower the price.</p>
+                      </div>
+                      <div class="wpcf__items">
+                        <div class="wpcf__item">
+                          <span class="wpcf__icon-wrap" aria-hidden="true">
+                            <span class="wpcf__icon">
+                              <img src="./assets/atlas/wpcf-faders.svg" alt="" width="48" height="48" draggable="false" />
+                            </span>
+                          </span>
+                          <div class="wpcf__item-copy">
+                            <p class="wpcf__item-title">Premium Details</p>
+                            <p class="wpcf__item-sub">Extra price adjustments</p>
+                          </div>
+                        </div>
+                        <div class="wpcf__item">
+                          <span class="wpcf__icon-wrap" aria-hidden="true">
+                            <span class="wpcf__icon">
+                              <img src="./assets/atlas/wpcf-currency-calc.svg" alt="" width="48" height="48" draggable="false" />
+                            </span>
+                          </span>
+                          <div class="wpcf__item-copy">
+                            <p class="wpcf__item-title">Calculation</p>
+                            <p class="wpcf__item-sub">What is the final price</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+                <img class="wpcf__bracket"
+                     src="./assets/atlas/wpcf-bracket.svg"
+                     alt=""
+                     width="1192"
+                     height="47"
+                     draggable="false"
+                     aria-hidden="true" />
+
+                <p class="wpcf__takeaway">
+                  <span class="wpcf__takeaway-kicker">THESE DECISIONS ARE CONNECTED</span>
+                  <span class="wpcf__takeaway-line">Change one thing, and the price can change</span>
+                </p>
+              </div>
+            </section>
+
+            <!-- Figma 600:1553. Zooms in on why the Line Item specifically
+                 has to live inside the Rate Card: Rate Card (framework) +
+                 Line Item (sellable item and base rate) = Consistent
+                 Pricing. -->
+            <section class="atlas-slide atlas-slide--rate-card-data"
+                     data-atlas-slide="3"
+                     data-atlas-slide-id="structured-pricing-data"
+                     aria-label="Slide 3 of 11: The starting point was the existing Rate Card">
+              <div class="rcd">
+                <header class="rcd__header">
+                  <h2 class="rcd__title">The starting point was the existing Rate Card</h2>
+                  <p class="rcd__subtitle">RCM needed to support the pricing structure teams were already working with.</p>
+                </header>
+
+                <div class="rcd__image rcd__image--current">
+                  <img src="./assets/atlas/structured-data-current-rate-card.png"
+                       alt="Current rate card in a human-authored Excel workbook."
+                       width="1279" height="802" draggable="false" />
+                </div>
+
+                <div class="rcd__image rcd__image--structured">
+                  <img src="./assets/atlas/structured-data-rate-card-data.png"
+                       alt="The rate card organized into consistent structured rows."
+                       width="1282" height="712" draggable="false" />
+                </div>
+
+                <span class="rcd__arrow" aria-hidden="true">
+                  <img class="rcd__arrow-circle" src="./assets/atlas/structured-data-arrow-circle.svg" alt="" width="11" height="11" draggable="false" />
+                  <img class="rcd__arrow-line" src="./assets/atlas/structured-data-arrow-line.svg" alt="" width="94" height="1.76249" draggable="false" />
+                  <img class="rcd__arrow-head" src="./assets/atlas/structured-data-arrowhead.svg" alt="" width="9.98821" height="16.0974" draggable="false" />
+                </span>
+
+                <p class="rcd__label rcd__label--current">Existing Rate Card Workbook</p>
+                <p class="rcd__label rcd__label--structured">Target RCM Data Structure</p>
+
+                <img class="rcd__brand"
+                     src="./assets/atlas/structured-data-logo.svg"
+                     alt=""
+                     width="36" height="41" draggable="false" />
+              </div>
+            </section>
+
+            <!-- SLIDE 7: Future Rate Card Workflow. Figma node 492:28287, exact 1920x1080 implementation. -->
             <section id="atlas-slide-right-price"
                      class="atlas-slide atlas-slide--right-price"
-                     data-atlas-slide="2"
+                     data-atlas-slide="4"
                      data-atlas-slide-id="rate-card-right-price"
-                     aria-label="Slide 2 of 12: A Rate Card tells us the right price for each deal">
+                     aria-label="Slide 4 of 11: A Rate Card tells us the right price for each deal.">
               <div class="rpx" data-right-price data-rpx-phase="revealing-inputs">
                 <header class="rpx__header">
                   <h2 class="rpx__title">A Rate Card tells us the right price for each deal.</h2>
@@ -2938,239 +3110,11 @@
                  so the room hears each half of the metaphor before the next
                  one is on screen. initAtlasSupermarket in app.js owns the
                  steps. Coordinates are the Figma frame's own pixel values. -->
-            <section id="atlas-slide-supermarket"
-                     class="atlas-slide atlas-slide--supermarket"
-                     data-atlas-slide="3"
-                     data-atlas-slide-id="advertising-supermarket"
-                     aria-label="Slide 3 of 12: Think of Disney Advertising as a supermarket">
-              <div class="sup" data-supermarket data-sup-phase="revealing">
-                <header class="sup__header">
-                  <h2 class="sup__title" data-sup-reveal="title">Think of Disney Advertising as a supermarket</h2>
-                  <p class="sup__subtitle" data-sup-reveal="subtitle">Ad Inventory is the shelf space, and Offerings are the products planners can select.</p>
-                </header>
-
-                <!-- One wrapper per column, so a reveal step can only ever
-                     bring in a whole idea: the drawing and both of its
-                     captions. Each wrapper spans the slide, so every child
-                     keeps the Figma frame's own coordinates and its own
-                     centring transform.
-
-                     Each illustration keeps the intrinsic size of its Figma
-                     export, and each caption is centred on its drawing's
-                     midpoint rather than pinned to the Figma text-box edge:
-                     Figma measures that edge in InspireTWDC, which the deck
-                     substitutes, so a left anchor would drift the caption off
-                     centre by the fallback face's difference.
-
-                     fetchpriority="low" because these add weight to a document
-                     every slide in the deck shares, and the browser otherwise
-                     races them against the webfont the whole deck needs to
-                     render any text at all. -->
-                <div class="sup__visual">
-                  <div class="sup__group sup__group--store" data-sup-reveal="group-store">
-                    <img class="sup__art sup__art--store"
-                         src="./assets/atlas/supermarket-store.svg"
-                         alt=""
-                         width="370"
-                         height="296"
-                         fetchpriority="low"
-                         draggable="false" />
-                    <p class="sup__label-small sup__label-small--store">Store</p>
-                    <p class="sup__label sup__label--store">Disney Advertising</p>
-                  </div>
-
-                  <div class="sup__group sup__group--shelves" data-sup-reveal="group-shelves">
-                    <img class="sup__art sup__art--shelves"
-                         src="./assets/atlas/supermarket-shelves.svg"
-                         alt=""
-                         width="309"
-                         height="313"
-                         fetchpriority="low"
-                         draggable="false" />
-                    <p class="sup__label-small sup__label-small--shelves">Shelf space</p>
-                    <p class="sup__label sup__label--shelves">Ad Inventory</p>
-                  </div>
-
-                  <div class="sup__group sup__group--produce" data-sup-reveal="group-produce">
-                    <img class="sup__art sup__art--produce"
-                         src="./assets/atlas/supermarket-produce.png"
-                         alt=""
-                         width="334"
-                         height="299"
-                         fetchpriority="low"
-                         draggable="false" />
-                    <p class="sup__label-small sup__label-small--produce">Product</p>
-                    <p class="sup__label sup__label--produce">Ad Offerings</p>
-                  </div>
-                </div>
-
-                <img class="sup__logo"
-                     src="./assets/atlas/atlas-brand-mark.svg"
-                     alt=""
-                     width="36"
-                     height="41"
-                     draggable="false" />
-              </div>
-            </section>
-
-            <!-- Buyers can purchase through different deal types.
-                 Figma node 736:479. Two columns, each an illustration with
-                 its three text lines under it, revealed as whole groups by
-                 initAtlasUpfrontScatter in app.js. Coordinates are the
-                 Figma frame's own pixel values. -->
-            <section id="atlas-slide-upfront-scatter"
-                     class="atlas-slide atlas-slide--upfront-scatter"
-                     data-atlas-slide="4"
-                     data-atlas-slide-id="upfront-scatter"
-                     aria-label="Slide 4 of 12: Buyers can purchase through different deal types">
-              <div class="usc" data-upfront-scatter data-usc-phase="revealing">
-                <header class="usc__header" data-usc-reveal="header">
-                  <h2 class="usc__title">Buyers can purchase through different deal types</h2>
-                  <p class="usc__subtitle">The deal type helps determine which Rate Card applies.</p>
-                </header>
-
-                <div class="usc__group usc__group--upfront" data-usc-reveal="upfront"
-                     data-usc-scene="upfront">
-                  <!-- Four drawn poses of the same room: reaching for the
-                       carton, holding it between them, setting it on the
-                       stack, and standing back from it. The room itself is
-                       one image that every pose sits on, so nothing behind
-                       the people can shift while they work. app.js cuts
-                       from one pose to the next. -->
-                  <div class="usc__scene">
-                    <svg xmlns="http://www.w3.org/2000/svg" id="upfront-scene"
-                           class="usc__art usc__art--upfront" viewBox="0 0 846 929"
-                           preserveAspectRatio="none" role="img"
-                           aria-label="A warehouse team taking a carton from the van and stacking it as committed stock">
-                        <!-- Room, then still plate, then the movers. Every
-                             layer is a lift straight out of the drawn artwork,
-                             so each person is painted once at full strength.
-                             An earlier build made the plate by averaging the
-                             four poses together, which left the counter pair
-                             standing at part opacity with doubled edges. -->
-                        <image class="usc__room" href="./assets/atlas/upfront-scatter-room.png"
-                               x="0" y="0" width="1693" height="929" />
-                        <!-- The clerk and the customer at the service counter.
-                             They never move, so they are lifted whole from a
-                             single pose and left alone for the whole run. -->
-                        <image class="usc__plate"
-                               href="./assets/atlas/upfront-scatter-upfront-plate.png"
-                               x="0" y="0" width="846" height="929" />
-                        <!-- The two warehouse workers. They pass the carton
-                             between them, so they share one timeline and one
-                             cut-out; only one of these four is ever painted. -->
-                        <g class="usc__actor" data-usc-window="0">
-                          <image class="usc__pose" data-usc-pose="01-pickup" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-upfront-actor-01-pickup.png"
-                                 x="0" y="0" width="846" height="929" />
-                          <image class="usc__pose" data-usc-pose="02-handoff" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-upfront-actor-02-handoff.png"
-                                 x="0" y="0" width="846" height="929" />
-                          <image class="usc__pose" data-usc-pose="03-place" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-upfront-actor-03-place.png"
-                                 x="0" y="0" width="846" height="929" />
-                          <image class="usc__pose" data-usc-pose="04-release" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-upfront-actor-04-release.png"
-                                 x="0" y="0" width="846" height="929" />
-                          <!-- The delivered carton, once it is standing on the
-                               stack on its own. The place and release drawings
-                               already contain it, so this only carries the
-                               laps that follow. -->
-                          <image class="usc__placed" data-usc-placed opacity="0"
-                                 href="./assets/atlas/upfront-scatter-upfront-placed.png"
-                                 x="96" y="308" width="629" height="465" />
-                        </g>
-                      </svg>
-                  </div>
-                  <div class="usc__copy">
-                    <p class="usc__deal">Upfront</p>
-                    <p class="usc__lede">Reserve Early</p>
-                    <p class="usc__note">Agreed as an advance commitment</p>
-                  </div>
-                </div>
-
-                <div class="usc__group usc__group--scatter" data-usc-reveal="scatter"
-                     data-usc-scene="scatter">
-                  <!-- The same four beats on the right half of the room
-                       image: each person holding a product, reaching to the
-                       shelf, setting it down among the stock already there,
-                       and withdrawing an empty hand. -->
-                  <div class="usc__scene">
-                    <svg xmlns="http://www.w3.org/2000/svg" id="scatter-scene"
-                           class="usc__art usc__art--scatter" viewBox="0 0 847 929"
-                           preserveAspectRatio="none" role="img"
-                           aria-label="Shop staff placing single products onto shelves that already hold stock">
-                        <!-- The room is the only still layer here: all three
-                             members of staff move, so there is no still pair
-                             to hold. It draws every shelf, product and crate
-                             in the scene exactly once. -->
-                        <image class="usc__room" href="./assets/atlas/upfront-scatter-room.png"
-                               x="-846" y="0" width="1693" height="929" />
-                        <!-- Two timelines: the pair working the left aisle,
-                             and the one on the right. They run out of step, so
-                             they are separate. Each drawing carries only the
-                             staff on its own timeline, cut to their outline,
-                             so no drawing can lay down a second copy of the
-                             shelving the room already holds. Within a timeline
-                             only a single drawing is ever painted. -->
-                        <g class="usc__actor" data-usc-window="0">
-                          <image class="usc__pose" data-usc-pose="01-pickup" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-scatter-actor-left-01-pickup.png"
-                                 x="0" y="0" width="847" height="929" />
-                          <image class="usc__pose" data-usc-pose="02-handoff" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-scatter-actor-left-02-handoff.png"
-                                 x="0" y="0" width="847" height="929" />
-                          <image class="usc__pose" data-usc-pose="03-place" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-scatter-actor-left-03-place.png"
-                                 x="0" y="0" width="847" height="929" />
-                          <image class="usc__pose" data-usc-pose="04-release" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-scatter-actor-left-04-release.png"
-                                 x="0" y="0" width="847" height="929" />
-                        </g>
-                        <g class="usc__actor" data-usc-window="1">
-                          <image class="usc__pose" data-usc-pose="01-pickup" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-scatter-actor-right-01-pickup.png"
-                                 x="0" y="0" width="847" height="929" />
-                          <image class="usc__pose" data-usc-pose="02-handoff" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-scatter-actor-right-02-handoff.png"
-                                 x="0" y="0" width="847" height="929" />
-                          <image class="usc__pose" data-usc-pose="03-place" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-scatter-actor-right-03-place.png"
-                                 x="0" y="0" width="847" height="929" />
-                          <image class="usc__pose" data-usc-pose="04-release" opacity="0"
-                                 href="./assets/atlas/upfront-scatter-scatter-actor-right-04-release.png"
-                                 x="0" y="0" width="847" height="929" />
-                        </g>
-                      </svg>
-                  </div>
-                  <div class="usc__copy">
-                    <p class="usc__deal">Scatter</p>
-                    <p class="usc__lede">Purchase Later</p>
-                    <p class="usc__note">Outside the earlier commitment</p>
-                  </div>
-                </div>
-
-                <img class="usc__logo"
-                     src="./assets/atlas/atlas-brand-mark.svg"
-                     alt=""
-                     width="36"
-                     height="41"
-                     draggable="false" />
-              </div>
-            </section>
-
-            <!-- Same product, different applicable rate. Figma node
-                 739:6035. One ad branches into two deal contexts and two
-                 rates. The connector is authored here as separate SVG
-                 segments rather than the flat Figma export, because the
-                 whole point of the slide is watching one path split into
-                 two; initAtlasSameAdRate in app.js draws them in order.
-                 Coordinates are the Figma frame's own pixel values. -->
             <section id="atlas-slide-same-ad-different-rate"
                      class="atlas-slide atlas-slide--same-ad-rate"
                      data-atlas-slide="5"
                      data-atlas-slide-id="same-ad-different-rate"
-                     aria-label="Slide 5 of 12: Same product. Different applicable rate.">
+                     aria-label="Slide 5 of 11: Same product. Different applicable rate.">
               <div class="sar" data-same-ad-rate data-sar-phase="revealing">
                 <header class="sar__header">
                   <h2 class="sar__title">Same product. Different applicable rate.</h2>
@@ -3547,11 +3491,395 @@
                  ICM ships as a 3x PNG rather than SVG: its Figma vector
                  export is 6.6MB of shelf produce, far too heavy for a
                  document every slide in the deck shares. -->
+            <section id="atlas-slide-three-questions"
+                     class="atlas-slide atlas-slide--three-questions"
+                     data-atlas-slide="6"
+                     data-atlas-slide-id="rate-card-three-questions"
+                     aria-label="Slide 6 of 11: RCM organizes pricing into three connected sections">
+              <div class="tq" data-three-questions data-tq-phase="intro" data-tq-state="intro">
+                <header class="tq__header" data-tq-reveal="header">
+                  <h2 class="tq__title">RCM organizes pricing into three connected sections</h2>
+                  <p class="tq__subtitle">Together, they determine the applicable rate used in planning.</p>
+                </header>
+
+                <!-- Each input is one reveal group: the card, its label, its
+                     question and its detail line arrive together, because
+                     none of them means anything on its own. -->
+                <div class="tq__block tq__block--details" data-tq-reveal="group-1"
+                     role="group" aria-label="Rate Card Details: who is buying, and under which deal">
+                  <span class="tq__accent" aria-hidden="true"></span>
+                  <div class="tq__card">
+                    <img class="tq__icon"
+                         src="./assets/atlas/three-questions-details.svg"
+                         alt="" width="64" height="64" draggable="false" />
+                    <p class="tq__card-label">Rate Card<br />Details</p>
+                  </div>
+                  <div class="tq__copy">
+                    <p class="tq__question">Who is buying, and under which deal?</p>
+                    <p class="tq__detail">Buyer / Marketplace / Deal / Timing</p>
+                  </div>
+                </div>
+
+                <img class="tq__plus tq__plus--1" data-tq-reveal="plus-1"
+                     src="./assets/atlas/three-questions-plus.svg"
+                     alt="" width="36" height="36" draggable="false" aria-hidden="true" />
+
+                <div class="tq__block tq__block--lines" data-tq-reveal="group-2"
+                     role="group" aria-label="Line Items: what they are buying, and at what starting rate">
+                  <span class="tq__accent" aria-hidden="true"></span>
+                  <div class="tq__card">
+                    <img class="tq__icon"
+                         src="./assets/atlas/three-questions-lines.svg"
+                         alt="" width="64" height="64" draggable="false" />
+                    <p class="tq__card-label">Line Items</p>
+                  </div>
+                  <div class="tq__copy">
+                    <p class="tq__question">What are they buying, and at what starting rate?</p>
+                    <p class="tq__detail">Offering / Base Rate</p>
+                  </div>
+                </div>
+
+                <img class="tq__plus tq__plus--2" data-tq-reveal="plus-2"
+                     src="./assets/atlas/three-questions-plus.svg"
+                     alt="" width="36" height="36" draggable="false" aria-hidden="true" />
+
+                <div class="tq__block tq__block--premiums" data-tq-reveal="group-3"
+                     role="group" aria-label="Premiums: does anything change the price">
+                  <span class="tq__accent" aria-hidden="true"></span>
+                  <div class="tq__card">
+                    <img class="tq__icon"
+                         src="./assets/atlas/three-questions-premiums.svg"
+                         alt="" width="64" height="64" draggable="false" />
+                    <p class="tq__card-label">Premiums</p>
+                  </div>
+                  <div class="tq__copy">
+                    <p class="tq__question">Does anything change the price?</p>
+                    <p class="tq__detail">Condition / Adjustment</p>
+                  </div>
+                </div>
+
+                <!-- Held back for the presenter. The equals sign travels in
+                     first so the answer reads as the result of the three
+                     inputs rather than a fourth item sitting beside them. -->
+                <img class="tq__equals" data-tq-reveal="equals"
+                     src="./assets/atlas/three-questions-equals.svg"
+                     alt="" width="56" height="56" draggable="false" aria-hidden="true" />
+
+                <!-- Card and supporting line are one group, so the answer and
+                     what it is for never arrive separately. -->
+                <div class="tq__result" data-tq-reveal="result"
+                     role="group" aria-label="Right Price, the price used in planning">
+                  <div class="tq__result-card">
+                    <img class="tq__result-icon"
+                         src="./assets/atlas/right-price-tag.svg"
+                         alt="" width="86" height="86" draggable="false" />
+                    <p class="tq__result-label">Right Price</p>
+                  </div>
+                  <p class="tq__result-note">The price used in planning</p>
+                </div>
+
+                <!-- Announces the result once, without putting any extra
+                     text on the slide. -->
+                <p class="tq__sr" data-tq-live aria-live="polite"></p>
+
+                <img class="tq__logo"
+                     src="./assets/atlas/rcm-blocks-logo.svg"
+                     alt="" width="36" height="41" draggable="false" />
+              </div>
+            </section>
+
+            <!-- ============================================================
+                 SLIDE 6: Why Pricing Gets Complicated Before Planning
+                 Restored 2026-07-08 to Figma node 282:5389 exactly.
+
+                 A 3 x 3 grid of pricing input categories on the left
+                 (each: 232 x 180 dark-navy card with a 48 x 48 coral
+                 outline icon centered on top, bold white title, and a
+                 muted comma-separated list of the concrete inputs).
+                 Two thin indigo arrows connect the grid to a coral
+                 "RCM" window-card in the middle, which then hands off
+                 approved pricing to a blue "Core Planning" window-card
+                 on the right. The window-cards are the exact Figma
+                 "Component/ Windows/ Orange" and "Component/ Windows/
+                 Blue" pattern: a light shade rounded top strip with
+                 three small dots + a white rounded bottom body that
+                 holds a Phosphor-style icon and the RCM / Core
+                 Planning label. Both cards carry the Figma offset
+                 (5.7px, 5.7px, 0 blur) shade shadow + a subtle outer
+                 drop-shadow glow.
+
+                 Figma-native coordinates on the 1920 x 1080 canvas:
+                   Header block        (63,   88)   1828 x 120
+                   Card row 1 y = 283  (Buyer 63,  Deal Context 311, Product 559)
+                   Card row 2 y = 494  (Base Rate 63, Premiums 313, Discount 559)
+                   Card row 3 y = 708  (Targeting 63, Timing 313, Downstream 559)
+                   Arrow 1             (843,  577)  151.5 x 18.5
+                   RCM window          (1035, 496)  216 x 180.24
+                   RCM caption         (1007, 705)  271 wide, centered on 1142.5
+                   Arrow 2             (1290, 577)  151.5 x 18.5
+                   Core Planning       (1480, 496)  216 x 180.24
+                   Core Planning cap.  (1447, 708)  282 wide
+                   Footer text         (60,   1010) 404 x 16   (kept for deck consistency)
+                   Ad Platforms mark   (1826, 997)  36 x 41
+
+                 Note on copy: Figma has three small typos in this frame
+                 ("Upstream, Scatter." / "Markte" / "Seasons" / "Core
+                 Panning"). We use the corrected copy from the brief so
+                 the deck reads cleanly for a Disney Advertising
+                 business audience.
+
+                 Colors follow the Figma "EDL System Palette":
+                   Coral:   #FF5A43   Shade coral: #FFEEEA / #FCBCB3
+                   Blue:    #2097F6   Shade blue:  #E7F4FF / #83C4F8
+                   Card bg: rgba(21, 22, 47, 0.72) over the slide navy
+                   Border:  rgba(124, 126, 255, 0.30)  (indigo 30%)
+                 =========================================================== -->
+            <section class="atlas-slide atlas-slide--connected-workflows"
+                     data-atlas-slide="7"
+                     data-atlas-slide-id="connected-workflows"
+                     aria-label="Slide 7 of 11: Pricing decisions change as the deal changes">
+              <div class="cw" data-connected-workflows data-cw-view="current-design">
+
+                <!-- Current design. Figma node 741:13577. -->
+                <div class="cw__view cw__view--current" data-cw-panel="current-design">
+                  <div class="cw__stage">
+
+                    <!-- Header block. Figma: flex column, gap 8, at (63, 88). -->
+                    <div class="cw__header">
+                      <h2 class="cw__title">Pricing decisions change as the deal changes</h2>
+                      <p class="cw__subtitle">Users need to revisit connected pricing sections without starting over.</p>
+                    </div>
+
+                    <!-- Left column: the shape we explored. -->
+                    <div class="cw__section cw__section--wizard">
+                      <span class="cw__section-icon cw__section-icon--wizard" aria-hidden="true">
+                        <img src="./assets/atlas/cw-handpalm.svg?v=20260708-cw-figma-icons" alt="" width="48" height="48" draggable="false" />
+                      </span>
+                      <h3 class="cw__section-title cw__section-title--wizard">Step Wizard</h3>
+                    </div>
+                    <p class="cw__section-support cw__section-support--wizard">Assumes each decision is made once.</p>
+
+                    <!-- Left step cards. Muted / opacity 0.5 per Figma to
+                         signal "the direction we explored" without making
+                         the wizard concept look mocked. -->
+                    <div class="cw__step-card cw__step-card--1">
+                      <img class="cw__step-num" src="./assets/atlas/cw-num-1.svg?v=20260708-cw-figma-icons" alt="" width="72" height="72" draggable="false" />
+                      <p class="cw__step-label">Step 1</p>
+                    </div>
+                    <div class="cw__step-card cw__step-card--2">
+                      <img class="cw__step-num" src="./assets/atlas/cw-num-2.svg?v=20260708-cw-figma-icons" alt="" width="72" height="72" draggable="false" />
+                      <p class="cw__step-label">Step 2</p>
+                    </div>
+                    <div class="cw__step-card cw__step-card--3">
+                      <img class="cw__step-num" src="./assets/atlas/cw-num-3.svg?v=20260708-cw-figma-icons" alt="" width="72" height="72" draggable="false" />
+                      <p class="cw__step-label">Step 3</p>
+                    </div>
+
+                    <!-- Middle connector: one-way purple arrow, Figma node
+                         29:420 in a 255x19 slot at (697, 603). -->
+                    <img class="cw__arrow" src="./assets/atlas/cw-arrow.svg?v=20260708-cw-figma-icons" alt="" width="255" height="19" draggable="false" />
+
+                    <!-- Right column: the shape we shipped. -->
+                    <div class="cw__section cw__section--structured">
+                      <span class="cw__section-icon cw__section-icon--structured" aria-hidden="true">
+                        <img src="./assets/atlas/cw-check-circle.svg?v=20260708-cw-figma-icons" alt="" width="36" height="36" draggable="false" />
+                      </span>
+                      <h3 class="cw__section-title cw__section-title--structured">Connected sections</h3>
+                    </div>
+                    <p class="cw__section-support cw__section-support--structured">Details, line items, and premiums can be updated anytime.</p>
+
+                    <!-- Right connected cards. Each is a 2 x 131 blue
+                         highlight bar plus a 180 x 160 dark gradient card
+                         holding a 64px thin blue icon and a 24px label. -->
+                    <div class="cw__struct-card cw__struct-card--rc-details">
+                      <span class="cw__struct-bar" aria-hidden="true"></span>
+                      <div class="cw__struct-body">
+                        <img class="cw__struct-icon" src="./assets/atlas/cw-icon-rc-details.svg?v=20260804-cw-structured-cards" alt="" width="64" height="64" draggable="false" />
+                        <p class="cw__struct-label">Rate Card<br />Details</p>
+                      </div>
+                    </div>
+                    <div class="cw__struct-card cw__struct-card--line-items">
+                      <span class="cw__struct-bar" aria-hidden="true"></span>
+                      <div class="cw__struct-body">
+                        <img class="cw__struct-icon" src="./assets/atlas/cw-icon-line-items.svg?v=20260804-cw-structured-cards" alt="" width="64" height="64" draggable="false" />
+                        <p class="cw__struct-label">Line Items</p>
+                      </div>
+                    </div>
+                    <div class="cw__struct-card cw__struct-card--premiums">
+                      <span class="cw__struct-bar" aria-hidden="true"></span>
+                      <div class="cw__struct-body">
+                        <img class="cw__struct-icon" src="./assets/atlas/cw-icon-premiums.svg?v=20260804-cw-structured-cards" alt="" width="64" height="64" draggable="false" />
+                        <p class="cw__struct-label">Premiums</p>
+                      </div>
+                    </div>
+
+                    <!-- Bidirectional, not plus signs: the point of the
+                         slide is that a user can go back to any of the
+                         three sections, not that the three are summed. -->
+                    <img class="cw__link cw__link--1" src="./assets/atlas/cw-arrow-bidirectional.svg?v=20260830-cw-two-way" alt="" width="121" height="12" draggable="false" />
+                    <img class="cw__link cw__link--2" src="./assets/atlas/cw-arrow-bidirectional.svg?v=20260830-cw-two-way" alt="" width="121" height="12" draggable="false" />
+
+                    <!-- Lower-left toggle, Figma node 741:24681. Sized up
+                         from the node's 14px ADS body so it still reads on
+                         a projector; the border, radius and colour are the
+                         node's. -->
+                    <button type="button" class="cw__toggle"
+                            data-cw-show="previous-design"
+                            aria-label="View previous design">Previous design</button>
+
+                    <span class="cw__brand" aria-hidden="true">
+                  <!-- Ad Platforms Product & Technology 2 x 2 brand mark,
+                       reused from the structured-data slide (rcd__brand) so the deck's
+                       bottom-right mark stays uniform. -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="41" viewBox="1826 997 36 41" fill="none" preserveAspectRatio="xMidYMid meet">
+                    <path d="M1844.85 1018.53L1842.49 1038H1859.64L1862 1018.53H1844.85ZM1857.51 1029.75H1850.7L1850.52 1031.17H1857.34L1856.93 1034.45H1846.03L1846.96 1026.87H1857.84L1857.51 1029.75ZM1858.02 1025.56H1847.12L1847.54 1022.08H1858.44L1858.02 1025.56ZM1828.98 998.285C1830.77 998.209 1832.46 998.527 1834.18 999.071C1835.16 999.374 1836.47 999.888 1837.42 1000.34C1838.11 1000.67 1839.17 1001.28 1839.78 1001.69C1839.98 1001.81 1841.08 1002.64 1841.26 1002.79C1841.62 1003.09 1842.1 1003.52 1842.43 1003.86C1843.09 1004.53 1843.91 1005.54 1844.31 1006.34L1845.45 997H1828.32L1828.14 998.361C1828.44 998.33 1828.72 998.3 1828.98 998.285ZM1832.52 1008.02C1832.52 1008.02 1831.83 1008.07 1831.37 1008.13C1830.77 1008.19 1829.65 1008.38 1829 1008.63C1828.81 1008.7 1828.42 1008.87 1828.38 1009.06C1828.35 1009.28 1828.47 1009.44 1828.62 1009.61C1828.71 1009.7 1829.17 1010.17 1829.3 1010.27C1829.86 1010.74 1830.96 1011.45 1831.8 1011.8C1832.08 1011.92 1832.55 1012.09 1832.55 1012.09C1832.55 1012.09 1832.52 1010.74 1832.52 1009.41C1832.5 1008.72 1832.52 1008.02 1832.52 1008.02ZM1843.31 1012.54C1842.13 1013.57 1840.32 1014.16 1838.75 1014.34C1837.69 1014.48 1836.48 1014.45 1835.36 1014.23C1834.97 1014.16 1834.4 1014.02 1834.4 1014.02C1834.4 1014.02 1834.4 1014.26 1834.39 1014.42C1834.37 1014.49 1834.33 1014.69 1834.3 1014.75C1834.21 1014.91 1834.09 1015.01 1833.89 1015.05C1833.65 1015.1 1833.42 1015.11 1833.19 1015.02C1832.83 1014.87 1832.71 1014.54 1832.65 1014.14C1832.61 1013.83 1832.55 1013.3 1832.55 1013.3C1832.55 1013.3 1832.28 1013.16 1832.05 1013.06C1831.37 1012.71 1830.72 1012.3 1830.16 1011.88C1829.99 1011.76 1829.32 1011.18 1829.17 1011.04C1828.75 1010.65 1828.38 1010.24 1828.09 1009.73C1827.87 1009.34 1827.81 1008.97 1827.97 1008.55C1828.21 1007.96 1829.05 1007.51 1829.62 1007.27C1830.04 1007.08 1831.35 1006.65 1831.89 1006.57C1832.14 1006.52 1832.55 1006.46 1832.58 1006.45C1832.59 1006.45 1832.59 1006.43 1832.61 1006.42C1832.62 1006.4 1832.64 1005.81 1832.64 1005.6C1832.64 1005.39 1832.79 1004.01 1832.85 1003.71C1832.88 1003.56 1833 1002.94 1833.12 1002.79C1833.19 1002.68 1833.34 1002.68 1833.45 1002.76C1834.07 1003.15 1834.25 1004.51 1834.31 1005.21C1834.34 1005.63 1834.36 1006.27 1834.36 1006.27C1834.36 1006.27 1835.07 1006.25 1835.51 1006.25C1835.94 1006.27 1836.41 1006.33 1836.85 1006.4C1837.42 1006.49 1838.53 1006.74 1839.17 1007.07C1839.69 1007.34 1840.19 1007.79 1840.34 1008.26C1840.49 1008.7 1840.46 1009 1840.23 1009.4C1839.98 1009.84 1839.5 1010.17 1839.02 1010.2C1838.87 1010.21 1838.33 1010.14 1838.17 1010C1838.11 1009.94 1838.11 1009.85 1838.15 1009.79C1838.17 1009.76 1838.42 1009.64 1838.57 1009.55C1838.65 1009.5 1838.71 1009.46 1838.77 1009.41C1838.89 1009.31 1839.01 1009.19 1838.99 1009.03C1838.98 1008.85 1838.78 1008.73 1838.6 1008.66C1837.74 1008.31 1836 1008.02 1835.16 1007.96C1834.84 1007.95 1834.37 1007.93 1834.37 1007.93L1834.48 1012.6C1834.48 1012.6 1834.87 1012.68 1835.16 1012.72C1835.34 1012.75 1836.08 1012.81 1836.27 1012.83C1837.77 1012.87 1839.44 1012.74 1840.8 1012.07C1841.4 1011.79 1841.95 1011.42 1842.37 1010.94C1842.92 1010.3 1843.21 1009.43 1843.13 1008.52C1843.04 1007.52 1842.36 1006.34 1841.8 1005.62C1840.35 1003.71 1837.84 1002.14 1835.63 1001.23C1833.37 1000.3 1831.14 999.751 1828.75 999.661C1828.57 999.661 1828.32 999.646 1828.03 999.661L1826 1016.44H1843.15L1843.66 1012.22C1843.49 1012.36 1843.39 1012.47 1843.31 1012.54ZM1831.79 1018.53L1830.43 1029.75H1841.49L1842.85 1018.53H1831.79ZM1840.16 1024.26C1838.36 1024.42 1836.93 1025.88 1836.76 1027.7C1836.76 1027.72 1836.76 1027.83 1836.64 1027.83C1836.52 1027.83 1836.52 1027.7 1836.52 1027.7C1836.36 1025.88 1834.93 1024.42 1833.12 1024.26C1833.1 1024.26 1833 1024.26 1833 1024.14C1833 1024.02 1833.12 1024.02 1833.12 1024.02C1834.93 1023.85 1836.36 1022.4 1836.52 1020.57C1836.52 1020.55 1836.52 1020.45 1836.64 1020.45C1836.76 1020.45 1836.76 1020.57 1836.76 1020.57C1836.93 1022.4 1838.36 1023.85 1840.17 1024.02C1840.19 1024.02 1840.29 1024.02 1840.29 1024.14C1840.29 1024.26 1840.17 1024.26 1840.16 1024.26ZM1856.15 1016.46L1857.51 1005.24H1846.45L1845.09 1016.46H1856.15ZM1847.78 1010.73C1849.59 1010.56 1851.03 1009.11 1851.19 1007.28C1851.19 1007.27 1851.19 1007.16 1851.31 1007.16C1851.43 1007.16 1851.43 1007.28 1851.43 1007.28C1851.59 1009.11 1853.03 1010.56 1854.84 1010.73C1854.85 1010.73 1854.96 1010.73 1854.96 1010.85C1854.96 1010.97 1854.84 1010.97 1854.84 1010.97C1853.03 1011.14 1851.59 1012.59 1851.43 1014.42C1851.43 1014.43 1851.43 1014.54 1851.31 1014.54C1851.19 1014.54 1851.19 1014.42 1851.19 1014.42C1851.03 1012.59 1849.59 1011.14 1847.78 1010.97C1847.77 1010.97 1847.66 1010.97 1847.66 1010.85C1847.66 1010.73 1847.77 1010.73 1847.78 1010.73Z" fill="currentColor"/>
+                  </svg>
+                </span>
+                  </div><!-- /.cw__stage -->
+                </div>
+
+                <!-- Previous design. Figma node 741:19209: the Create Rate
+                     Card step wizard at its natural 1440 width.
+
+                     The prototype is not re-authored here. The same screen
+                     already exists as structured markup in the Rate Card
+                     layer explainer, so the script clones that node in on
+                     first use. One copy, one set of .prev-* styles, and no
+                     screenshot to go stale. -->
+                <div class="cw__view cw__view--previous" data-cw-panel="previous-design"
+                     hidden aria-hidden="true">
+                  <button type="button" class="cw__back"
+                          data-cw-show="current-design"
+                          aria-label="Back to current design">
+                    <span aria-hidden="true">&#8592;</span> Back to current design
+                  </button>
+                  <div class="cw__prev-frame">
+                    <div class="cw__prev-mount rcle__previous-prototype"
+                         data-cw-prev-mount aria-hidden="true"></div>
+                  </div>
+                </div>
+
+                <!-- Announces the swap once, without putting any extra
+                     text on the slide. -->
+                <p class="cw__sr" data-cw-live aria-live="polite"></p>
+              </div><!-- /.cw -->
+            </section>
+
+            <!-- SLIDE 8 (final): How Rate Cards Will Support Core Planning.
+                 Figma node 513:8052. 2026-08-04 copy refresh:
+                   - Title: "How Rate Cards Will Support Core Planning"
+                     (replaces "Rate Card powers line pricing").
+                   - Subtitle uses future-state language ("Core Planning
+                     will use applicable rates in future planning workflows").
+                   - Left RCM support becomes "Manage rate-card data";
+                     CARD / LINE / PREM row copy reworded so each mapping
+                     reflects the Rate Card, Line Item, and Premium mental
+                     model rather than a "who the rate is for" oversimplification.
+                   - Center connector reads "Applicable rate" with a
+                     small "via shared pricing capabilities" subline
+                     (replaces "Published rate card"). Underlying
+                     .rlp__published / .rlp__connector-label class names
+                     are preserved so existing CSS + QA selectors keep
+                     working; only the visible label changes.
+                   - Right Core Planning support becomes "Use applicable
+                     pricing"; Buyer Context row is renamed to Context;
+                     Adjustments row wording matches the plural "Come
+                     from PREM" per the brief.
+                   - Far-right takeaway becomes future-state: "RCM
+                     manages the rate-card data. / Core Planning will
+                     use the applicable rate." -->
+            <section class="atlas-slide atlas-slide--future-rate-card" data-atlas-slide="8" data-atlas-slide-id="future-rate-card-workflow" aria-label="Slide 8 of 11: Future Rate Card Workflow">
+              <div class="frw">
+                <header class="frw__header">
+                  <h2 class="frw__title">Future Rate Card Workflow</h2>
+                  <p class="frw__subtitle">Move from disconnected spreadsheets to structured rate-card data that supports automated pricing.</p>
+                </header>
+                <div class="frw__workflow">
+                  <div class="frw__item frw__item--import">
+                    <div class="frw__card">
+                      <div class="frw__card-content">
+                        <span class="frw__icon" aria-hidden="true"><img src="./assets/atlas/future-rate-card-import.svg" alt="" width="59.4" height="70.2" draggable="false" /></span>
+                        <h3 class="frw__card-title">Upload or Create</h3>
+                      </div>
+                    </div>
+                    <p class="frw__support">Import complex rate cards or create simpler ones manually.</p>
+                  </div>
+                  <div class="frw__connector" aria-hidden="true">
+                    <img class="frw__arrow-dot" src="./assets/atlas/future-rate-card-arrow-dot.svg" alt="" width="13.2" height="13.2" draggable="false" />
+                    <img class="frw__arrow-line" src="./assets/atlas/future-rate-card-arrow-line.svg" alt="" width="157.2" height="2.11499" draggable="false" />
+                    <img class="frw__arrow-head" src="./assets/atlas/future-rate-card-arrowhead.svg" alt="" width="11.9859" height="19.3169" draggable="false" />
+                  </div>
+                  <div class="frw__item frw__item--manage">
+                    <div class="frw__card">
+                      <div class="frw__card-content">
+                        <span class="frw__icon" aria-hidden="true"><img src="./assets/atlas/future-rate-card-manage.svg" alt="" width="72.8992" height="72.8992" draggable="false" /></span>
+                        <h3 class="frw__card-title">Manage Rate-Card Data</h3>
+                      </div>
+                    </div>
+                    <p class="frw__support">Review Rate Card Details, Line Items, and Premiums.</p>
+                  </div>
+                  <div class="frw__connector" aria-hidden="true">
+                    <img class="frw__arrow-dot" src="./assets/atlas/future-rate-card-arrow-dot.svg" alt="" width="13.2" height="13.2" draggable="false" />
+                    <img class="frw__arrow-line" src="./assets/atlas/future-rate-card-arrow-line.svg" alt="" width="157.2" height="2.11499" draggable="false" />
+                    <img class="frw__arrow-head" src="./assets/atlas/future-rate-card-arrowhead.svg" alt="" width="11.9859" height="19.3169" draggable="false" />
+                  </div>
+                  <div class="frw__item frw__item--publish">
+                    <div class="frw__card">
+                      <div class="frw__card-content">
+                        <span class="frw__icon" aria-hidden="true"><img src="./assets/atlas/future-rate-card-publish.svg" alt="" width="75.6" height="75.6" draggable="false" /></span>
+                        <h3 class="frw__card-title">Use in Pricing Workflows</h3>
+                      </div>
+                    </div>
+                    <p class="frw__support">Return the correct base rate and apply recognized premiums.</p>
+                  </div>
+                </div>
+                <img class="frw__brand" src="./assets/atlas/future-rate-card-logo.svg" alt="" width="36" height="41" draggable="false" />
+              </div>
+            </section>
+            <!-- ============================================================
+                 SLIDE 8: Designing for Connected Pricing Workflows
+                 (Figma node 492:28532, Rate Card file Klc8JpICWSLwU1LeUVRHtT).
+
+                 2026-08-04 refresh: right-hand section now uses the
+                 dark "Structured Sections" cards (deep charcoal
+                 gradient + blue highlight bar + inner glow) per the
+                 latest Figma capture, and the three cards are labeled
+                 "RC Details" / "Line Items" / "Premiums". Left-hand
+                 "Step Wizard" cards, header text, purple arrow, and
+                 purple plus signs are preserved but retuned to the
+                 new absolute coordinates on the Figma frame:
+                   - Header (title + subtitle) at (63, 88), title in
+                     InspireTWDC Black.
+                   - Left "Step Wizard" section head at (88, 358) with
+                     the coral HandPalm icon and three muted grey step
+                     cards (Step 1 / Step 2 / Step 3) at y=501. Their
+                     0.5 opacity signals "the shape we explored" vs
+                     the dominant Structured Sections cluster.
+                   - Purple transition arrow at (697, 603) (Figma
+                     node 29:420, 255x19).
+                   - Right "Structured Sections" section head at
+                     (960, 358) with a green CheckCircle icon and
+                     three dark 180x160 cards (RC Details / Line
+                     Items / Premiums) at (959 / 1277 / 1586, 534).
+                     Each card carries a 2 px vertical highlight bar
+                     (#6CB8FF > #1677FF) with a blue glow, and hosts
+                     a 64 px thin-line blue icon plus 24 px
+                     InspireTWDC Black label.
+                   - Purple + marks at (1185, 590) and (1503, 590).
+                   - Footer + brand mark shared with the rest of the
+                     HTML slides (.pwf / .rcd chrome pattern).
+
+                 Terminology per user brief (2026-08-04):
+                   - "Step Wizard" (not "Linear Step Wizard").
+                   - "Structured Sections".
+                   - "RC Details" / "Line Items" / "Premiums"
+                     (never CARD / LINE / PREM on this slide).
+                 The framing is workflow shape, not "wizard failed". -->
             <section id="atlas-slide-media-plan"
                      class="atlas-slide atlas-slide--media-plan"
-                     data-atlas-slide="6"
+                     data-atlas-slide="9"
                      data-atlas-slide-id="core-planning-media-plan"
-                     aria-label="Slide 6 of 12: Each line item is priced as the media plan is built.">
+                     aria-label="Slide 9 of 11: Each line item is priced as the media plan is built.">
               <div class="mpl" data-media-plan data-mpl-step="0">
                 <header class="mpl__header">
                   <h2 class="mpl__title">Each line item is priced as the media plan is built.</h2>
@@ -3704,759 +4032,10 @@
                  Price card are held back for the presenter, because the
                  pause is the point: the room should hear what the three
                  sections are before the answer is on screen. -->
-            <section id="atlas-slide-three-questions"
-                     class="atlas-slide atlas-slide--three-questions"
-                     data-atlas-slide="7"
-                     data-atlas-slide-id="rate-card-three-questions"
-                     aria-label="Slide 7 of 12: RCM organizes pricing into three connected sections">
-              <div class="tq" data-three-questions data-tq-phase="intro" data-tq-state="intro">
-                <header class="tq__header" data-tq-reveal="header">
-                  <h2 class="tq__title">RCM organizes pricing into three connected sections</h2>
-                  <p class="tq__subtitle">Together, they determine the applicable rate used in planning.</p>
-                </header>
-
-                <!-- Each input is one reveal group: the card, its label, its
-                     question and its detail line arrive together, because
-                     none of them means anything on its own. -->
-                <div class="tq__block tq__block--details" data-tq-reveal="group-1"
-                     role="group" aria-label="Rate Card Details: who is buying, and under which deal">
-                  <span class="tq__accent" aria-hidden="true"></span>
-                  <div class="tq__card">
-                    <img class="tq__icon"
-                         src="./assets/atlas/three-questions-details.svg"
-                         alt="" width="64" height="64" draggable="false" />
-                    <p class="tq__card-label">Rate Card<br />Details</p>
-                  </div>
-                  <div class="tq__copy">
-                    <p class="tq__question">Who is buying, and under which deal?</p>
-                    <p class="tq__detail">Buyer / Marketplace / Deal / Timing</p>
-                  </div>
-                </div>
-
-                <img class="tq__plus tq__plus--1" data-tq-reveal="plus-1"
-                     src="./assets/atlas/three-questions-plus.svg"
-                     alt="" width="36" height="36" draggable="false" aria-hidden="true" />
-
-                <div class="tq__block tq__block--lines" data-tq-reveal="group-2"
-                     role="group" aria-label="Line Items: what they are buying, and at what starting rate">
-                  <span class="tq__accent" aria-hidden="true"></span>
-                  <div class="tq__card">
-                    <img class="tq__icon"
-                         src="./assets/atlas/three-questions-lines.svg"
-                         alt="" width="64" height="64" draggable="false" />
-                    <p class="tq__card-label">Line Items</p>
-                  </div>
-                  <div class="tq__copy">
-                    <p class="tq__question">What are they buying, and at what starting rate?</p>
-                    <p class="tq__detail">Offering / Base Rate</p>
-                  </div>
-                </div>
-
-                <img class="tq__plus tq__plus--2" data-tq-reveal="plus-2"
-                     src="./assets/atlas/three-questions-plus.svg"
-                     alt="" width="36" height="36" draggable="false" aria-hidden="true" />
-
-                <div class="tq__block tq__block--premiums" data-tq-reveal="group-3"
-                     role="group" aria-label="Premiums: does anything change the price">
-                  <span class="tq__accent" aria-hidden="true"></span>
-                  <div class="tq__card">
-                    <img class="tq__icon"
-                         src="./assets/atlas/three-questions-premiums.svg"
-                         alt="" width="64" height="64" draggable="false" />
-                    <p class="tq__card-label">Premiums</p>
-                  </div>
-                  <div class="tq__copy">
-                    <p class="tq__question">Does anything change the price?</p>
-                    <p class="tq__detail">Condition / Adjustment</p>
-                  </div>
-                </div>
-
-                <!-- Held back for the presenter. The equals sign travels in
-                     first so the answer reads as the result of the three
-                     inputs rather than a fourth item sitting beside them. -->
-                <img class="tq__equals" data-tq-reveal="equals"
-                     src="./assets/atlas/three-questions-equals.svg"
-                     alt="" width="56" height="56" draggable="false" aria-hidden="true" />
-
-                <!-- Card and supporting line are one group, so the answer and
-                     what it is for never arrive separately. -->
-                <div class="tq__result" data-tq-reveal="result"
-                     role="group" aria-label="Right Price, the price used in planning">
-                  <div class="tq__result-card">
-                    <img class="tq__result-icon"
-                         src="./assets/atlas/right-price-tag.svg"
-                         alt="" width="86" height="86" draggable="false" />
-                    <p class="tq__result-label">Right Price</p>
-                  </div>
-                  <p class="tq__result-note">The price used in planning</p>
-                </div>
-
-                <!-- Announces the result once, without putting any extra
-                     text on the slide. -->
-                <p class="tq__sr" data-tq-live aria-live="polite"></p>
-
-                <img class="tq__logo"
-                     src="./assets/atlas/rcm-blocks-logo.svg"
-                     alt="" width="36" height="41" draggable="false" />
-              </div>
-            </section>
-
-            <!-- ============================================================
-                 SLIDE 6: Why Pricing Gets Complicated Before Planning
-                 Restored 2026-07-08 to Figma node 282:5389 exactly.
-
-                 A 3 x 3 grid of pricing input categories on the left
-                 (each: 232 x 180 dark-navy card with a 48 x 48 coral
-                 outline icon centered on top, bold white title, and a
-                 muted comma-separated list of the concrete inputs).
-                 Two thin indigo arrows connect the grid to a coral
-                 "RCM" window-card in the middle, which then hands off
-                 approved pricing to a blue "Core Planning" window-card
-                 on the right. The window-cards are the exact Figma
-                 "Component/ Windows/ Orange" and "Component/ Windows/
-                 Blue" pattern: a light shade rounded top strip with
-                 three small dots + a white rounded bottom body that
-                 holds a Phosphor-style icon and the RCM / Core
-                 Planning label. Both cards carry the Figma offset
-                 (5.7px, 5.7px, 0 blur) shade shadow + a subtle outer
-                 drop-shadow glow.
-
-                 Figma-native coordinates on the 1920 x 1080 canvas:
-                   Header block        (63,   88)   1828 x 120
-                   Card row 1 y = 283  (Buyer 63,  Deal Context 311, Product 559)
-                   Card row 2 y = 494  (Base Rate 63, Premiums 313, Discount 559)
-                   Card row 3 y = 708  (Targeting 63, Timing 313, Downstream 559)
-                   Arrow 1             (843,  577)  151.5 x 18.5
-                   RCM window          (1035, 496)  216 x 180.24
-                   RCM caption         (1007, 705)  271 wide, centered on 1142.5
-                   Arrow 2             (1290, 577)  151.5 x 18.5
-                   Core Planning       (1480, 496)  216 x 180.24
-                   Core Planning cap.  (1447, 708)  282 wide
-                   Footer text         (60,   1010) 404 x 16   (kept for deck consistency)
-                   Ad Platforms mark   (1826, 997)  36 x 41
-
-                 Note on copy: Figma has three small typos in this frame
-                 ("Upstream, Scatter." / "Markte" / "Seasons" / "Core
-                 Panning"). We use the corrected copy from the brief so
-                 the deck reads cleanly for a Disney Advertising
-                 business audience.
-
-                 Colors follow the Figma "EDL System Palette":
-                   Coral:   #FF5A43   Shade coral: #FFEEEA / #FCBCB3
-                   Blue:    #2097F6   Shade blue:  #E7F4FF / #83C4F8
-                   Card bg: rgba(21, 22, 47, 0.72) over the slide navy
-                   Border:  rgba(124, 126, 255, 0.30)  (indigo 30%)
-                 =========================================================== -->
-            <section class="atlas-slide atlas-slide--why-pricing"
-                     data-atlas-slide-id="pricing-complexity"
-                     data-atlas-appendix="01"
-                     aria-label="Appendix 01: Why Pricing Gets Complicated Before Planning">
-              <div class="wpc">
-                <div class="wpc__header">
-                  <h2 class="wpc__title">Why Pricing Gets Complicated Before Planning</h2>
-                  <p class="wpc__subtitle">An applicable rate depends on connected negotiation context, base-rate data, and recognized pricing conditions.</p>
-                </div>
-
-                <!-- 2 x 3 pricing input grid. Each card is absolutely
-                     positioned so the column alignment matches node
-                     282:5389's original grid pixel-for-pixel; the row
-                     positions were re-centered on 2026-08-05 against the
-                     RCM / Core Planning workflow after the redundant
-                     Targeting / Timing / Conditions row was removed (it
-                     duplicated the Buyer/Deal/Product/Base Rate/Premiums/
-                     Calculation inputs already covered above). Icons are
-                     Phosphor-style outline SVGs matching Figma's chosen
-                     glyph for each category (Users, CalendarBlank,
-                     ShoppingBagOpen, CurrencyCircleDollar,
-                     ArrowBendRightUp, Tag). -->
-
-                <!-- Row 1: Buyer / Deal Context / Product ----------------
-                     Icons are the exact Figma vector exports for node
-                     282:5389, downloaded 2026-07-08 as ./assets/atlas/
-                     wpc-*.svg. No redraws / substitutes / third-party
-                     icon-library mappings; embedded fills preserve the
-                     Figma coral color (#FF5A43 / #FF7666). -->
-                <!-- Buyer tile carries the v1.2-only "buyer-complexity"
-                     click affordance. The role="button" / tabindex / aria
-                     attributes are ADDED by JS only when the app is on
-                     v1.2 (see applyVersion in app.js) so v1.0 / v1.1
-                     continue to announce this tile as a plain listitem. -->
-                <div class="wpc__card" data-wpc-card="buyer" role="button"
-                     tabindex="0" aria-haspopup="dialog" aria-controls="wpc-modal"
-                     aria-expanded="false">
-                  <span class="wpc__icon" aria-hidden="true">
-                    <img src="./assets/atlas/wpc-buyer-latest.svg" alt="" width="47.1753" height="30.0225" draggable="false" />
-                  </span>
-                  <p class="wpc__label">Buyer Scope</p>
-                  <p class="wpc__sub">Buying Entity /&nbsp;Advertiser</p>
-                </div>
-
-                <!-- Deal Context tile carries the v1.2-only "deal-context"
-                     hover popover, wired by the same wireHoverPopover()
-                     factory that drives the Buyer tile so hover / focus /
-                     escape / click-through / reposition behavior is byte-
-                     identical across both tiles. The role="button" /
-                     tabindex / aria attributes are ADDED by JS only when
-                     the app is on v1.2 (see applyVersion in app.js); v1.0
-                     and v1.1 continue to announce this tile as a plain
-                     listitem. -->
-                <div class="wpc__card" data-wpc-card="deal" role="button"
-                     tabindex="0" aria-haspopup="dialog" aria-controls="wpc-modal"
-                     aria-expanded="false">
-                  <span class="wpc__icon" aria-hidden="true">
-                    <img src="./assets/atlas/wpc-deal-latest.svg" alt="" width="36" height="39" draggable="false" />
-                  </span>
-                  <p class="wpc__label">Deal Context</p>
-                  <p class="wpc__sub">Marketplace / Deal Season<br>Effective Dates</p>
-                </div>
-
-                <div class="wpc__card" data-wpc-card="product" role="button"
-                     tabindex="0" aria-haspopup="dialog" aria-controls="wpc-modal"
-                     aria-expanded="false">
-                  <span class="wpc__icon" aria-hidden="true">
-                    <img src="./assets/atlas/wpc-product-latest.svg" alt="" width="39" height="33" draggable="false" />
-                  </span>
-                  <p class="wpc__label">Product</p>
-                  <p class="wpc__sub">Ad Product /&nbsp;Base Offering</p>
-                </div>
-
-                <!-- Row 2: Base Rate / Premiums / Discount --------------- -->
-                <!-- Base Rate tile carries the v1.2-only "base-rate"
-                     hover popover, wired by the same wireHoverPopover()
-                     factory that drives the Buyer, Deal Context, and
-                     Downstream tiles. Interaction, animation, radius,
-                     shadow, typography, and viewport clamping are byte-
-                     identical to the Deal Context popover per the "same
-                     modal style as the other hover modals" brief; only
-                     the panel body copy differs (see [data-brm] near
-                     the end of this file). The tabindex / aria attrs
-                     are ADDED by JS only on v1.2 (see applyVersion in
-                     app.js); on v1.0 / v1.1 this tile stays a plain
-                     listitem. -->
-                <div class="wpc__card" data-wpc-card="base-rate" role="button"
-                     tabindex="0" aria-haspopup="dialog" aria-controls="wpc-modal"
-                     aria-expanded="false">
-                  <span class="wpc__icon" aria-hidden="true">
-                    <img src="./assets/atlas/wpc-baserate-latest.svg" alt="" width="39" height="39" draggable="false" />
-                  </span>
-                  <p class="wpc__label">Base Rate</p>
-                  <p class="wpc__sub">Cost Method<br>Rate /&nbsp;Currency</p>
-                </div>
-
-                <div class="wpc__card" data-wpc-card="premiums" role="button"
-                     tabindex="0" aria-haspopup="dialog" aria-controls="wpc-modal"
-                     aria-expanded="false">
-                  <span class="wpc__icon" aria-hidden="true">
-                    <img src="./assets/atlas/wpc-premiums-latest.svg" alt="" width="30.0012" height="39.0012" draggable="false" />
-                  </span>
-                  <p class="wpc__label">Premium Details</p>
-                  <p class="wpc__sub">Category / Name<br>Condition / Value</p>
-                </div>
-
-                <div class="wpc__card" data-wpc-card="calculation" role="button"
-                     tabindex="0" aria-haspopup="dialog" aria-controls="wpc-modal"
-                     aria-expanded="false">
-                  <span class="wpc__icon" aria-hidden="true">
-                    <img src="./assets/atlas/wpc-calculation-latest.svg" alt="" width="33" height="39" draggable="false" />
-                  </span>
-                  <p class="wpc__label">Calculation</p>
-                  <p class="wpc__sub">CPM Add-on /&nbsp;Flat Fee<br>% Change</p>
-                </div>
-
-                <!-- Arrow 1: grid to RCM. Exact Figma "Group 627386"
-                     asset (151.5 x 18.5) downloaded from node 282:5389. -->
-                <div class="wpc__arrow wpc__arrow--one" aria-hidden="true">
-                  <img class="wpc__arrow-dot" src="./assets/atlas/wpc-arrow-dot-latest.svg" alt="" width="11" height="11" draggable="false" />
-                  <img class="wpc__arrow-line" src="./assets/atlas/wpc-arrow-line-latest.svg" alt="" width="272" height="2" draggable="false" />
-                  <img class="wpc__arrow-head" src="./assets/atlas/wpc-arrow-head-latest.svg" alt="" width="9.98821" height="16.0974" draggable="false" />
-                </div>
-
-                <!-- RCM window-card. Figma "Component/ Windows/ Orange":
-                     light-coral top strip with three small window dots
-                     + white body with the exact Figma price tag glyph
-                     and the coral RCM label. Outer blue drop-shadow. -->
-                <div class="wpc__window wpc__window--rcm">
-                  <div class="wpc__window-strip" aria-hidden="true">
-                    <span class="wpc__window-dot"></span>
-                    <span class="wpc__window-dot"></span>
-                    <span class="wpc__window-dot"></span>
-                  </div>
-                  <div class="wpc__window-body">
-                    <span class="wpc__window-icon" aria-hidden="true">
-                      <img class="wpc__window-glyph" src="./assets/atlas/wpc-flow-rcm.svg" alt="" width="60.7493" height="60.7493" draggable="false" />
-                    </span>
-                    <p class="wpc__window-label">RCM</p>
-                  </div>
-                </div>
-                <p class="wpc__caption wpc__caption--rcm">Manages structured rate-card data.</p>
-
-                <!-- Arrow 2: RCM to Core Planning. Same Figma asset. -->
-                <div class="wpc__arrow wpc__arrow--two" aria-hidden="true">
-                  <img class="wpc__arrow-dot" src="./assets/atlas/wpc-arrow-dot-latest.svg" alt="" width="11" height="11" draggable="false" />
-                  <img class="wpc__arrow-line" src="./assets/atlas/wpc-arrow-line-latest.svg" alt="" width="272" height="2" draggable="false" />
-                  <img class="wpc__arrow-head" src="./assets/atlas/wpc-arrow-head-latest.svg" alt="" width="9.98821" height="16.0974" draggable="false" />
-                </div>
-
-                <!-- Core Planning window-card. Figma "Component/ Windows/
-                     Blue": light-blue strip + white body + exact Figma
-                     Core Planning receipt glyph + blue label. -->
-                <div class="wpc__window wpc__window--cp">
-                  <div class="wpc__window-strip" aria-hidden="true">
-                    <span class="wpc__window-dot"></span>
-                    <span class="wpc__window-dot"></span>
-                    <span class="wpc__window-dot"></span>
-                  </div>
-                  <div class="wpc__window-body">
-                    <span class="wpc__window-icon" aria-hidden="true">
-                      <img class="wpc__window-glyph" src="./assets/atlas/wpc-flow-planning.svg" alt="" width="49.5" height="60.7496" draggable="false" />
-                    </span>
-                    <p class="wpc__window-label">Core Planning</p>
-                  </div>
-                </div>
-                <p class="wpc__caption wpc__caption--planning">Uses applicable pricing in planning.</p>
-
-                <!-- Footer text (kept for deck consistency across slides)
-                     + Ad Platforms product mark from Figma node 282:5391. -->
-                <span class="wpc__brand" aria-hidden="true">
-                  <!-- Ad Platforms Product & Technology 2 x 2 brand mark.
-                       Extracted from Figma "Logo" node 123:1170
-                       so the HTML slides match the SVG
-                       slides exactly. -->
-                  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="41" viewBox="1826 997 36 41" fill="none" preserveAspectRatio="xMidYMid meet">
-                    <path d="M1844.85 1018.53L1842.49 1038H1859.64L1862 1018.53H1844.85ZM1857.51 1029.75H1850.7L1850.52 1031.17H1857.34L1856.93 1034.45H1846.03L1846.96 1026.87H1857.84L1857.51 1029.75ZM1858.02 1025.56H1847.12L1847.54 1022.08H1858.44L1858.02 1025.56ZM1828.98 998.285C1830.77 998.209 1832.46 998.527 1834.18 999.071C1835.16 999.374 1836.47 999.888 1837.42 1000.34C1838.11 1000.67 1839.17 1001.28 1839.78 1001.69C1839.98 1001.81 1841.08 1002.64 1841.26 1002.79C1841.62 1003.09 1842.1 1003.52 1842.43 1003.86C1843.09 1004.53 1843.91 1005.54 1844.31 1006.34L1845.45 997H1828.32L1828.14 998.361C1828.44 998.33 1828.72 998.3 1828.98 998.285ZM1832.52 1008.02C1832.52 1008.02 1831.83 1008.07 1831.37 1008.13C1830.77 1008.19 1829.65 1008.38 1829 1008.63C1828.81 1008.7 1828.42 1008.87 1828.38 1009.06C1828.35 1009.28 1828.47 1009.44 1828.62 1009.61C1828.71 1009.7 1829.17 1010.17 1829.3 1010.27C1829.86 1010.74 1830.96 1011.45 1831.8 1011.8C1832.08 1011.92 1832.55 1012.09 1832.55 1012.09C1832.55 1012.09 1832.52 1010.74 1832.52 1009.41C1832.5 1008.72 1832.52 1008.02 1832.52 1008.02ZM1843.31 1012.54C1842.13 1013.57 1840.32 1014.16 1838.75 1014.34C1837.69 1014.48 1836.48 1014.45 1835.36 1014.23C1834.97 1014.16 1834.4 1014.02 1834.4 1014.02C1834.4 1014.02 1834.4 1014.26 1834.39 1014.42C1834.37 1014.49 1834.33 1014.69 1834.3 1014.75C1834.21 1014.91 1834.09 1015.01 1833.89 1015.05C1833.65 1015.1 1833.42 1015.11 1833.19 1015.02C1832.83 1014.87 1832.71 1014.54 1832.65 1014.14C1832.61 1013.83 1832.55 1013.3 1832.55 1013.3C1832.55 1013.3 1832.28 1013.16 1832.05 1013.06C1831.37 1012.71 1830.72 1012.3 1830.16 1011.88C1829.99 1011.76 1829.32 1011.18 1829.17 1011.04C1828.75 1010.65 1828.38 1010.24 1828.09 1009.73C1827.87 1009.34 1827.81 1008.97 1827.97 1008.55C1828.21 1007.96 1829.05 1007.51 1829.62 1007.27C1830.04 1007.08 1831.35 1006.65 1831.89 1006.57C1832.14 1006.52 1832.55 1006.46 1832.58 1006.45C1832.59 1006.45 1832.59 1006.43 1832.61 1006.42C1832.62 1006.4 1832.64 1005.81 1832.64 1005.6C1832.64 1005.39 1832.79 1004.01 1832.85 1003.71C1832.88 1003.56 1833 1002.94 1833.12 1002.79C1833.19 1002.68 1833.34 1002.68 1833.45 1002.76C1834.07 1003.15 1834.25 1004.51 1834.31 1005.21C1834.34 1005.63 1834.36 1006.27 1834.36 1006.27C1834.36 1006.27 1835.07 1006.25 1835.51 1006.25C1835.94 1006.27 1836.41 1006.33 1836.85 1006.4C1837.42 1006.49 1838.53 1006.74 1839.17 1007.07C1839.69 1007.34 1840.19 1007.79 1840.34 1008.26C1840.49 1008.7 1840.46 1009 1840.23 1009.4C1839.98 1009.84 1839.5 1010.17 1839.02 1010.2C1838.87 1010.21 1838.33 1010.14 1838.17 1010C1838.11 1009.94 1838.11 1009.85 1838.15 1009.79C1838.17 1009.76 1838.42 1009.64 1838.57 1009.55C1838.65 1009.5 1838.71 1009.46 1838.77 1009.41C1838.89 1009.31 1839.01 1009.19 1838.99 1009.03C1838.98 1008.85 1838.78 1008.73 1838.6 1008.66C1837.74 1008.31 1836 1008.02 1835.16 1007.96C1834.84 1007.95 1834.37 1007.93 1834.37 1007.93L1834.48 1012.6C1834.48 1012.6 1834.87 1012.68 1835.16 1012.72C1835.34 1012.75 1836.08 1012.81 1836.27 1012.83C1837.77 1012.87 1839.44 1012.74 1840.8 1012.07C1841.4 1011.79 1841.95 1011.42 1842.37 1010.94C1842.92 1010.3 1843.21 1009.43 1843.13 1008.52C1843.04 1007.52 1842.36 1006.34 1841.8 1005.62C1840.35 1003.71 1837.84 1002.14 1835.63 1001.23C1833.37 1000.3 1831.14 999.751 1828.75 999.661C1828.57 999.661 1828.32 999.646 1828.03 999.661L1826 1016.44H1843.15L1843.66 1012.22C1843.49 1012.36 1843.39 1012.47 1843.31 1012.54ZM1831.79 1018.53L1830.43 1029.75H1841.49L1842.85 1018.53H1831.79ZM1840.16 1024.26C1838.36 1024.42 1836.93 1025.88 1836.76 1027.7C1836.76 1027.72 1836.76 1027.83 1836.64 1027.83C1836.52 1027.83 1836.52 1027.7 1836.52 1027.7C1836.36 1025.88 1834.93 1024.42 1833.12 1024.26C1833.1 1024.26 1833 1024.26 1833 1024.14C1833 1024.02 1833.12 1024.02 1833.12 1024.02C1834.93 1023.85 1836.36 1022.4 1836.52 1020.57C1836.52 1020.55 1836.52 1020.45 1836.64 1020.45C1836.76 1020.45 1836.76 1020.57 1836.76 1020.57C1836.93 1022.4 1838.36 1023.85 1840.17 1024.02C1840.19 1024.02 1840.29 1024.02 1840.29 1024.14C1840.29 1024.26 1840.17 1024.26 1840.16 1024.26ZM1856.15 1016.46L1857.51 1005.24H1846.45L1845.09 1016.46H1856.15ZM1847.78 1010.73C1849.59 1010.56 1851.03 1009.11 1851.19 1007.28C1851.19 1007.27 1851.19 1007.16 1851.31 1007.16C1851.43 1007.16 1851.43 1007.28 1851.43 1007.28C1851.59 1009.11 1853.03 1010.56 1854.84 1010.73C1854.85 1010.73 1854.96 1010.73 1854.96 1010.85C1854.96 1010.97 1854.84 1010.97 1854.84 1010.97C1853.03 1011.14 1851.59 1012.59 1851.43 1014.42C1851.43 1014.43 1851.43 1014.54 1851.31 1014.54C1851.19 1014.54 1851.19 1014.42 1851.19 1014.42C1851.03 1012.59 1849.59 1011.14 1847.78 1010.97C1847.77 1010.97 1847.66 1010.97 1847.66 1010.85C1847.66 1010.73 1847.77 1010.73 1847.78 1010.73Z" fill="currentColor"/>
-                  </svg>
-                </span>
-
-                <div id="wpc-modal" class="wpc-modal" data-wpc-modal hidden
-                     role="dialog" aria-modal="false"
-                     aria-labelledby="wpc-modal-title"
-                     aria-describedby="wpc-modal-body">
-                  <div class="wpc-modal__scrim" data-wpc-modal-dismiss></div>
-                  <div class="wpc-modal__panel" tabindex="-1">
-                    <header class="wpc-modal__header">
-                      <h3 id="wpc-modal-title" class="wpc-modal__title"></h3>
-                      <button type="button" class="wpc-modal__close"
-                              data-wpc-modal-close aria-label="Close explanation">
-                        <img src="./assets/atlas/wpc-modal-close.svg" alt=""
-                             width="15.0008" height="15.0008" draggable="false" />
-                      </button>
-                    </header>
-                    <div id="wpc-modal-body" class="wpc-modal__body">
-                      <section class="wpc-modal__content" data-wpc-modal-content="buyer" hidden>
-                        <p class="wpc-modal__question">Who does this pricing apply to?</p>
-                        <div class="wpc-modal__facts">
-                          <p>Buying Entity: <strong>Toyota</strong></p>
-                          <p>Advertiser: <strong>Toyota</strong></p>
-                        </div>
-                        <p class="wpc-modal__note">Buyer records are validated through Saleshub.</p>
-                      </section>
-
-                      <section class="wpc-modal__content" data-wpc-modal-content="deal" hidden>
-                        <p class="wpc-modal__question">Which negotiation context applies?</p>
-                        <div class="wpc-modal__facts">
-                          <p>Marketplace: <strong>Upfront</strong></p>
-                          <p>Deal Season: <strong>FY27</strong></p>
-                        </div>
-                        <p class="wpc-modal__note">Effective dates define when the rate card is valid.</p>
-                      </section>
-
-                      <section class="wpc-modal__content" data-wpc-modal-content="product" hidden>
-                        <p class="wpc-modal__question">What is Toyota buying?</p>
-                        <div class="wpc-modal__facts">
-                          <p>Ad Type: <strong>Standard Video</strong></p>
-                          <p>Base Offering: <strong>Monday Night Football</strong></p>
-                        </div>
-                        <p class="wpc-modal__note">Product values are sourced from ICM.</p>
-                      </section>
-
-                      <section class="wpc-modal__content" data-wpc-modal-content="base-rate" hidden>
-                        <p class="wpc-modal__question">What is the negotiated starting price?</p>
-                        <div class="wpc-modal__facts">
-                          <p>Cost Method: <strong>CPM</strong></p>
-                          <p>Base Rate: <strong>$20</strong></p>
-                          <p>Currency: <strong>USD</strong></p>
-                        </div>
-                        <p class="wpc-modal__note">CPM is the cost per 1,000 impressions.</p>
-                      </section>
-
-                      <section class="wpc-modal__content" data-wpc-modal-content="premiums" hidden>
-                        <p class="wpc-modal__question">When does the pricing adjustment apply?</p>
-                        <div class="wpc-modal__facts">
-                          <p>Applies to: <strong>Monday Night Football</strong></p>
-                          <p>Condition: <strong>New Jersey</strong></p>
-                          <p>Value: <strong>+10%</strong></p>
-                        </div>
-                        <p class="wpc-modal__note">The premium applies only when its condition matches.</p>
-                      </section>
-
-                      <section class="wpc-modal__content" data-wpc-modal-content="calculation" hidden>
-                        <p class="wpc-modal__question">How does the premium change the rate?</p>
-                        <div class="wpc-modal__facts">
-                          <p>Method: <strong>Percent Adjustment</strong></p>
-                          <p>Base Rate: <strong>$20 CPM</strong></p>
-                          <p>Adjustment: <strong>+10%</strong></p>
-                          <p>Applicable Rate: <strong>$22 CPM</strong></p>
-                        </div>
-                        <p class="wpc-modal__note">Premiums may add to CPM, charge a flat fee, or apply a percentage change.</p>
-                      </section>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </section>
-
-            <!-- Figma 600:1553. Zooms in on why the Line Item specifically
-                 has to live inside the Rate Card: Rate Card (framework) +
-                 Line Item (sellable item and base rate) = Consistent
-                 Pricing. -->
-            <section class="atlas-slide atlas-slide--line-need"
-                     data-atlas-slide-id="line-item-necessity"
-                     data-atlas-appendix="02"
-                     aria-label="Appendix 02: Why Do Line Items Need to Be in the Rate Card?">
-              <div class="wln">
-                <header class="wln__header">
-                  <h2 class="wln__title">Why do line items need to be in the Rate Card?</h2>
-                  <p class="wln__subtitle">Because every price must be tied to a specific sellable item.</p>
-                </header>
-
-                <div class="wln__card wln__card--rate-card">
-                  <div class="wln__card-inner">
-                    <span class="wln__card-icon" aria-hidden="true">
-                      <img src="./assets/atlas/rcm-line-need-sealcheck.svg" alt="" width="63" height="63" draggable="false" />
-                    </span>
-                    <p class="wln__card-label">Rate Card</p>
-                  </div>
-                </div>
-
-                <span class="wln__operator wln__operator--plus" aria-hidden="true">
-                  <img src="./assets/atlas/rcm-blocks-plus.svg" alt="" width="33" height="33" draggable="false" />
-                </span>
-
-                <div class="wln__card wln__card--line-item">
-                  <div class="wln__card-inner">
-                    <span class="wln__card-icon" aria-hidden="true">
-                      <img src="./assets/atlas/rcm-line-need-list.svg" alt="" width="54" height="40.49" draggable="false" />
-                    </span>
-                    <p class="wln__card-label">Line Item</p>
-                  </div>
-                </div>
-
-                <span class="wln__operator wln__operator--equals" aria-hidden="true">
-                  <img src="./assets/atlas/rcm-blocks-equals.svg" alt="" width="39.6" height="16.5" draggable="false" />
-                </span>
-
-                <div class="wln__card wln__card--pricing">
-                  <div class="wln__card-inner">
-                    <span class="wln__card-icon" aria-hidden="true">
-                      <img src="./assets/atlas/rcm-line-need-currency.svg" alt="" width="58.5" height="58.5" draggable="false" />
-                    </span>
-                    <p class="wln__card-label">Consistent Pricing</p>
-                  </div>
-                </div>
-
-                <p class="wln__desc wln__desc--rate-card">Provides the pricing framework</p>
-                <p class="wln__desc wln__desc--line-item">Defines what is sold and its base rate</p>
-                <p class="wln__desc wln__desc--pricing">Applies the right rate to the right item</p>
-
-                <p class="wln__takeaway">Without line items, there is no reliable way to connect Rate Card rules to what is actually being sold.</p>
-
-                <img class="wln__logo"
-                     src="./assets/atlas/rcm-blocks-logo.svg"
-                     alt=""
-                     width="36"
-                     height="41"
-                     draggable="false" />
-              </div>
-            </section>
-
-            <!-- Figma 492:28839. Structured-data slide, following the
-                 line-item explanation. -->
-            <section class="atlas-slide atlas-slide--rate-card-data"
-                     data-atlas-slide="8"
-                     data-atlas-slide-id="structured-pricing-data"
-                     aria-label="Slide 8 of 12: Turning Rate Cards into Structured Pricing Data">
-              <div class="rcd">
-                <header class="rcd__header">
-                  <h2 class="rcd__title">Turning Rate Cards into Structured Pricing Data</h2>
-                  <p class="rcd__subtitle">Existing rate-card workbooks are imported into a consistent structure for pricing and future Planning workflows.</p>
-                </header>
-
-                <div class="rcd__image rcd__image--current">
-                  <img src="./assets/atlas/structured-data-current-rate-card.png"
-                       alt="Current rate card in a human-authored Excel workbook."
-                       width="1279" height="802" draggable="false" />
-                </div>
-
-                <div class="rcd__image rcd__image--structured">
-                  <img src="./assets/atlas/structured-data-rate-card-data.png"
-                       alt="The rate card organized into consistent structured rows."
-                       width="1282" height="712" draggable="false" />
-                </div>
-
-                <span class="rcd__arrow" aria-hidden="true">
-                  <img class="rcd__arrow-circle" src="./assets/atlas/structured-data-arrow-circle.svg" alt="" width="11" height="11" draggable="false" />
-                  <img class="rcd__arrow-line" src="./assets/atlas/structured-data-arrow-line.svg" alt="" width="94" height="1.76249" draggable="false" />
-                  <img class="rcd__arrow-head" src="./assets/atlas/structured-data-arrowhead.svg" alt="" width="9.98821" height="16.0974" draggable="false" />
-                </span>
-
-                <p class="rcd__label rcd__label--current">Existing Rate Card Workbook</p>
-                <p class="rcd__label rcd__label--structured">Structured RCM Data</p>
-                <p class="rcd__label rcd__label--arrow"><span>Import</span><span>and structure</span></p>
-
-                <img class="rcd__brand"
-                     src="./assets/atlas/structured-data-logo.svg"
-                     alt=""
-                     width="36" height="41" draggable="false" />
-              </div>
-            </section>
-
-            <!-- SLIDE 7: Future Rate Card Workflow. Figma node 492:28287, exact 1920x1080 implementation. -->
-            <section class="atlas-slide atlas-slide--future-rate-card" data-atlas-slide="9" data-atlas-slide-id="future-rate-card-workflow" aria-label="Slide 9 of 12: Future Rate Card Workflow">
-              <div class="frw">
-                <header class="frw__header">
-                  <h2 class="frw__title">Future Rate Card Workflow</h2>
-                  <p class="frw__subtitle">Move from disconnected spreadsheets to structured rate-card data that supports automated pricing.</p>
-                </header>
-                <div class="frw__workflow">
-                  <div class="frw__item frw__item--import">
-                    <div class="frw__card">
-                      <div class="frw__card-content">
-                        <span class="frw__icon" aria-hidden="true"><img src="./assets/atlas/future-rate-card-import.svg" alt="" width="59.4" height="70.2" draggable="false" /></span>
-                        <h3 class="frw__card-title">Upload or Create</h3>
-                      </div>
-                    </div>
-                    <p class="frw__support">Import complex rate cards or create simpler ones manually.</p>
-                  </div>
-                  <div class="frw__connector" aria-hidden="true">
-                    <img class="frw__arrow-dot" src="./assets/atlas/future-rate-card-arrow-dot.svg" alt="" width="13.2" height="13.2" draggable="false" />
-                    <img class="frw__arrow-line" src="./assets/atlas/future-rate-card-arrow-line.svg" alt="" width="157.2" height="2.11499" draggable="false" />
-                    <img class="frw__arrow-head" src="./assets/atlas/future-rate-card-arrowhead.svg" alt="" width="11.9859" height="19.3169" draggable="false" />
-                  </div>
-                  <div class="frw__item frw__item--manage">
-                    <div class="frw__card">
-                      <div class="frw__card-content">
-                        <span class="frw__icon" aria-hidden="true"><img src="./assets/atlas/future-rate-card-manage.svg" alt="" width="72.8992" height="72.8992" draggable="false" /></span>
-                        <h3 class="frw__card-title">Manage Rate-Card Data</h3>
-                      </div>
-                    </div>
-                    <p class="frw__support">Review Rate Card Details, Line Items, and Premiums.</p>
-                  </div>
-                  <div class="frw__connector" aria-hidden="true">
-                    <img class="frw__arrow-dot" src="./assets/atlas/future-rate-card-arrow-dot.svg" alt="" width="13.2" height="13.2" draggable="false" />
-                    <img class="frw__arrow-line" src="./assets/atlas/future-rate-card-arrow-line.svg" alt="" width="157.2" height="2.11499" draggable="false" />
-                    <img class="frw__arrow-head" src="./assets/atlas/future-rate-card-arrowhead.svg" alt="" width="11.9859" height="19.3169" draggable="false" />
-                  </div>
-                  <div class="frw__item frw__item--publish">
-                    <div class="frw__card">
-                      <div class="frw__card-content">
-                        <span class="frw__icon" aria-hidden="true"><img src="./assets/atlas/future-rate-card-publish.svg" alt="" width="75.6" height="75.6" draggable="false" /></span>
-                        <h3 class="frw__card-title">Use in Pricing Workflows</h3>
-                      </div>
-                    </div>
-                    <p class="frw__support">Return the correct base rate and apply recognized premiums.</p>
-                  </div>
-                </div>
-                <img class="frw__brand" src="./assets/atlas/future-rate-card-logo.svg" alt="" width="36" height="41" draggable="false" />
-              </div>
-            </section>
-            <!-- ============================================================
-                 SLIDE 8: Designing for Connected Pricing Workflows
-                 (Figma node 492:28532, Rate Card file Klc8JpICWSLwU1LeUVRHtT).
-
-                 2026-08-04 refresh: right-hand section now uses the
-                 dark "Structured Sections" cards (deep charcoal
-                 gradient + blue highlight bar + inner glow) per the
-                 latest Figma capture, and the three cards are labeled
-                 "RC Details" / "Line Items" / "Premiums". Left-hand
-                 "Step Wizard" cards, header text, purple arrow, and
-                 purple plus signs are preserved but retuned to the
-                 new absolute coordinates on the Figma frame:
-                   - Header (title + subtitle) at (63, 88), title in
-                     InspireTWDC Black.
-                   - Left "Step Wizard" section head at (88, 358) with
-                     the coral HandPalm icon and three muted grey step
-                     cards (Step 1 / Step 2 / Step 3) at y=501. Their
-                     0.5 opacity signals "the shape we explored" vs
-                     the dominant Structured Sections cluster.
-                   - Purple transition arrow at (697, 603) (Figma
-                     node 29:420, 255x19).
-                   - Right "Structured Sections" section head at
-                     (960, 358) with a green CheckCircle icon and
-                     three dark 180x160 cards (RC Details / Line
-                     Items / Premiums) at (959 / 1277 / 1586, 534).
-                     Each card carries a 2 px vertical highlight bar
-                     (#6CB8FF > #1677FF) with a blue glow, and hosts
-                     a 64 px thin-line blue icon plus 24 px
-                     InspireTWDC Black label.
-                   - Purple + marks at (1185, 590) and (1503, 590).
-                   - Footer + brand mark shared with the rest of the
-                     HTML slides (.pwf / .rcd chrome pattern).
-
-                 Terminology per user brief (2026-08-04):
-                   - "Step Wizard" (not "Linear Step Wizard").
-                   - "Structured Sections".
-                   - "RC Details" / "Line Items" / "Premiums"
-                     (never CARD / LINE / PREM on this slide).
-                 The framing is workflow shape, not "wizard failed". -->
-            <section class="atlas-slide atlas-slide--connected-workflows"
-                     data-atlas-slide="10"
-                     data-atlas-slide-id="connected-workflows"
-                     aria-label="Slide 10 of 12: Pricing decisions change as the deal changes">
-              <div class="cw" data-connected-workflows data-cw-view="current-design">
-
-                <!-- Current design. Figma node 741:13577. -->
-                <div class="cw__view cw__view--current" data-cw-panel="current-design">
-                  <div class="cw__stage">
-
-                    <!-- Header block. Figma: flex column, gap 8, at (63, 88). -->
-                    <div class="cw__header">
-                      <h2 class="cw__title">Pricing decisions change as the deal changes</h2>
-                      <p class="cw__subtitle">Users need to revisit connected pricing sections without starting over.</p>
-                    </div>
-
-                    <!-- Left column: the shape we explored. -->
-                    <div class="cw__section cw__section--wizard">
-                      <span class="cw__section-icon cw__section-icon--wizard" aria-hidden="true">
-                        <img src="./assets/atlas/cw-handpalm.svg?v=20260708-cw-figma-icons" alt="" width="48" height="48" draggable="false" />
-                      </span>
-                      <h3 class="cw__section-title cw__section-title--wizard">Step Wizard</h3>
-                    </div>
-                    <p class="cw__section-support cw__section-support--wizard">Assumes each decision is made once.</p>
-
-                    <!-- Left step cards. Muted / opacity 0.5 per Figma to
-                         signal "the direction we explored" without making
-                         the wizard concept look mocked. -->
-                    <div class="cw__step-card cw__step-card--1">
-                      <img class="cw__step-num" src="./assets/atlas/cw-num-1.svg?v=20260708-cw-figma-icons" alt="" width="72" height="72" draggable="false" />
-                      <p class="cw__step-label">Step 1</p>
-                    </div>
-                    <div class="cw__step-card cw__step-card--2">
-                      <img class="cw__step-num" src="./assets/atlas/cw-num-2.svg?v=20260708-cw-figma-icons" alt="" width="72" height="72" draggable="false" />
-                      <p class="cw__step-label">Step 2</p>
-                    </div>
-                    <div class="cw__step-card cw__step-card--3">
-                      <img class="cw__step-num" src="./assets/atlas/cw-num-3.svg?v=20260708-cw-figma-icons" alt="" width="72" height="72" draggable="false" />
-                      <p class="cw__step-label">Step 3</p>
-                    </div>
-
-                    <!-- Middle connector: one-way purple arrow, Figma node
-                         29:420 in a 255x19 slot at (697, 603). -->
-                    <img class="cw__arrow" src="./assets/atlas/cw-arrow.svg?v=20260708-cw-figma-icons" alt="" width="255" height="19" draggable="false" />
-
-                    <!-- Right column: the shape we shipped. -->
-                    <div class="cw__section cw__section--structured">
-                      <span class="cw__section-icon cw__section-icon--structured" aria-hidden="true">
-                        <img src="./assets/atlas/cw-check-circle.svg?v=20260708-cw-figma-icons" alt="" width="36" height="36" draggable="false" />
-                      </span>
-                      <h3 class="cw__section-title cw__section-title--structured">Connected sections</h3>
-                    </div>
-                    <p class="cw__section-support cw__section-support--structured">Details, line items, and premiums can be updated anytime.</p>
-
-                    <!-- Right connected cards. Each is a 2 x 131 blue
-                         highlight bar plus a 180 x 160 dark gradient card
-                         holding a 64px thin blue icon and a 24px label. -->
-                    <div class="cw__struct-card cw__struct-card--rc-details">
-                      <span class="cw__struct-bar" aria-hidden="true"></span>
-                      <div class="cw__struct-body">
-                        <img class="cw__struct-icon" src="./assets/atlas/cw-icon-rc-details.svg?v=20260804-cw-structured-cards" alt="" width="64" height="64" draggable="false" />
-                        <p class="cw__struct-label">Rate Card<br />Details</p>
-                      </div>
-                    </div>
-                    <div class="cw__struct-card cw__struct-card--line-items">
-                      <span class="cw__struct-bar" aria-hidden="true"></span>
-                      <div class="cw__struct-body">
-                        <img class="cw__struct-icon" src="./assets/atlas/cw-icon-line-items.svg?v=20260804-cw-structured-cards" alt="" width="64" height="64" draggable="false" />
-                        <p class="cw__struct-label">Line Items</p>
-                      </div>
-                    </div>
-                    <div class="cw__struct-card cw__struct-card--premiums">
-                      <span class="cw__struct-bar" aria-hidden="true"></span>
-                      <div class="cw__struct-body">
-                        <img class="cw__struct-icon" src="./assets/atlas/cw-icon-premiums.svg?v=20260804-cw-structured-cards" alt="" width="64" height="64" draggable="false" />
-                        <p class="cw__struct-label">Premiums</p>
-                      </div>
-                    </div>
-
-                    <!-- Bidirectional, not plus signs: the point of the
-                         slide is that a user can go back to any of the
-                         three sections, not that the three are summed. -->
-                    <img class="cw__link cw__link--1" src="./assets/atlas/cw-arrow-bidirectional.svg?v=20260830-cw-two-way" alt="" width="121" height="12" draggable="false" />
-                    <img class="cw__link cw__link--2" src="./assets/atlas/cw-arrow-bidirectional.svg?v=20260830-cw-two-way" alt="" width="121" height="12" draggable="false" />
-
-                    <!-- Lower-left toggle, Figma node 741:24681. Sized up
-                         from the node's 14px ADS body so it still reads on
-                         a projector; the border, radius and colour are the
-                         node's. -->
-                    <button type="button" class="cw__toggle"
-                            data-cw-show="previous-design"
-                            aria-label="View previous design">Previous design</button>
-
-                    <span class="cw__brand" aria-hidden="true">
-                  <!-- Ad Platforms Product & Technology 2 x 2 brand mark,
-                       reused from the structured-data slide (rcd__brand) so the deck's
-                       bottom-right mark stays uniform. -->
-                  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="41" viewBox="1826 997 36 41" fill="none" preserveAspectRatio="xMidYMid meet">
-                    <path d="M1844.85 1018.53L1842.49 1038H1859.64L1862 1018.53H1844.85ZM1857.51 1029.75H1850.7L1850.52 1031.17H1857.34L1856.93 1034.45H1846.03L1846.96 1026.87H1857.84L1857.51 1029.75ZM1858.02 1025.56H1847.12L1847.54 1022.08H1858.44L1858.02 1025.56ZM1828.98 998.285C1830.77 998.209 1832.46 998.527 1834.18 999.071C1835.16 999.374 1836.47 999.888 1837.42 1000.34C1838.11 1000.67 1839.17 1001.28 1839.78 1001.69C1839.98 1001.81 1841.08 1002.64 1841.26 1002.79C1841.62 1003.09 1842.1 1003.52 1842.43 1003.86C1843.09 1004.53 1843.91 1005.54 1844.31 1006.34L1845.45 997H1828.32L1828.14 998.361C1828.44 998.33 1828.72 998.3 1828.98 998.285ZM1832.52 1008.02C1832.52 1008.02 1831.83 1008.07 1831.37 1008.13C1830.77 1008.19 1829.65 1008.38 1829 1008.63C1828.81 1008.7 1828.42 1008.87 1828.38 1009.06C1828.35 1009.28 1828.47 1009.44 1828.62 1009.61C1828.71 1009.7 1829.17 1010.17 1829.3 1010.27C1829.86 1010.74 1830.96 1011.45 1831.8 1011.8C1832.08 1011.92 1832.55 1012.09 1832.55 1012.09C1832.55 1012.09 1832.52 1010.74 1832.52 1009.41C1832.5 1008.72 1832.52 1008.02 1832.52 1008.02ZM1843.31 1012.54C1842.13 1013.57 1840.32 1014.16 1838.75 1014.34C1837.69 1014.48 1836.48 1014.45 1835.36 1014.23C1834.97 1014.16 1834.4 1014.02 1834.4 1014.02C1834.4 1014.02 1834.4 1014.26 1834.39 1014.42C1834.37 1014.49 1834.33 1014.69 1834.3 1014.75C1834.21 1014.91 1834.09 1015.01 1833.89 1015.05C1833.65 1015.1 1833.42 1015.11 1833.19 1015.02C1832.83 1014.87 1832.71 1014.54 1832.65 1014.14C1832.61 1013.83 1832.55 1013.3 1832.55 1013.3C1832.55 1013.3 1832.28 1013.16 1832.05 1013.06C1831.37 1012.71 1830.72 1012.3 1830.16 1011.88C1829.99 1011.76 1829.32 1011.18 1829.17 1011.04C1828.75 1010.65 1828.38 1010.24 1828.09 1009.73C1827.87 1009.34 1827.81 1008.97 1827.97 1008.55C1828.21 1007.96 1829.05 1007.51 1829.62 1007.27C1830.04 1007.08 1831.35 1006.65 1831.89 1006.57C1832.14 1006.52 1832.55 1006.46 1832.58 1006.45C1832.59 1006.45 1832.59 1006.43 1832.61 1006.42C1832.62 1006.4 1832.64 1005.81 1832.64 1005.6C1832.64 1005.39 1832.79 1004.01 1832.85 1003.71C1832.88 1003.56 1833 1002.94 1833.12 1002.79C1833.19 1002.68 1833.34 1002.68 1833.45 1002.76C1834.07 1003.15 1834.25 1004.51 1834.31 1005.21C1834.34 1005.63 1834.36 1006.27 1834.36 1006.27C1834.36 1006.27 1835.07 1006.25 1835.51 1006.25C1835.94 1006.27 1836.41 1006.33 1836.85 1006.4C1837.42 1006.49 1838.53 1006.74 1839.17 1007.07C1839.69 1007.34 1840.19 1007.79 1840.34 1008.26C1840.49 1008.7 1840.46 1009 1840.23 1009.4C1839.98 1009.84 1839.5 1010.17 1839.02 1010.2C1838.87 1010.21 1838.33 1010.14 1838.17 1010C1838.11 1009.94 1838.11 1009.85 1838.15 1009.79C1838.17 1009.76 1838.42 1009.64 1838.57 1009.55C1838.65 1009.5 1838.71 1009.46 1838.77 1009.41C1838.89 1009.31 1839.01 1009.19 1838.99 1009.03C1838.98 1008.85 1838.78 1008.73 1838.6 1008.66C1837.74 1008.31 1836 1008.02 1835.16 1007.96C1834.84 1007.95 1834.37 1007.93 1834.37 1007.93L1834.48 1012.6C1834.48 1012.6 1834.87 1012.68 1835.16 1012.72C1835.34 1012.75 1836.08 1012.81 1836.27 1012.83C1837.77 1012.87 1839.44 1012.74 1840.8 1012.07C1841.4 1011.79 1841.95 1011.42 1842.37 1010.94C1842.92 1010.3 1843.21 1009.43 1843.13 1008.52C1843.04 1007.52 1842.36 1006.34 1841.8 1005.62C1840.35 1003.71 1837.84 1002.14 1835.63 1001.23C1833.37 1000.3 1831.14 999.751 1828.75 999.661C1828.57 999.661 1828.32 999.646 1828.03 999.661L1826 1016.44H1843.15L1843.66 1012.22C1843.49 1012.36 1843.39 1012.47 1843.31 1012.54ZM1831.79 1018.53L1830.43 1029.75H1841.49L1842.85 1018.53H1831.79ZM1840.16 1024.26C1838.36 1024.42 1836.93 1025.88 1836.76 1027.7C1836.76 1027.72 1836.76 1027.83 1836.64 1027.83C1836.52 1027.83 1836.52 1027.7 1836.52 1027.7C1836.36 1025.88 1834.93 1024.42 1833.12 1024.26C1833.1 1024.26 1833 1024.26 1833 1024.14C1833 1024.02 1833.12 1024.02 1833.12 1024.02C1834.93 1023.85 1836.36 1022.4 1836.52 1020.57C1836.52 1020.55 1836.52 1020.45 1836.64 1020.45C1836.76 1020.45 1836.76 1020.57 1836.76 1020.57C1836.93 1022.4 1838.36 1023.85 1840.17 1024.02C1840.19 1024.02 1840.29 1024.02 1840.29 1024.14C1840.29 1024.26 1840.17 1024.26 1840.16 1024.26ZM1856.15 1016.46L1857.51 1005.24H1846.45L1845.09 1016.46H1856.15ZM1847.78 1010.73C1849.59 1010.56 1851.03 1009.11 1851.19 1007.28C1851.19 1007.27 1851.19 1007.16 1851.31 1007.16C1851.43 1007.16 1851.43 1007.28 1851.43 1007.28C1851.59 1009.11 1853.03 1010.56 1854.84 1010.73C1854.85 1010.73 1854.96 1010.73 1854.96 1010.85C1854.96 1010.97 1854.84 1010.97 1854.84 1010.97C1853.03 1011.14 1851.59 1012.59 1851.43 1014.42C1851.43 1014.43 1851.43 1014.54 1851.31 1014.54C1851.19 1014.54 1851.19 1014.42 1851.19 1014.42C1851.03 1012.59 1849.59 1011.14 1847.78 1010.97C1847.77 1010.97 1847.66 1010.97 1847.66 1010.85C1847.66 1010.73 1847.77 1010.73 1847.78 1010.73Z" fill="currentColor"/>
-                  </svg>
-                </span>
-                  </div><!-- /.cw__stage -->
-                </div>
-
-                <!-- Previous design. Figma node 741:19209: the Create Rate
-                     Card step wizard at its natural 1440 width.
-
-                     The prototype is not re-authored here. The same screen
-                     already exists as structured markup in the Rate Card
-                     layer explainer, so the script clones that node in on
-                     first use. One copy, one set of .prev-* styles, and no
-                     screenshot to go stale. -->
-                <div class="cw__view cw__view--previous" data-cw-panel="previous-design"
-                     hidden aria-hidden="true">
-                  <button type="button" class="cw__back"
-                          data-cw-show="current-design"
-                          aria-label="Back to current design">
-                    <span aria-hidden="true">&#8592;</span> Back to current design
-                  </button>
-                  <div class="cw__prev-frame">
-                    <div class="cw__prev-mount rcle__previous-prototype"
-                         data-cw-prev-mount aria-hidden="true"></div>
-                  </div>
-                </div>
-
-                <!-- Announces the swap once, without putting any extra
-                     text on the slide. -->
-                <p class="cw__sr" data-cw-live aria-live="polite"></p>
-              </div><!-- /.cw -->
-            </section>
-
-            <!-- SLIDE 8 (final): How Rate Cards Will Support Core Planning.
-                 Figma node 513:8052. 2026-08-04 copy refresh:
-                   - Title: "How Rate Cards Will Support Core Planning"
-                     (replaces "Rate Card powers line pricing").
-                   - Subtitle uses future-state language ("Core Planning
-                     will use applicable rates in future planning workflows").
-                   - Left RCM support becomes "Manage rate-card data";
-                     CARD / LINE / PREM row copy reworded so each mapping
-                     reflects the Rate Card, Line Item, and Premium mental
-                     model rather than a "who the rate is for" oversimplification.
-                   - Center connector reads "Applicable rate" with a
-                     small "via shared pricing capabilities" subline
-                     (replaces "Published rate card"). Underlying
-                     .rlp__published / .rlp__connector-label class names
-                     are preserved so existing CSS + QA selectors keep
-                     working; only the visible label changes.
-                   - Right Core Planning support becomes "Use applicable
-                     pricing"; Buyer Context row is renamed to Context;
-                     Adjustments row wording matches the plural "Come
-                     from PREM" per the brief.
-                   - Far-right takeaway becomes future-state: "RCM
-                     manages the rate-card data. / Core Planning will
-                     use the applicable rate." -->
             <section class="atlas-slide atlas-slide--line-pricing"
-                     data-atlas-slide="11"
+                     data-atlas-slide="10"
                      data-atlas-slide-id="rate-card-line-pricing"
-                     aria-label="Slide 11 of 12: How Rate Cards Will Support Core Planning">
+                     aria-label="Slide 10 of 11: How Rate Cards Will Support Core Planning">
               <div class="rlp">
                 <header class="rlp__header">
                   <h2 class="rlp__title">How Rate Cards Will Support Core Planning</h2>
@@ -4553,10 +4132,10 @@
                  The two Appendix rows are the only route into the sections
                  marked data-atlas-appendix, which the main run skips. -->
             <section class="atlas-slide atlas-slide--closing"
-                     data-atlas-slide="12"
+                     data-atlas-slide="11"
                      data-atlas-slide-id="closing-thank-you"
                      data-atlas-closing
-                     aria-label="Slide 12 of 12: Thank you">
+                     aria-label="Slide 11 of 11: Thank you">
               <div class="clo">
                 <h2 class="clo__title">Thank you</h2>
 
@@ -4582,10 +4161,10 @@
                 <h3 class="clo__appendix">Appendix</h3>
 
                 <a class="clo__row clo__row--1"
-                   href="?section=atlas&amp;slide=pricing-complexity"
-                   data-atlas-appendix-link="pricing-complexity">
+                   href="?section=atlas&amp;slide=advertising-supermarket"
+                   data-atlas-appendix-link="advertising-supermarket">
                   <span class="clo__num" aria-hidden="true">01</span>
-                  <span class="clo__row-title">Why Pricing gets complicated before planning</span>
+                  <span class="clo__row-title">Think of Disney Advertising as a supermarket</span>
                   <svg class="clo__arrow clo__arrow--row" viewBox="0 0 36 36" width="36" height="36"
                        aria-hidden="true" focusable="false">
                     <path d="M31.1709 18.796L21.0459 28.921C20.8348 29.1321 20.5485 29.2507 20.25 29.2507C19.9515 29.2507 19.6652 29.1321 19.4541 28.921C19.243 28.7099 19.1244 28.4236 19.1244 28.1251C19.1244 27.8265 19.243 27.5402 19.4541 27.3291L27.6595 19.1251H5.625C5.32663 19.1251 5.04048 19.0066 4.82951 18.7956C4.61853 18.5846 4.5 18.2984 4.5 18.0001C4.5 17.7017 4.61853 17.4156 4.82951 17.2046C5.04048 16.9936 5.32663 16.8751 5.625 16.8751H27.6595L19.4541 8.67101C19.243 8.45992 19.1244 8.17361 19.1244 7.87508C19.1244 7.57654 19.243 7.29023 19.4541 7.07914C19.6652 6.86804 19.9515 6.74945 20.25 6.74945C20.5485 6.74945 20.8348 6.86804 21.0459 7.07914L31.1709 17.2041C31.2755 17.3086 31.3585 17.4327 31.4151 17.5693C31.4717 17.7058 31.5009 17.8522 31.5009 18.0001C31.5009 18.1479 31.4717 18.2943 31.4151 18.4309C31.3585 18.5675 31.2755 18.6915 31.1709 18.796Z"
@@ -4594,9 +4173,21 @@
                 </a>
 
                 <a class="clo__row clo__row--2"
+                   href="?section=atlas&amp;slide=upfront-scatter"
+                   data-atlas-appendix-link="upfront-scatter">
+                  <span class="clo__num" aria-hidden="true">02</span>
+                  <span class="clo__row-title">Buyers can purchase through different deal types</span>
+                  <svg class="clo__arrow clo__arrow--row" viewBox="0 0 36 36" width="36" height="36"
+                       aria-hidden="true" focusable="false">
+                    <path d="M31.1709 18.796L21.0459 28.921C20.8348 29.1321 20.5485 29.2507 20.25 29.2507C19.9515 29.2507 19.6652 29.1321 19.4541 28.921C19.243 28.7099 19.1244 28.4236 19.1244 28.1251C19.1244 27.8265 19.243 27.5402 19.4541 27.3291L27.6595 19.1251H5.625C5.32663 19.1251 5.04048 19.0066 4.82951 18.7956C4.61853 18.5846 4.5 18.2984 4.5 18.0001C4.5 17.7017 4.61853 17.4156 4.82951 17.2046C5.04048 16.9936 5.32663 16.8751 5.625 16.8751H27.6595L19.4541 8.67101C19.243 8.45992 19.1244 8.17361 19.1244 7.87508C19.1244 7.57654 19.243 7.29023 19.4541 7.07914C19.6652 6.86804 19.9515 6.74945 20.25 6.74945C20.5485 6.74945 20.8348 6.86804 21.0459 7.07914L31.1709 17.2041C31.2755 17.3086 31.3585 17.4327 31.4151 17.5693C31.4717 17.7058 31.5009 17.8522 31.5009 18.0001C31.5009 18.1479 31.4717 18.2943 31.4151 18.4309C31.3585 18.5675 31.2755 18.6915 31.1709 18.796Z"
+                          fill="currentColor" />
+                  </svg>
+                </a>
+
+                <a class="clo__row clo__row--3"
                    href="?section=atlas&amp;slide=line-item-necessity"
                    data-atlas-appendix-link="line-item-necessity">
-                  <span class="clo__num" aria-hidden="true">02</span>
+                  <span class="clo__num" aria-hidden="true">03</span>
                   <span class="clo__row-title">Why do line items need to be in the rate card</span>
                   <svg class="clo__arrow clo__arrow--row" viewBox="0 0 36 36" width="36" height="36"
                        aria-hidden="true" focusable="false">
@@ -4633,7 +4224,295 @@
               <span>Back to Appendix</span>
             </button>
 
-          </div><!-- /.atlas-stage -->
+<section data-atlas-appendix="01" id="atlas-slide-supermarket"
+                     class="atlas-slide atlas-slide--supermarket"
+                     data-atlas-slide-id="advertising-supermarket"
+                     aria-label="Appendix 01: Think of Disney Advertising as a supermarket">
+              <div class="sup" data-supermarket data-sup-phase="revealing">
+                <header class="sup__header">
+                  <h2 class="sup__title" data-sup-reveal="title">Think of Disney Advertising as a supermarket</h2>
+                  <p class="sup__subtitle" data-sup-reveal="subtitle">Ad Inventory is the shelf space, and Offerings are the products planners can select.</p>
+                </header>
+
+                <!-- One wrapper per column, so a reveal step can only ever
+                     bring in a whole idea: the drawing and both of its
+                     captions. Each wrapper spans the slide, so every child
+                     keeps the Figma frame's own coordinates and its own
+                     centring transform.
+
+                     Each illustration keeps the intrinsic size of its Figma
+                     export, and each caption is centred on its drawing's
+                     midpoint rather than pinned to the Figma text-box edge:
+                     Figma measures that edge in InspireTWDC, which the deck
+                     substitutes, so a left anchor would drift the caption off
+                     centre by the fallback face's difference.
+
+                     fetchpriority="low" because these add weight to a document
+                     every slide in the deck shares, and the browser otherwise
+                     races them against the webfont the whole deck needs to
+                     render any text at all. -->
+                <div class="sup__visual">
+                  <div class="sup__group sup__group--store" data-sup-reveal="group-store">
+                    <img class="sup__art sup__art--store"
+                         src="./assets/atlas/supermarket-store.svg"
+                         alt=""
+                         width="370"
+                         height="296"
+                         fetchpriority="low"
+                         draggable="false" />
+                    <p class="sup__label-small sup__label-small--store">Store</p>
+                    <p class="sup__label sup__label--store">Disney Advertising</p>
+                  </div>
+
+                  <div class="sup__group sup__group--shelves" data-sup-reveal="group-shelves">
+                    <img class="sup__art sup__art--shelves"
+                         src="./assets/atlas/supermarket-shelves.svg"
+                         alt=""
+                         width="309"
+                         height="313"
+                         fetchpriority="low"
+                         draggable="false" />
+                    <p class="sup__label-small sup__label-small--shelves">Shelf space</p>
+                    <p class="sup__label sup__label--shelves">Ad Inventory</p>
+                  </div>
+
+                  <div class="sup__group sup__group--produce" data-sup-reveal="group-produce">
+                    <img class="sup__art sup__art--produce"
+                         src="./assets/atlas/supermarket-produce.png"
+                         alt=""
+                         width="334"
+                         height="299"
+                         fetchpriority="low"
+                         draggable="false" />
+                    <p class="sup__label-small sup__label-small--produce">Product</p>
+                    <p class="sup__label sup__label--produce">Ad Offerings</p>
+                  </div>
+                </div>
+
+                <img class="sup__logo"
+                     src="./assets/atlas/atlas-brand-mark.svg"
+                     alt=""
+                     width="36"
+                     height="41"
+                     draggable="false" />
+              </div>
+            </section>
+
+            <!-- Buyers can purchase through different deal types.
+                 Figma node 736:479. Two columns, each an illustration with
+                 its three text lines under it, revealed as whole groups by
+                 initAtlasUpfrontScatter in app.js. Coordinates are the
+                 Figma frame's own pixel values. -->
+            <section data-atlas-appendix="02" id="atlas-slide-upfront-scatter"
+                     class="atlas-slide atlas-slide--upfront-scatter"
+                     data-atlas-slide-id="upfront-scatter"
+                     aria-label="Appendix 02: Buyers can purchase through different deal types">
+              <div class="usc" data-upfront-scatter data-usc-phase="revealing">
+                <header class="usc__header" data-usc-reveal="header">
+                  <h2 class="usc__title">Buyers can purchase through different deal types</h2>
+                  <p class="usc__subtitle">The deal type helps determine which Rate Card applies.</p>
+                </header>
+
+                <div class="usc__group usc__group--upfront" data-usc-reveal="upfront"
+                     data-usc-scene="upfront">
+                  <!-- Four drawn poses of the same room: reaching for the
+                       carton, holding it between them, setting it on the
+                       stack, and standing back from it. The room itself is
+                       one image that every pose sits on, so nothing behind
+                       the people can shift while they work. app.js cuts
+                       from one pose to the next. -->
+                  <div class="usc__scene">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="upfront-scene"
+                           class="usc__art usc__art--upfront" viewBox="0 0 846 929"
+                           preserveAspectRatio="none" role="img"
+                           aria-label="A warehouse team taking a carton from the van and stacking it as committed stock">
+                        <!-- Room, then still plate, then the movers. Every
+                             layer is a lift straight out of the drawn artwork,
+                             so each person is painted once at full strength.
+                             An earlier build made the plate by averaging the
+                             four poses together, which left the counter pair
+                             standing at part opacity with doubled edges. -->
+                        <image class="usc__room" href="./assets/atlas/upfront-scatter-room.png"
+                               x="0" y="0" width="1693" height="929" />
+                        <!-- The clerk and the customer at the service counter.
+                             They never move, so they are lifted whole from a
+                             single pose and left alone for the whole run. -->
+                        <image class="usc__plate"
+                               href="./assets/atlas/upfront-scatter-upfront-plate.png"
+                               x="0" y="0" width="846" height="929" />
+                        <!-- The two warehouse workers. They pass the carton
+                             between them, so they share one timeline and one
+                             cut-out; only one of these four is ever painted. -->
+                        <g class="usc__actor" data-usc-window="0">
+                          <image class="usc__pose" data-usc-pose="01-pickup" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-upfront-actor-01-pickup.png"
+                                 x="0" y="0" width="846" height="929" />
+                          <image class="usc__pose" data-usc-pose="02-handoff" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-upfront-actor-02-handoff.png"
+                                 x="0" y="0" width="846" height="929" />
+                          <image class="usc__pose" data-usc-pose="03-place" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-upfront-actor-03-place.png"
+                                 x="0" y="0" width="846" height="929" />
+                          <image class="usc__pose" data-usc-pose="04-release" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-upfront-actor-04-release.png"
+                                 x="0" y="0" width="846" height="929" />
+                          <!-- The delivered carton, once it is standing on the
+                               stack on its own. The place and release drawings
+                               already contain it, so this only carries the
+                               laps that follow. -->
+                          <image class="usc__placed" data-usc-placed opacity="0"
+                                 href="./assets/atlas/upfront-scatter-upfront-placed.png"
+                                 x="96" y="308" width="629" height="465" />
+                        </g>
+                      </svg>
+                  </div>
+                  <div class="usc__copy">
+                    <p class="usc__deal">Upfront</p>
+                    <p class="usc__lede">Reserve Early</p>
+                    <p class="usc__note">Agreed as an advance commitment</p>
+                  </div>
+                </div>
+
+                <div class="usc__group usc__group--scatter" data-usc-reveal="scatter"
+                     data-usc-scene="scatter">
+                  <!-- The same four beats on the right half of the room
+                       image: each person holding a product, reaching to the
+                       shelf, setting it down among the stock already there,
+                       and withdrawing an empty hand. -->
+                  <div class="usc__scene">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="scatter-scene"
+                           class="usc__art usc__art--scatter" viewBox="0 0 847 929"
+                           preserveAspectRatio="none" role="img"
+                           aria-label="Shop staff placing single products onto shelves that already hold stock">
+                        <!-- The room is the only still layer here: all three
+                             members of staff move, so there is no still pair
+                             to hold. It draws every shelf, product and crate
+                             in the scene exactly once. -->
+                        <image class="usc__room" href="./assets/atlas/upfront-scatter-room.png"
+                               x="-846" y="0" width="1693" height="929" />
+                        <!-- Two timelines: the pair working the left aisle,
+                             and the one on the right. They run out of step, so
+                             they are separate. Each drawing carries only the
+                             staff on its own timeline, cut to their outline,
+                             so no drawing can lay down a second copy of the
+                             shelving the room already holds. Within a timeline
+                             only a single drawing is ever painted. -->
+                        <g class="usc__actor" data-usc-window="0">
+                          <image class="usc__pose" data-usc-pose="01-pickup" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-scatter-actor-left-01-pickup.png"
+                                 x="0" y="0" width="847" height="929" />
+                          <image class="usc__pose" data-usc-pose="02-handoff" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-scatter-actor-left-02-handoff.png"
+                                 x="0" y="0" width="847" height="929" />
+                          <image class="usc__pose" data-usc-pose="03-place" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-scatter-actor-left-03-place.png"
+                                 x="0" y="0" width="847" height="929" />
+                          <image class="usc__pose" data-usc-pose="04-release" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-scatter-actor-left-04-release.png"
+                                 x="0" y="0" width="847" height="929" />
+                        </g>
+                        <g class="usc__actor" data-usc-window="1">
+                          <image class="usc__pose" data-usc-pose="01-pickup" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-scatter-actor-right-01-pickup.png"
+                                 x="0" y="0" width="847" height="929" />
+                          <image class="usc__pose" data-usc-pose="02-handoff" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-scatter-actor-right-02-handoff.png"
+                                 x="0" y="0" width="847" height="929" />
+                          <image class="usc__pose" data-usc-pose="03-place" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-scatter-actor-right-03-place.png"
+                                 x="0" y="0" width="847" height="929" />
+                          <image class="usc__pose" data-usc-pose="04-release" opacity="0"
+                                 href="./assets/atlas/upfront-scatter-scatter-actor-right-04-release.png"
+                                 x="0" y="0" width="847" height="929" />
+                        </g>
+                      </svg>
+                  </div>
+                  <div class="usc__copy">
+                    <p class="usc__deal">Scatter</p>
+                    <p class="usc__lede">Purchase Later</p>
+                    <p class="usc__note">Outside the earlier commitment</p>
+                  </div>
+                </div>
+
+                <img class="usc__logo"
+                     src="./assets/atlas/atlas-brand-mark.svg"
+                     alt=""
+                     width="36"
+                     height="41"
+                     draggable="false" />
+              </div>
+            </section>
+
+            <!-- Same product, different applicable rate. Figma node
+                 739:6035. One ad branches into two deal contexts and two
+                 rates. The connector is authored here as separate SVG
+                 segments rather than the flat Figma export, because the
+                 whole point of the slide is watching one path split into
+                 two; initAtlasSameAdRate in app.js draws them in order.
+                 Coordinates are the Figma frame's own pixel values. -->
+            <section class="atlas-slide atlas-slide--line-need"
+                     data-atlas-slide-id="line-item-necessity"
+                     data-atlas-appendix="03"
+                     aria-label="Appendix 03: Why do line items need to be in the Rate Card?">
+              <div class="wln">
+                <header class="wln__header">
+                  <h2 class="wln__title">Why do line items need to be in the Rate Card?</h2>
+                  <p class="wln__subtitle">Because every price must be tied to a specific sellable item.</p>
+                </header>
+
+                <div class="wln__card wln__card--rate-card">
+                  <div class="wln__card-inner">
+                    <span class="wln__card-icon" aria-hidden="true">
+                      <img src="./assets/atlas/rcm-line-need-sealcheck.svg" alt="" width="63" height="63" draggable="false" />
+                    </span>
+                    <p class="wln__card-label">Rate Card</p>
+                  </div>
+                </div>
+
+                <span class="wln__operator wln__operator--plus" aria-hidden="true">
+                  <img src="./assets/atlas/rcm-blocks-plus.svg" alt="" width="33" height="33" draggable="false" />
+                </span>
+
+                <div class="wln__card wln__card--line-item">
+                  <div class="wln__card-inner">
+                    <span class="wln__card-icon" aria-hidden="true">
+                      <img src="./assets/atlas/rcm-line-need-list.svg" alt="" width="54" height="40.49" draggable="false" />
+                    </span>
+                    <p class="wln__card-label">Line Item</p>
+                  </div>
+                </div>
+
+                <span class="wln__operator wln__operator--equals" aria-hidden="true">
+                  <img src="./assets/atlas/rcm-blocks-equals.svg" alt="" width="39.6" height="16.5" draggable="false" />
+                </span>
+
+                <div class="wln__card wln__card--pricing">
+                  <div class="wln__card-inner">
+                    <span class="wln__card-icon" aria-hidden="true">
+                      <img src="./assets/atlas/rcm-line-need-currency.svg" alt="" width="58.5" height="58.5" draggable="false" />
+                    </span>
+                    <p class="wln__card-label">Consistent Pricing</p>
+                  </div>
+                </div>
+
+                <p class="wln__desc wln__desc--rate-card">Provides the pricing framework</p>
+                <p class="wln__desc wln__desc--line-item">Defines what is sold and its base rate</p>
+                <p class="wln__desc wln__desc--pricing">Applies the right rate to the right item</p>
+
+                <p class="wln__takeaway">Without line items, there is no reliable way to connect Rate Card rules to what is actually being sold.</p>
+
+                <img class="wln__logo"
+                     src="./assets/atlas/rcm-blocks-logo.svg"
+                     alt=""
+                     width="36"
+                     height="41"
+                     draggable="false" />
+              </div>
+            </section>
+
+            <!-- Figma 492:28839. Structured-data slide, following the
+                 line-item explanation. -->
+                      </div><!-- /.atlas-stage -->
         </div><!-- /.atlas-stage-wrap -->
         <!-- No navigation chrome. Click/tap anywhere on the slide canvas
              advances; ArrowLeft / ArrowRight / Space key handlers live in
@@ -5065,7 +4944,7 @@
          is now templated by the JS toast() function so multiple
          concurrent toasts can co-exist. The container is fixed at
          top-right of the viewport below the global navigation header
-         using ADS navigation spacing, so it sits below the Ad Console top
+         using ADS navigation spacing, so it sits below the Ad Tool top
          header and doesn't push page layout. New toasts are prepended
          so the newest sits on top of the stack.
          The container itself is pointer-transparent (individual toasts

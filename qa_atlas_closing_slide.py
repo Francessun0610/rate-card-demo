@@ -39,15 +39,14 @@ APPENDIX_02 = "line-item-necessity"
 # assertion: this is what "relative order preserved" means concretely.
 EXPECTED_MAIN = [
     "cover",
-    "rate-card-right-price",
-    "advertising-supermarket",
-    "upfront-scatter",
-    "same-ad-different-rate",
-    "core-planning-media-plan",
-    "rate-card-three-questions",
+    "pricing-complexity",
     "structured-pricing-data",
-    "future-rate-card-workflow",
+    "rate-card-right-price",
+    "same-ad-different-rate",
+    "rate-card-three-questions",
     "connected-workflows",
+    "future-rate-card-workflow",
+    "core-planning-media-plan",
     "rate-card-line-pricing",
     CLOSING_ID,
 ]
@@ -62,6 +61,7 @@ FIGMA = {
     ".clo__appendix":   (63, 642, None, 56),
     ".clo__row--1":     (63, 742, None, 36),
     ".clo__row--2":     (63, 822, None, 36),
+    ".clo__row--3":     (63, 902, None, 36),
     ".clo__logo":       (1826, 997, 36, 41),
 }
 
@@ -71,9 +71,12 @@ COPY = {
     ".clo__appendix": "Appendix",
     ".clo__row--1 .clo__num": "01",
     ".clo__row--1 .clo__row-title":
-        "Why Pricing gets complicated before planning",
+        "Think of Disney Advertising as a supermarket",
     ".clo__row--2 .clo__num": "02",
     ".clo__row--2 .clo__row-title":
+        "Buyers can purchase through different deal types",
+    ".clo__row--3 .clo__num": "03",
+    ".clo__row--3 .clo__row-title":
         "Why do line items need to be in the rate card",
 }
 

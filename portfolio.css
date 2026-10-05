@@ -141,13 +141,13 @@
 }
 
 /* ------------------------------------------- outcome conclusion (4 cards)
- * Icon-led. External-facing copy only. Same card surface, type, and padding
- * as the prior treatment; four equal columns use the shared pf__cards grid. */
+ * Editorial outcome summaries: left-aligned icon → title → supporting copy.
+ * Same row placement and card footprint as the prior summary pass. */
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__header--outcome {
   top: 88px;
-  gap: 12px;
+  gap: 10px;
 }
 
 [data-deck-variant="portfolio"]
@@ -155,12 +155,15 @@
   .pf__subtitle--outcome {
   width: 1794px;
   max-width: 1794px;
+  font-size: 32px;
+  line-height: 42px;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__cards--outcome {
-  top: 280px;
+  top: 320px;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
   align-items: stretch;
@@ -169,13 +172,16 @@
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__card--outcome {
+  box-sizing: border-box;
   min-height: 0;
-  height: 420px;
-  padding: 44px 44px 40px;
+  height: 290px;
+  padding: 30px 24px 30px;
   gap: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
 }
 
 [data-deck-variant="portfolio"]
@@ -183,19 +189,19 @@
   .pf__card-icon {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 104px;
-  height: 104px;
-  flex: 0 0 104px;
-  margin: 0 0 24px;
+  justify-content: flex-start;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  margin: 0 0 22px;
 }
 
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__card-icon img {
   display: block;
-  width: 92px;
-  height: 92px;
+  width: 30px;
+  height: 30px;
   max-width: none;
   pointer-events: none;
   user-select: none;
@@ -204,35 +210,31 @@
 
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
-  .pf__card--outcome .pf__eyebrow {
-  margin: 0 0 14px;
-  font-size: 20px;
-  font-weight: var(--font-body);
-  line-height: 24px;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.56);
-}
-
-[data-deck-variant="portfolio"]
-  .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__card-title {
-  margin: 0 0 18px;
-  font-size: 36px;
+  margin: 0 0 14px;
+  max-width: 100%;
+  font-size: 26px;
   font-weight: var(--font-heading);
-  line-height: 42px;
+  line-height: 32px;
   letter-spacing: 0;
   color: #ffffff;
+  white-space: normal;
+  text-align: left;
 }
 
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__card-copy {
+  display: block;
   margin: 0;
-  max-width: 460px;
-  font-size: 24px;
+  max-width: 100%;
+  width: 100%;
+  font-size: 18px;
   font-weight: var(--font-body);
-  line-height: 34px;
-  color: rgba(255, 255, 255, 0.78);
+  font-style: normal;
+  line-height: 27px; /* 1.5 */
+  color: rgba(255, 255, 255, 0.68);
+  text-align: left;
 }
 
 /* ------------------------------------------------------------------- cover
@@ -343,6 +345,11 @@
   border: 1px solid var(--pf-card-border);
   border-radius: var(--pf-card-radius);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42);
+  object-fit: contain;
+  object-position: top center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center top;
 }
 
 /* The two showcase slides run longer titles than the card slides, so the
@@ -471,6 +478,17 @@
 
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-product[data-atlas-slide-id="portfolio-product-list"]
+  .pf__hero--viewport,
+[data-deck-variant="portfolio"]
+  .atlas-slide--pf-product[data-atlas-slide-id="portfolio-product-detail"]
+  .pf__hero--viewport {
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: contain;
+}
+
+[data-deck-variant="portfolio"]
+  .atlas-slide--pf-product[data-atlas-slide-id="portfolio-product-list"]
   .pf__hero--viewport img,
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-product[data-atlas-slide-id="portfolio-product-detail"]
@@ -482,8 +500,12 @@
   border: 0;
   border-radius: 0;
   box-shadow: none;
-  object-fit: unset;
-  object-position: unset;
+  /* Scrollable product window: one <img>, natural height, no tile/stretch. */
+  object-fit: contain;
+  object-position: top center;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: contain;
 }
 
 /* --------------------------------------------- before / after compare pair
@@ -588,6 +610,9 @@
   border: 1px solid var(--pf-card-border);
   border-radius: 18px;
   background: #FFFFFF;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: contain;
   box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45);
 }
 
@@ -599,6 +624,9 @@
   object-fit: contain;
   object-position: top center;
   background: #FFFFFF;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: contain;
 }
 
 /* Live previous-design mount retained as unused fallback; Slide A now uses

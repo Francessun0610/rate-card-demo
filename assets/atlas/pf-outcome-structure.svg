@@ -1,4 +1,7 @@
-<svg preserveAspectRatio="xMidYMid meet" width="86.4" height="86.4" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Phosphor Stack Regular, same family as pf-frw icons -->
-  <path d="M220.79,110.87,128.71,70.8a8,8,0,0,0-7.58,0l-92,40a8,8,0,0,0,0,14.32l92,40a8,8,0,0,0,7.58,0l92-40a8,8,0,0,0,0-14.25ZM128,137.39,43.11,100.49,128,63.59l84.89,36.9ZM28.71,145.2a8,8,0,0,1,10.18-4.49L128,179.39l89.11-38.68a8,8,0,0,1,5.69,14.87l-92,40a8,8,0,0,1-7.58,0l-92-40A8,8,0,0,1,28.71,145.2Zm184,26.08-92,40a8,8,0,0,1-7.58,0l-92-40a8,8,0,1,1,5.69-14.87L128,205.39l89.11-38.68a8,8,0,1,1,5.69,14.87Z" fill="#8178F2"/>
+<svg preserveAspectRatio="xMidYMid meet" width="64" height="64" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Solid stack (filled layers). Matches the other outcome icons' optical weight
+       better than thin-line Phosphor Stack Regular, which looked soft at card size. -->
+  <path d="M128 36L220 76L128 116L36 76L128 36Z" fill="#8178F2"/>
+  <path d="M36 108L128 148L220 108V124L128 164L36 124V108Z" fill="#8178F2"/>
+  <path d="M36 156L128 196L220 156V172L128 212L36 172V156Z" fill="#8178F2"/>
 </svg>

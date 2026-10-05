@@ -12993,13 +12993,14 @@ html:has(body[data-route="atlas"]) {
  *  ------------------------------------------------------------------ */
 
 /* ============================================================================
- * SLIDE 5: Turning Rate Cards into Structured Pricing Data
+ * SLIDE 5: The starting point was the existing Rate Card
  *
  * Rebuilt from Figma node 492:28839 (Rate Card file,
  * Klc8JpICWSLwU1LeUVRHtT). Uses the side-by-side spreadsheet contrast:
- * a busy human-authored Excel rate card on the left, the same data
- * normalized into CARD / LINE rows on the right, and an indigo arrow
- * between them showing the transformation RCM performs.
+ * the human-authored Excel rate card teams already work in on the
+ * left, the structure RCM has to support on the right, and an indigo
+ * arrow between them. The slide is product context, showing the
+ * existing pricing reality RCM was designed around.
  *
  * Coordinates (Figma node 492:28839 on the 1920 x 1080 canvas):
  *   Header frame          (63, 88)     1828 x 120
@@ -13063,23 +13064,22 @@ html:has(body[data-route="atlas"]) {
   white-space: nowrap;
 }
 .atlas-slide--rate-card-data .rcd__subtitle {
-  /* 1300px (not the full 1808px header width) is a deliberate text-box
-   * width: at the full width this 114-char sentence would wrap with
-   * "workflows." orphaned alone on line 2. At 1300px it breaks after
-   * "for" into an 11-word / 5-word pair that reads as two balanced
-   * phrases instead of one long line plus a stray word. */
-  width: 1300px;
+  /* 2026-09-18: matched to the title's 1727px box. The previous 1300px
+   * was tuned for the old 114-char subtitle; the current sentence needs
+   * 1302px to set on one line, so at 1300px it missed by 2px and left
+   * "with." orphaned on line 2. 1727px clears it with room for a wider
+   * fallback font and still sits inside the 1828px header frame. */
+  width: 1727px;
   margin: 0;
   font-family: var(--font-family-inspire);
   font-weight: var(--font-subheading);
   font-size: 36px;
   line-height: 56px;
   color: #FFFFFF;
-  /* 2026-08-05: nowrap forced this 114-char sentence past the 1808px
-   * box (and past the 1920px stage edge) with several fallback
-   * fonts. Switched to natural wrapping, matching the .cw__subtitle
-   * pattern (slide 7); the image row below sits at top:325px, far
-   * enough down that a second line never collides with it. */
+  /* Kept as natural wrapping rather than nowrap: if a fallback font
+   * sets wider than InspireTWDC the sentence wraps inside the box
+   * instead of running past the 1920px stage edge. The image row below
+   * starts at top:325px, so a second line would not collide. */
   white-space: normal;
 }
 
@@ -13185,30 +13185,10 @@ html:has(body[data-route="atlas"]) {
   left: 1155px;
   width: 520px;
 }
-/* Arrow caption between the two workbooks (2026-08-04 brief).
- * The gap between the two image tiles is only 133px wide (Current
- * ends at 843.5px, Structured begins at 976.5px), so the caption is
- * rendered as a stacked two-line label ("Import" / "and structure")
- * centered on the arrow's horizontal midpoint (~908.5px) and sitting
- * directly above the flow arrow at top:578px. Uses body typography
- * (Open Sans) at 18px so it reads as an in-flow label without
- * competing with the 36px image captions below. */
-.atlas-slide--rate-card-data .rcd__label--arrow {
-  top: 512px;
-  left: 843.5px;
-  width: 132px;
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
-  color: rgba(255, 255, 255, 0.82);
-  letter-spacing: 0;
-  text-transform: none;
-  text-align: center;
-}
-.atlas-slide--rate-card-data .rcd__label--arrow span {
-  display: block;
-}
+/* 2026-09-18: the caption that sat between the two workbooks was
+ * removed. The gap between the tiles is only 133px wide, and the flow
+ * arrow alone carries the relationship, so the centre column is now
+ * left clear rather than carrying microcopy. */
 .atlas-slide--rate-card-data .rcd__brand {
   position: absolute;
   left: 1826px;
@@ -14162,6 +14142,262 @@ body:is([data-version="1.2"], [data-version="2.0"], [data-version="2.1"])
   .atlas-slide--why-pricing .wpc-modal__panel {
     animation: none;
   }
+}
+
+/* ============================================================================
+ * SLIDE 2: Why pricing gets complicated before planning
+ *          Figma node 492:28715 (.wpcf)
+ *
+ * Approved replacement for the older 2x3 + RCM + Core Planning layout.
+ * Old .wpc / .wpc-modal rules above remain for the portfolio appendix
+ * copy of the retired visual. This block is the live main-run slide.
+ * ========================================================================== */
+.atlas-slide--why-pricing:has(.wpcf) {
+  background: #020024;
+}
+
+.atlas-slide--why-pricing .wpcf {
+  position: absolute;
+  inset: 0;
+  color: #ffffff;
+  font-family: var(--font-family-inspire);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.atlas-slide--why-pricing .wpcf__header {
+  position: absolute;
+  left: 63px;
+  top: 88px;
+  width: 1828px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.atlas-slide--why-pricing .wpcf__title,
+.atlas-slide--why-pricing .wpcf__subtitle {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading); /* InspireTWDC Heavy 600 */
+  letter-spacing: 0;
+}
+
+.atlas-slide--why-pricing .wpcf__title {
+  width: 1727px;
+  font-size: 56px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.atlas-slide--why-pricing .wpcf__subtitle {
+  width: 1808px;
+  font-size: 36px;
+  line-height: 56px;
+  white-space: nowrap;
+}
+
+.atlas-slide--why-pricing .wpcf__columns {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.atlas-slide--why-pricing .wpcf__panel {
+  position: absolute;
+  top: 294px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 500px;
+  height: 480px;
+  padding: 48px 16px 4px;
+  border-radius: 18px;
+  background: #202735;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(84, 92, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.atlas-slide--why-pricing .wpcf__panel--negotiation {
+  left: 141px;
+  border: 2px solid #cb6f5f;
+}
+
+.atlas-slide--why-pricing .wpcf__panel--priced {
+  left: 717px;
+  border: 2px solid #7c89ad;
+}
+
+.atlas-slide--why-pricing .wpcf__panel--changes {
+  left: 1293px;
+  border: 2px solid #7a7df9;
+}
+
+.atlas-slide--why-pricing .wpcf__panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 415px;
+}
+
+.atlas-slide--why-pricing .wpcf__panel-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  overflow: visible;
+}
+
+.atlas-slide--why-pricing .wpcf__col-title {
+  margin: 0;
+  font-family: var(--font-family-inspire);
+  font-size: 28px;
+  font-weight: var(--font-heading);
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.atlas-slide--why-pricing .wpcf__panel--negotiation .wpcf__col-title {
+  color: #d18b7f;
+}
+
+.atlas-slide--why-pricing .wpcf__panel--priced .wpcf__col-title {
+  color: #a5b5e1;
+}
+
+.atlas-slide--why-pricing .wpcf__panel--changes .wpcf__col-title {
+  color: #7a7df9;
+}
+
+.atlas-slide--why-pricing .wpcf__col-sub {
+  margin: 0;
+  width: 431px;
+  height: 51px;
+  color: #c8cdd8;
+  font-family: var(--font-family-inspire);
+  font-size: 22px;
+  font-weight: var(--font-heading);
+  line-height: 26px;
+  white-space: nowrap;
+}
+
+.atlas-slide--why-pricing .wpcf__items {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.atlas-slide--why-pricing .wpcf__item {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 32px;
+  width: 415px;
+  padding: 15px 16px;
+  border-radius: 8px;
+  background: #2f3745;
+}
+
+.atlas-slide--why-pricing .wpcf__icon-wrap {
+  display: flex;
+  flex: 0 0 80px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 80px;
+  height: 80px;
+  padding: 16px;
+  border-radius: 48px;
+  background: #24303c;
+}
+
+.atlas-slide--why-pricing .wpcf__icon {
+  position: relative;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  overflow: visible;
+}
+
+.atlas-slide--why-pricing .wpcf__icon img {
+  display: block;
+}
+
+.atlas-slide--why-pricing .wpcf__icon--users img {
+  position: absolute;
+  top: 0;
+  left: -7.58765px;
+}
+
+.atlas-slide--why-pricing .wpcf__item-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8.2px;
+  width: 271px;
+}
+
+.atlas-slide--why-pricing .wpcf__item-title,
+.atlas-slide--why-pricing .wpcf__item-sub {
+  margin: 0;
+  width: 271px;
+  font-size: 24px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.atlas-slide--why-pricing .wpcf__item-title {
+  color: #ffffff;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-heading);
+}
+
+.atlas-slide--why-pricing .wpcf__item-sub {
+  color: #c8cdd8;
+  font-family: var(--font-family-inspire);
+  font-weight: var(--font-caption); /* InspireTWDC Roman 400 */
+}
+
+.atlas-slide--why-pricing .wpcf__bracket {
+  position: absolute;
+  top: 799px;
+  left: 380px;
+  display: block;
+}
+
+.atlas-slide--why-pricing .wpcf__takeaway {
+  position: absolute;
+  top: 876px;
+  left: calc(50% + 5.5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 862px;
+  margin: 0;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.atlas-slide--why-pricing .wpcf__takeaway-kicker,
+.atlas-slide--why-pricing .wpcf__takeaway-line {
+  display: block;
+  font-family: var(--font-family-inspire);
+  font-size: 28px;
+  font-weight: var(--font-heading);
+  line-height: normal;
+}
+
+.atlas-slide--why-pricing .wpcf__takeaway-kicker {
+  color: #db9d6e;
+}
+
+.atlas-slide--why-pricing .wpcf__takeaway-line {
+  color: #c8cdd8;
 }
 
 /* ============================================================================
@@ -19190,6 +19426,12 @@ body[data-specimen="action-bar"] [data-page="list"] [data-rows] .row:nth-child(n
 
 .atlas-slide--closing .clo__row--1 { top: 742px; }
 .atlas-slide--closing .clo__row--2 { top: 822px; }
+/* Third appendix entry, added when the deck's running order moved the
+ * supermarket and deal-type explainers off the main run. Continues the 80px
+ * pitch of the first two rows, so rows 1 and 2 keep their approved positions
+ * and only the new row is placed. Ends at 938, clear of the brand mark at
+ * 997, so nothing needed to move to make room. */
+.atlas-slide--closing .clo__row--3 { top: 902px; }
 
 .atlas-slide--closing .clo__num {
   width: 50px;

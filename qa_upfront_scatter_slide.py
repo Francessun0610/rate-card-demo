@@ -43,7 +43,7 @@ ROOT = "/Users/frances.sun/My Drive/Cursor and Code/Rate Card"
 OUT = "/tmp/qa_upfront_scatter_slide"
 SLIDE_INDEX = 4
 SLIDE_ID = "upfront-scatter"
-TOTAL_SLIDES = 12
+TOTAL_SLIDES = 11
 
 # header 250ms, upfront 1050ms, scatter 1430ms.
 REVEAL_ORDER = ["header", "upfront", "scatter"]
@@ -282,39 +282,31 @@ def pin_native_scale(c):
 # ---------------------------------------------------------------- placement
 def run_placement(c, url):
     print("\n[placement]")
-    go(c, url + f"&slide={SLIDE_INDEX}")
-    check("slide 5 is the Upfront and Scatter explainer",
+    go(c, url + f"&slide={SLIDE_ID}")
+    check("?slide=upfront-scatter opens the Upfront and Scatter explainer",
           slide_id(c) == SLIDE_ID, f"id={slide_id(c)}")
 
+    # 2026-09-22: this section moved to the appendix, so it is no longer part
+    # of the numbered main run. Placement is asserted as "off the run but
+    # reachable by stable id" instead of a fixed position.
     order = c.eval(
         "[...document.querySelectorAll('.atlas-slide')].filter(s => !s.hasAttribute('data-atlas-appendix'))"
         ".map(s => s.dataset.atlasSlideId)"
     )
-    check("the slide exists exactly once",
-          order.count(SLIDE_ID) == 1, f"{order.count(SLIDE_ID)} copies")
-    i = order.index(SLIDE_ID)
-    check("it follows the supermarket metaphor",
-          order[i - 1] == "advertising-supermarket", f"before={order[i - 1]}")
-    check("the next slide is the same-ad-different-rate explainer",
-          order[i + 1] == "same-ad-different-rate", f"after={order[i + 1]}")
-    check("no existing slide was dropped",
+    check("it is held out of the main run", SLIDE_ID not in order, json.dumps(order))
+    check("no existing slide was dropped from the main run",
           len(order) == TOTAL_SLIDES and len(set(order)) == TOTAL_SLIDES,
           f"{len(order)} slides")
-    check("the deck opens on the expected six-slide run-in",
-          order[:6] == ["cover", "rate-card-right-price",
-                        "advertising-supermarket", SLIDE_ID,
-                        "same-ad-different-rate",
-                        "core-planning-media-plan"],
-          json.dumps(order[:6]))
 
     labelled = c.eval("""(() => {
       const s = document.querySelector('.atlas-slide.is-active');
-      return {ordinal: s.dataset.atlasSlide, label: s.getAttribute('aria-label'),
-              id: s.id};
+      return {appendix: s.getAttribute('data-atlas-appendix'),
+              ordinal: s.dataset.atlasSlide || null,
+              label: s.getAttribute('aria-label'), id: s.id};
     })()""")
-    check(f"it registers as slide {SLIDE_INDEX} of {TOTAL_SLIDES}",
-          labelled["ordinal"] == str(SLIDE_INDEX)
-          and labelled["label"] == f"Slide {SLIDE_INDEX} of {TOTAL_SLIDES}: {TITLE}",
+    check("it registers as an appendix section, not a numbered slide",
+          labelled["appendix"] == "02" and labelled["ordinal"] is None
+          and (labelled["label"] or "").startswith("Appendix"),
           json.dumps(labelled))
     check("it keeps a stable semantic element id",
           labelled["id"] == "atlas-slide-upfront-scatter", labelled["id"])

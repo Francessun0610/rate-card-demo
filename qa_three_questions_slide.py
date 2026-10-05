@@ -51,11 +51,11 @@ import urllib.request
 
 ROOT = "/Users/frances.sun/My Drive/Cursor and Code/Rate Card"
 OUT = "/tmp/qa_three_questions_slide"
-SLIDE_INDEX = 7
+SLIDE_INDEX = 6
 SLIDE_ID = "rate-card-three-questions"
 PREV_ID = "core-planning-media-plan"
 NEXT_ID = "structured-pricing-data"
-TOTAL_SLIDES = 12
+TOTAL_SLIDES = 11
 
 # header 250, group-1 900, plus-1 1450, group-2 1800, plus-2 2350,
 # group-3 2700, run ends (pause begins) 3200.
@@ -370,12 +370,11 @@ def run_placement(c, url):
           f"{len(order)} slides")
     check("the surrounding order is unchanged",
           order == [
-              "cover", "rate-card-right-price", "advertising-supermarket",
-              "upfront-scatter", "same-ad-different-rate",
-              "core-planning-media-plan", SLIDE_ID,
-              "structured-pricing-data", "future-rate-card-workflow",
-              "connected-workflows", "rate-card-line-pricing",
-              "closing-thank-you",
+              "cover", "pricing-complexity", "structured-pricing-data",
+              "rate-card-right-price", "same-ad-different-rate",
+              SLIDE_ID, "connected-workflows",
+              "future-rate-card-workflow", "core-planning-media-plan",
+              "rate-card-line-pricing", "closing-thank-you",
           ], json.dumps(order))
 
     labelled = c.eval("""(() => {
