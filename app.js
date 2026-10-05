@@ -8093,6 +8093,17 @@
     const next = (route === "create" || route === "line") ? "create"
                : route === "atlas" ? "atlas"
                : "list";
+    /* Presentation parity: the original index.html shell still owns the
+       product routes, but its embedded deck is not the portfolio viewer.
+       Any atlas entry from that shell opens portfolio.html and keeps the
+       requested slide. portfolio.html itself stays in place. */
+    if (next === "atlas" && document.body.getAttribute("data-deck-variant") !== "portfolio") {
+      var atlasParams = new URLSearchParams(location.search);
+      atlasParams.set("section", "atlas");
+      if (!atlasParams.get("slide")) atlasParams.set("slide", "1");
+      window.location.assign("/portfolio.html?" + atlasParams.toString());
+      return;
+    }
     document.body.setAttribute("data-route", next);
     /* Arriving at the list is arriving at a fresh list.
      *

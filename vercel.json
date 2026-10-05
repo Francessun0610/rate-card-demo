@@ -1,5 +1,21 @@
 {
   "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "query", "key": "section", "value": "atlas" }],
+      "destination": "/portfolio.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [{ "type": "query", "key": "section", "value": "atlas" }],
+      "destination": "/portfolio.html"
+    },
+    {
+      "source": "/atlas",
+      "destination": "/portfolio.html?section=atlas&slide=1"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

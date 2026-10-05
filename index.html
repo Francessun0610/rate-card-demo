@@ -51,7 +51,7 @@
     <script src="./conditions.js?v=20260828-shared-condition-control-1" defer></script>
     <script src="./fixtures/demo-rate-card-catalog.js?v=20260825-sales-data-1" defer></script>
     <script src="./fixtures/demo-cross-platform-rate-card.js?v=20260825-sales-data-1" defer></script>
-    <script src="./app.js?v=20260917-portfolio-1" defer></script>
+    <script src="./app.js?v=20261005-presentation-route-1" defer></script>
     <script src="./v2.js?v=20260825-sales-data-1" defer></script>
     <!-- Feedback submission. Load order matters: config defines the
          destination, transport reads it, and feedback.js (the interface)
@@ -94,9 +94,17 @@
     <script>
       (function () {
         try {
-          var section = new URLSearchParams(location.search).get("section");
-          if (section === "atlas" || /\/atlas\/?$/.test(location.pathname)) {
-            document.body.setAttribute("data-route", "atlas");
+          var params = new URLSearchParams(location.search);
+          var section = params.get("section");
+          var atlasPath = /\/atlas\/?$/.test(location.pathname);
+          /* The public slide viewer is portfolio.html. The original deck
+             still lives in this file for the product shell, but direct
+             presentation links must land on the latest portfolio deck. */
+          if (section === "atlas" || atlasPath) {
+            params.set("section", "atlas");
+            if (!params.get("slide")) params.set("slide", "1");
+            location.replace("/portfolio.html?" + params.toString());
+            return;
           }
         } catch (e) {}
       })();
@@ -144,7 +152,7 @@
                click handler in app.js hijacks it for smooth SPA nav via
                navigateTo('atlas') + a custom 'atlas:reset' event that
                the deck listens for. Visual styling is unchanged. -->
-          <a class="gnav__logomark" href="?section=atlas&amp;slide=1" data-action="go-atlas-intro" aria-label="Back to Rate Card presentation">
+          <a class="gnav__logomark" href="/portfolio.html?section=atlas&amp;slide=1" data-action="go-atlas-intro" aria-label="Back to Rate Card presentation">
             <svg class="gnav__brand-icon gnav__brand-icon--legacy" xmlns="http://www.w3.org/2000/svg" width="32" height="28" viewBox="0 0 32 28" fill="none" aria-hidden="true">
               <path d="M8.97945 21.0995C8.98713 19.6954 9.01527 18.3096 9.01527 18.3096C9.01527 18.3096 7.65134 18.4084 6.71475 18.5124C5.52227 18.6424 3.27805 19.0376 1.98321 19.5056C1.5968 19.646 0.806078 19.9814 0.736985 20.3871C0.665334 20.8083 0.921231 21.1359 1.20784 21.4765C1.37417 21.6741 2.3082 22.5867 2.56921 22.8103C3.66701 23.7411 5.89588 25.179 7.53619 25.8784C8.09916 26.115 9.03319 26.4556 9.03319 26.4556C9.03319 26.4556 8.96921 23.7567 8.97945 21.0995ZM27.4425 13.5385C24.5176 9.71382 19.502 6.57035 15.0903 4.72691C10.5865 2.84706 6.13387 1.76284 1.3537 1.58344C1.34602 1.58344 1.33579 1.58344 1.32811 1.58344C0.601359 1.55483 0 2.14765 0 2.88346V19.0974C0.5988 18.0496 2.0958 17.2566 3.1501 16.7886C3.992 16.4116 6.60728 15.5431 7.69484 15.3819C8.2092 15.3065 9.00504 15.1609 9.05366 15.1297C9.07413 15.1141 9.08693 15.1011 9.10228 15.0829C9.12787 15.0465 9.11763 14.6071 9.16114 13.4423C9.24558 11.2062 9.37353 10.499 9.52195 9.66701C9.57825 9.34981 9.86229 8.11738 10.1028 7.79757C10.2615 7.58177 10.5404 7.59737 10.7682 7.74037C12.0144 8.52819 12.3931 11.2582 12.4852 12.6467C12.5415 13.4943 12.5697 14.7657 12.5697 14.7657C12.5697 14.7657 14.0002 14.7241 14.8779 14.7475C15.7326 14.7683 16.6743 14.9061 17.5623 15.0491C18.6984 15.2337 20.912 15.7251 22.1812 16.3778C23.2278 16.916 24.2054 17.8234 24.5227 18.7828C24.817 19.6642 24.7735 20.2726 24.3256 21.0657C23.5835 22.3787 21.5338 23.3459 20.1954 22.2929C20.0649 22.1863 20.0726 21.9991 20.1647 21.8717C20.2006 21.8249 20.7072 21.5519 21.0066 21.3933C21.1576 21.3101 21.2804 21.2217 21.3982 21.1125C21.6464 20.8889 21.869 20.6445 21.846 20.3585C21.8127 19.9866 21.4238 19.7552 21.0553 19.6096C19.3228 18.9102 15.8605 18.3304 14.187 18.229C13.5319 18.19 12.6004 18.1562 12.6004 18.1562L12.7974 27.5398C12.7974 27.5398 13.5677 27.6906 14.1742 27.7894C14.5222 27.844 15.9962 27.9766 16.3902 27.987C19.374 28.0676 22.7058 27.7972 25.4439 26.4816C26.6466 25.907 27.7495 25.192 28.5838 24.2221C29.6841 22.9403 30.2599 21.1853 30.1089 19.3522C29.9375 17.3606 28.5505 14.9841 27.4425 13.5385ZM29.4206 0H11.1418C11.5359 0.109202 11.9299 0.226205 12.324 0.348408C14.3021 0.956821 16.8944 1.97604 18.7906 2.90426C20.1519 3.57248 22.2964 4.79711 23.5016 5.59792C23.8829 5.85273 26.1041 7.51157 26.4496 7.80277C27.1712 8.40079 28.1129 9.26141 28.7936 9.95042C29.8556 11.0216 31.1274 12.5505 32 13.9493V2.62086C32 1.17263 30.8459 0 29.4206 0Z" fill="currentColor"/>
             </svg>
