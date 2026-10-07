@@ -2560,23 +2560,45 @@
   window.ADS_ICON_TRASH = ICON_TRASH;
   window.ADS_ICON_DOWNLOAD = ICON_DOWNLOAD;
 
+  function selectionBarOnAction(spec, button) {
+    /* Redline's specimen drives this very element through a preview
+     * count, so a press during inspection must stop here rather
+     * than reach a real rate card. */
+    if (selectionSpecimenCount !== null) return;
+    var cards = selectedRateCards();
+    if (cards.length === 0) return;
+    if (spec.singleOnly && cards.length !== 1) return;
+    spec.run(cards, button);
+  }
+
+  /* portfolio.html ships the bar in markup. That node matches the
+   * component, but it has no click handlers until they are attached
+   * here. index.html has no bar in markup, so it still goes through
+   * createSelectionActionBar, which binds as it builds. */
+  function bindExistingSelectionActionBar(bar) {
+    if (!bar || bar.__rcselActionsBound) return;
+    bar.__rcselActionsBound = true;
+    selectionActionSpecs().forEach(function (spec) {
+      var btn = bar.querySelector('[data-selection-action="' + spec.key + '"]');
+      if (!btn) return;
+      btn.addEventListener("click", function () {
+        if (btn.disabled) return;
+        selectionBarOnAction(spec, btn);
+      });
+    });
+  }
+
   function ensureSelectionActionBar() {
     var head = document.querySelector(".table__head");
     if (!head || !head.parentElement) return null;
     var existing = head.parentElement.querySelector("[data-selection-bar]");
-    if (existing) return existing;
+    if (existing) {
+      bindExistingSelectionActionBar(existing);
+      return existing;
+    }
 
     var bar = createSelectionActionBar({
-      onAction: function (spec, button) {
-        /* Redline's specimen drives this very element through a preview
-         * count, so a press during inspection must stop here rather
-         * than reach a real rate card. */
-        if (selectionSpecimenCount !== null) return;
-        var cards = selectedRateCards();
-        if (cards.length === 0) return;
-        if (spec.singleOnly && cards.length !== 1) return;
-        spec.run(cards, button);
-      }
+      onAction: selectionBarOnAction
     });
 
     head.insertAdjacentElement("beforebegin", bar);

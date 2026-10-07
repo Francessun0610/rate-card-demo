@@ -1994,6 +1994,9 @@
   }
 
   function start() {
+    /* portfolio.html does not show the corner "?" launcher. index.html
+     * still builds the feedback tool. Redline Mode is a separate control. */
+    if (document.body.getAttribute("data-deck-variant") === "portfolio") return;
     if (document.querySelector("[data-rcf-root]")) return;   /* exactly one */
     build();
     placeLauncher();

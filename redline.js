@@ -2816,8 +2816,13 @@
     }
   }
 
+  function portfolioPresentation() {
+    return document.body.getAttribute("data-deck-variant") === "portfolio"
+      && document.body.getAttribute("data-route") === "atlas";
+  }
+
   function enable(source) {
-    if (state.active || isPreview()) return;
+    if (state.active || isPreview() || portfolioPresentation()) return;
     state.active = true;
     state.lastFocus = document.activeElement;
     state.measurementMode = "clean";
@@ -3114,4 +3119,7 @@
   }
   document.addEventListener("keydown", onGlobalKeydown, true);
   syncMenuState();
+  new MutationObserver(function () {
+    if (portfolioPresentation() && state.active) disable();
+  }).observe(document.body, { attributes: true, attributeFilter: ["data-route"] });
 })();

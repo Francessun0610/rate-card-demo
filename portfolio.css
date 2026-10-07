@@ -190,18 +190,20 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 32px;
-  height: 32px;
-  flex: 0 0 32px;
-  margin: 0 0 22px;
+  /* Displayed icon is 28px. The extra 4px comes out of the gap below
+   * the icon so the title and body stay where they are. */
+  width: calc(28px / var(--atlas-scale, 1));
+  height: calc(28px / var(--atlas-scale, 1));
+  flex: 0 0 calc(28px / var(--atlas-scale, 1));
+  margin: 0 0 calc(20px - 4px / var(--atlas-scale, 1));
 }
 
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__card-icon img {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: calc(28px / var(--atlas-scale, 1));
+  height: calc(28px / var(--atlas-scale, 1));
   max-width: none;
   pointer-events: none;
   user-select: none;
@@ -211,14 +213,14 @@
 [data-deck-variant="portfolio"]
   .atlas-slide--pf-outcome[data-atlas-slide-id="portfolio-outcome"]
   .pf__card-title {
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   max-width: 100%;
-  font-size: 26px;
+  font-size: calc(20px / var(--atlas-scale, 1));
   font-weight: var(--font-heading);
-  line-height: 32px;
+  line-height: 1.25;
   letter-spacing: 0;
   color: #ffffff;
-  white-space: normal;
+  white-space: nowrap;
   text-align: left;
 }
 
@@ -229,10 +231,10 @@
   margin: 0;
   max-width: 100%;
   width: 100%;
-  font-size: 18px;
+  font-size: calc(18px / var(--atlas-scale, 1));
   font-weight: var(--font-body);
   font-style: normal;
-  line-height: 27px; /* 1.5 */
+  line-height: 1.35;
   color: rgba(255, 255, 255, 0.68);
   text-align: left;
 }

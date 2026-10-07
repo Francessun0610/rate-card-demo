@@ -33,7 +33,7 @@
     <!-- Portfolio-only overrides. Loaded last so it wins over styles.css, and
          every rule inside is scoped to [data-deck-variant="portfolio"] so the
          original deck in index.html is unaffected. -->
-    <link rel="stylesheet" href="./portfolio.css?v=20260930-outcome-editorial-2">
+    <link rel="stylesheet" href="./portfolio.css?v=20261007-outcome-display-3">
     <script src="./portfolio.js?v=20260929-pf-compare-1" defer></script>
     <script>
       (function loadDevelopmentViewportQa() {
@@ -56,16 +56,16 @@
         stylesheet.href = "./redline.css?v=20260812-redline-toolbar-product-pages";
         document.head.appendChild(stylesheet);
         var script = document.createElement("script");
-        script.src = "./redline.js?v=20260917-portfolio-1";
+        script.src = "./redline.js?v=20261007-presentation-gate-1";
         script.async = false;
         document.head.appendChild(script);
       })();
-    </script><link rel="stylesheet" href="./redline.css?v=20260812-redline-toolbar-product-pages"><script src="./redline.js?v=20260917-portfolio-1"></script>
+    </script>
     <script src="./fixtures/condition-catalog.js?v=20260827-business-dictionary-1" defer=""></script>
     <script src="./conditions.js?v=20260828-shared-condition-control-1" defer=""></script>
     <script src="./fixtures/demo-rate-card-catalog.js?v=20260825-sales-data-1" defer=""></script>
     <script src="./fixtures/demo-cross-platform-rate-card.js?v=20260825-sales-data-1" defer=""></script>
-    <script src="./app.js?v=20261005-presentation-route-1" defer=""></script>
+    <script src="./app.js?v=20261007-selection-actions-1" defer=""></script>
     <script src="./v2.js?v=20260825-sales-data-1" defer=""></script>
     <!-- Feedback submission. Load order matters: config defines the
          destination, transport reads it, and feedback.js (the interface)
@@ -73,7 +73,7 @@
          order before DOMContentLoaded. -->
     <script src="./feedback-config.js?v=20260917-portfolio-1" defer=""></script>
     <script src="./feedback-transport.js?v=20260917-portfolio-1" defer=""></script>
-    <script src="./feedback.js?v=20260917-portfolio-1" defer=""></script>
+    <script src="./feedback.js?v=20261007-no-corner-help-1" defer=""></script>
   </head>
   <!-- Body class is the theme switch:
        - theme-ads (default)   Ad Design System overrides activate via .theme-ads
@@ -5113,6 +5113,5 @@
          Interaction wiring lives in initBaseRateModal() -> shared
          wireHoverPopover() factory in app.js.
     -->
-  
-
-<div class="rcf-root" data-rcf-root=""><button class="rcf-launch" type="button" title="Share feedback" aria-label="Open feedback" style="right: calc(24px + env(safe-area-inset-right, 0px)); bottom: calc(24px + env(safe-area-inset-bottom, 0px));"><span>?</span></button><div class="rcf-glow" aria-hidden="true"></div><div class="rcf-sr" aria-live="polite"></div><div class="rcf-dock" hidden="" role="region" aria-label="Feedback, live view" style="right: calc(24px + env(safe-area-inset-right, 0px)); bottom: calc(24px + env(safe-area-inset-bottom, 0px));"><span class="rcf-dock__tag">Live view</span><span class="rcf-dock__hint">Scroll to the part you mean, then capture.</span><button class="rcf-btn rcf-btn--primary" type="button">Capture this view</button><button class="rcf-btn" type="button" title="Import an existing screenshot" aria-label="Import an existing screenshot">Import</button><button class="rcf-btn rcf-btn--quiet" type="button">Write note only</button><button class="rcf-btn rcf-btn--quiet rcf-btn--icon rcf-dock__close" type="button" title="Close feedback" aria-label="Close feedback">✕</button></div><div class="rcf-intro-card" hidden="" role="dialog" aria-label="Share feedback"><p class="rcf-intro__head">The prototype is fake. Your feedback isn’t.</p><p class="rcf-intro__body">Tell me what works, what feels unclear, and what could be better.</p><p class="rcf-intro__emphasis">I’ll actually see and read what you send — no feedback black hole.</p><p class="rcf-intro__sign">— Frances Sun</p><p class="rcf-intro__reassurance">Anything you send here comes straight to me.</p><div class="rcf-intro-card__row"><button class="rcf-btn rcf-btn--primary" type="button">Start inspecting</button><button class="rcf-btn rcf-btn--quiet" type="button">Not now</button></div></div><input type="file" accept="image/*" class="rcf-sr"><div class="rcf-editor" hidden=""><div class="rcf-dialog" role="dialog" aria-modal="true" aria-label="Feedback editor"><div class="rcf-head"><h2 class="rcf-head__title">Share feedback</h2><span class="rcf-state">No screenshot</span><button class="rcf-btn rcf-btn--quiet rcf-btn--icon" type="button" title="Close feedback" aria-label="Close feedback">✕</button></div><div class="rcf-body"><div class="rcf-main"><div class="rcf-toolbar"><button class="rcf-btn" type="button" title="Pan and inspect" aria-label="Pan and inspect" aria-pressed="false">Pan</button><button class="rcf-btn" type="button" title="Draw an arrow" aria-label="Draw an arrow" aria-pressed="false">Arrow</button><button class="rcf-btn" type="button" title="Draw an outline rectangle" aria-label="Draw an outline rectangle" aria-pressed="false">Rectangle</button><span class="rcf-toolbar__sep"></span><button class="rcf-btn" type="button" title="Undo the last mark" aria-label="Undo the last mark">Undo</button><button class="rcf-btn" type="button" title="Clear all marks" aria-label="Clear all marks">Clear</button><span class="rcf-toolbar__sep"></span><button class="rcf-btn" type="button" title="Fit the whole screenshot" aria-label="Fit the whole screenshot">Fit</button><button class="rcf-btn" type="button" title="Show at actual size" aria-label="Show at actual size">100%</button><span class="rcf-toolbar__spacer"></span><button class="rcf-btn" type="button" title="Retake the screenshot" aria-label="Retake the screenshot">Retake</button></div><div class="rcf-scrollhint" hidden="">Scroll to inspect — drag with Pan, or use the scrollbars.</div><div class="rcf-preview" tabindex="0" role="group" aria-label="Screenshot preview"></div></div><div class="rcf-side"><div class="rcf-intro"><p class="rcf-intro__head">The prototype may be fake. This feedback button is very real.</p><p class="rcf-intro__body">Tell me what works, what feels confusing, or what you’d change. I genuinely read every note.</p><p class="rcf-intro__sign">— Frances Sun</p><p class="rcf-callout"><span class="rcf-callout__icon" aria-hidden="true">✦</span><span class="rcf-callout__text">Portfolio preview: mark up the screenshot and add your note. Submission is disabled here, so use <strong class="rcf-callout__key">Copy feedback</strong> or <strong class="rcf-callout__key">Download screenshot</strong> to keep your notes.</span></p></div><div class="rcf-card"><label class="rcf-field__label" for="rcf-draft">What could be better?</label><textarea class="rcf-textarea" id="rcf-draft" placeholder="Tell me what you noticed and how it could improve."></textarea><span class="rcf-count">0 / 300</span><p class="rcf-note">Your note and marked-up screenshot will be sent together.</p><button class="rcf-btn" type="button" title="Copy your note and page details" aria-label="Copy your note and page details">Copy feedback</button></div><div class="rcf-card"><p class="rcf-meta"></p><button class="rcf-btn" type="button" title="Copy the page details" aria-label="Copy the page details">Copy page details</button></div><div class="rcf-card" hidden=""><p class="rcf-note">Clipboard access was refused. Select the text below and copy it.</p><textarea class="rcf-textarea" readonly=""></textarea></div><div class="rcf-card rcf-result" hidden="" role="alert" aria-live="assertive"><div class="rcf-result__head"><span class="rcf-result__icon" aria-hidden="true"></span><p class="rcf-result__title"></p></div><p class="rcf-result__body"></p><div class="rcf-result__row"><button class="rcf-btn rcf-btn--primary" type="button">Submit another</button><button class="rcf-btn rcf-btn--primary" type="button">Try again</button><button class="rcf-btn" type="button" title="Open the sign-in page for feedback submission" aria-label="Open the sign-in page for feedback submission">Sign in</button><button class="rcf-btn" type="button" title="Copy your note and page details" aria-label="Copy your note and page details">Copy feedback</button></div></div></div></div><div class="rcf-foot"><p class="rcf-status" role="status"></p><button class="rcf-btn rcf-btn--quiet" type="button" title="Discard this feedback" aria-label="Discard this feedback">Discard</button><span class="rcf-foot__spacer"></span><button class="rcf-btn" type="button" title="Download the annotated screenshot" aria-label="Download the annotated screenshot">Download screenshot</button><button class="rcf-btn rcf-btn--primary rcf-btn--submit" type="button">Submit feedback</button></div></div></div></div></body></html>
+</body>
+</html>
