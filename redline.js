@@ -658,24 +658,32 @@
     var viewport = logicalViewport();
     var stage = state.root.querySelector(".redline__stage");
     if (!stage) return;
+    if (!stage.__redlineScrollBound) {
+      stage.__redlineScrollBound = true;
+      stage.addEventListener("scroll", schedule, { passive: true });
+    }
+    /* Height still decides the preview scale. Width is not fitted, so a
+     * breakpoint wider than the center column keeps its size and scrolls
+     * inside the stage. The shell uses the scaled size, not the logical
+     * size, so the scrollbar sits on the visible stage rather than at the
+     * bottom of the unscaled frame. */
     var availableWidth = stage.clientWidth;
     var availableHeight = stage.clientHeight;
-    var scale = Math.min(
-      1,
-      availableWidth / viewport.width,
-      availableHeight / viewport.height
-    );
+    var scale = Math.min(1, availableHeight / viewport.height);
     if (!Number.isFinite(scale) || scale <= 0) scale = 1;
     var displayWidth = viewport.width * scale;
     var displayHeight = viewport.height * scale;
     state.previewScale = scale;
     state.frame.style.width = viewport.width + "px";
     state.frame.style.height = viewport.height + "px";
-    state.frameShell.style.width = viewport.width + "px";
-    state.frameShell.style.height = viewport.height + "px";
+    state.frame.style.transformOrigin = "top left";
+    state.frame.style.transform = "scale(" + scale + ")";
+    state.frameShell.style.width = displayWidth + "px";
+    state.frameShell.style.height = displayHeight + "px";
+    state.frameShell.style.transform = "none";
+    state.frameShell.style.overflow = "hidden";
     state.frameShell.style.left = Math.max(0, (availableWidth - displayWidth) / 2) + "px";
     state.frameShell.style.top = Math.max(0, (availableHeight - displayHeight) / 2) + "px";
-    state.frameShell.style.transform = "scale(" + scale + ")";
     syncViewportInfo();
   }
 
@@ -776,6 +784,16 @@
       capture: true,
       signal: signal
     });
+    if (doc !== document) {
+      doc.addEventListener("wheel", function (event) {
+        var stageEl = state.root && state.root.querySelector(".redline__stage");
+        if (!stageEl || stageEl.scrollWidth <= stageEl.clientWidth + 1) return;
+        var delta = event.deltaX || (event.shiftKey ? event.deltaY : 0);
+        if (!delta) return;
+        stageEl.scrollLeft += delta;
+        event.preventDefault();
+      }, { capture: true, passive: false, signal: signal });
+    }
     doc.addEventListener("transitionrun", schedule, { capture: true, signal: signal });
     doc.addEventListener("transitionend", schedule, { capture: true, signal: signal });
     doc.addEventListener("animationstart", schedule, { capture: true, signal: signal });
@@ -2557,6 +2575,8 @@
         state.frameShell.hidden = true;
         state.frame.style.width = "";
         state.frame.style.height = "";
+        state.frame.style.transform = "";
+        state.frame.style.transformOrigin = "";
         state.frameShell.removeAttribute("style");
         state.previewScale = 1;
         previewReady();

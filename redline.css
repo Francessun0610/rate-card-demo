@@ -626,6 +626,7 @@ html.redline-breakpoint-preview body {
 }
 
 .redline[data-breakpoint-active="true"] .redline__stage {
+  overflow: auto;
   pointer-events: auto;
 }
 
