@@ -119,13 +119,6 @@
     return new URLSearchParams(location.search).get(PREVIEW_PARAM) === "1";
   }
 
-  // Kept in sync with the equivalent gate in index.html's inline loader.
-  // Redline stays available on local dev hosts only.
-  function isDevelopmentRuntime() {
-    var host = location.hostname;
-    return ["127.0.0.1", "localhost", "::1"].indexOf(host) >= 0;
-  }
-
   function isEditable(target) {
     if (!target || target.nodeType !== 1) return false;
     return Boolean(target.closest(
@@ -3075,13 +3068,6 @@
         ? (state.root.querySelector("[data-redline-selection]") || {}).textContent
         : ""
     };
-  }
-
-  if (!isDevelopmentRuntime()) {
-    document.querySelectorAll('[data-action="toggle-redline"]').forEach(function (item) {
-      item.remove();
-    });
-    return;
   }
 
   window.RedlineMode = {

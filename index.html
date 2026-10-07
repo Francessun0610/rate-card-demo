@@ -22,27 +22,15 @@
          Self-contained; every selector is prefixed .rcf-. -->
     <link rel="stylesheet" href="./feedback.css?v=20260911-feedback-corner-3" />
     <script>
-      (function loadDevelopmentViewportQa() {
-        // Redline is a developer/QA inspection tool, not customer-facing
-        // product UI, so it stays available on local dev hosts only.
-        function isRedlineEnabledHost(hostname) {
-          var developmentHosts = ["127.0.0.1", "localhost", "::1"];
-          return developmentHosts.indexOf(hostname) >= 0;
-        }
-        if (!isRedlineEnabledHost(location.hostname)) {
-          document.addEventListener("DOMContentLoaded", function removeViewportQaEntry() {
-            document.querySelectorAll('[data-action="toggle-redline"]').forEach(function (item) {
-              item.remove();
-            });
-          });
-          return;
-        }
+      (function loadViewportQa() {
+        // Redline ships with the live Rate Card prototype, including
+        // production. Presentation slides still refuse to open it.
         var stylesheet = document.createElement("link");
         stylesheet.rel = "stylesheet";
         stylesheet.href = "./redline.css?v=20260812-redline-toolbar-product-pages";
         document.head.appendChild(stylesheet);
         var script = document.createElement("script");
-        script.src = "./redline.js?v=20261007-presentation-gate-1";
+        script.src = "./redline.js?v=20261007-live-redline-1";
         script.async = false;
         document.head.appendChild(script);
       })();
